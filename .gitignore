@@ -17,3 +17,4 @@ yarn-error.log
 chargily-pay-credentials.json
 # But not these files...
 !/public/assets/*
+groline-app-firebase-adminsdk-fbsvc-12dbc5c8d2.json
