@@ -22,7 +22,9 @@ class SubcategoryController extends Controller
   public function create(Request $request){
     $validator = Validator::make($request->all(), [
       'category_id' => 'required|exists:categories,id',
-      'name' => 'required|string',
+      'name_ar' => 'required|string',
+      'name_en' => 'required|string',
+      'name_fr' => 'required|string',
     ]);
 
     if ($validator->fails()) {
@@ -56,7 +58,9 @@ class SubcategoryController extends Controller
     $validator = Validator::make($request->all(), [
       'subcategory_id' => 'required',
       'category_id' => 'sometimes|exists:categories,id',
-      'name' => 'sometimes|string',
+      'name_ar' => 'sometimes|string',
+      'name_en' => 'sometimes|string',
+      'name_fr' => 'sometimes|string',
     ]);
 
     if ($validator->fails()){
