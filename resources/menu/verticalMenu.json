@@ -70,6 +70,26 @@
           "slug": "settings-subcategory-browse"
         },
         {
+          "url": "/brand/browse",
+          "name": "Brands",
+          "slug": "settings-brand-browse"
+        },
+        {
+          "url": "/unit/browse",
+          "name": "Units",
+          "slug": "settings-unit-browse"
+        },
+        {
+          "url": "/offer/browse",
+          "name": "Offers",
+          "slug": "settings-offer-browse"
+        },
+        {
+          "url": "/group/browse",
+          "name": "Groups",
+          "slug": "settings-group-browse"
+        },
+        {
           "url": "/family/browse",
           "name": "Families",
           "slug": "settings-family-browse"

@@ -13,6 +13,12 @@
       "slug": "settings-category-browse"
     },
     {
+      "url": "/brand/browse",
+      "name": "Brands",
+      "icon": "menu-icon tf-icons bx bxs-tag",
+      "slug": "settings-brand-browse"
+    },
+    {
       "url": "/subcategory/browse",
       "name": "Subcategories",
       "icon": "menu-icon tf-icons bx bxs-shapes",
