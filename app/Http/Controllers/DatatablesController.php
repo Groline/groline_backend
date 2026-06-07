@@ -3,27 +3,28 @@
 namespace App\Http\Controllers;
 
 
-use Session;
 use App\Models\Ad;
-use App\Models\Cart;
-use App\Models\Unit;
-use App\Models\User;
 use App\Models\Admin;
-use App\Models\Group;
-use App\Models\Offer;
-use App\Models\Order;
+use App\Models\Brand;
+use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\Discount;
 use App\Models\Driver;
 use App\Models\Family;
+use App\Models\Group;
 use App\Models\Notice;
-use App\Models\Region;
+use App\Models\Offer;
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\Region;
 use App\Models\Section;
-use App\Models\Category;
-use App\Models\Discount;
 use App\Models\Subcategory;
+use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Session;
 
 
 class DatatablesController extends Controller
@@ -66,6 +67,63 @@ class DatatablesController extends Controller
 
       })
 
+
+      ->make(true);
+  }
+
+  public function brands()
+  {
+    $brands = Brand::orderBy('created_at', 'DESC')->get();
+
+    return datatables()
+      ->of($brands)
+      ->addIndexColumn()
+
+      ->addColumn('action', function ($row) {
+
+        $btn = '';
+
+        $btn .= '<button class="btn btn-icon btn-label-info inline-spacing update"
+                        title="' . __('Edit') . '"
+                        table_id="' . $row->id . '">
+                        <span class="tf-icons bx bx-edit"></span>
+                     </button>';
+
+        $btn .= '<button class="btn btn-icon btn-label-danger inline-spacing delete"
+                        title="' . __('Delete') . '"
+                        table_id="' . $row->id . '">
+                        <span class="tf-icons bx bx-trash"></span>
+                     </button>';
+
+        return $btn;
+      })
+
+      ->addColumn('image', function ($row) {
+
+        $image = $row->image
+          ? asset($row->image)
+          : asset('assets/img/icons/file-not-found.jpg');
+
+        return '<img src="' . $image . '" width="50" height="50" class="rounded">';
+      })
+
+      ->addColumn('status', function ($row) {
+
+        return $row->status
+          ? '<span class="badge bg-label-success">Active</span>'
+          : '<span class="badge bg-label-danger">Inactive</span>';
+      })
+
+      ->addColumn('created_at', function ($row) {
+
+        return date('Y-m-d', strtotime($row->created_at));
+      })
+
+      ->rawColumns([
+        'image',
+        'status',
+        'action'
+      ])
 
       ->make(true);
   }

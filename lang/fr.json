@@ -453,5 +453,16 @@
   "Info": "Info",
   "Note": "Note",
   "whatsapp": "WhatsApp",
-  "Notice content": "Contenu de la notification"
+  "Notice content": "Contenu de la notification",
+  "brands": "marques",
+  "Brand": "Marque",
+  "Browse brands": "Parcourir les marques",
+  "Add brand": "Ajouter une marque",
+  "Edit brand": "Modifier la marque",
+  "Brands table": "Tableau des marques",
+  "Arabic Name": "Nom en arabe",
+  "English Name": "Nom en anglais",
+  "Slug": "Slug",
+  "Brand info": "Informations sur la marque",
+  "Brand filter": "Filtre par marque"
 }

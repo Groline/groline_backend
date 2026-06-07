@@ -1,0 +1,5093 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Groline Backend API",
+    "version": "1.0.0",
+    "description": "OpenAPI specification generated from the Laravel API routes and controller validation rules. Import this file into Postman and set the server URL or collection base URL for your environment."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Local Laravel server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Sanctum token"
+      }
+    },
+    "schemas": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 1
+          },
+          "message": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "nullable": true
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 0
+          },
+          "message": {
+            "type": "string",
+            "example": "Validation error or exception message"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/send-custom-message": {
+      "post": {
+        "tags": [
+          "fcm"
+        ],
+        "summary": "POST api/send-custom-message (send custom message)",
+        "operationId": "post_api_send_custom_message",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/send-data-message": {
+      "post": {
+        "tags": [
+          "fcm"
+        ],
+        "summary": "POST api/send-data-message (send data message)",
+        "operationId": "post_api_send_data_message",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/send-to-condition": {
+      "post": {
+        "tags": [
+          "fcm"
+        ],
+        "summary": "POST api/send-to-condition (send to condition)",
+        "operationId": "post_api_send_to_condition",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "condition": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "condition"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/send-to-device": {
+      "post": {
+        "tags": [
+          "fcm"
+        ],
+        "summary": "POST api/send-to-device (send to device)",
+        "operationId": "post_api_send_to_device",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "token"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/send-to-multiple": {
+      "post": {
+        "tags": [
+          "fcm"
+        ],
+        "summary": "POST api/send-to-multiple (send to multiple)",
+        "operationId": "post_api_send_to_multiple",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tokens": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "tokens"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/send-to-topic": {
+      "post": {
+        "tags": [
+          "fcm"
+        ],
+        "summary": "POST api/send-to-topic (send to topic)",
+        "operationId": "post_api_send_to_topic",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "topic": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "topic"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "GET api/user (user)",
+        "operationId": "get_api_user",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/about": {
+      "get": {
+        "tags": [
+          "about"
+        ],
+        "summary": "GET api/v1/about (about)",
+        "operationId": "get_api_v1_about",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/ad/create": {
+      "post": {
+        "tags": [
+          "ad"
+        ],
+        "summary": "POST api/v1/ad/create (create)",
+        "operationId": "post_api_v1_ad_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "url",
+                      "product",
+                      "static"
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1,
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "name_ar",
+                  "type"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ad/delete": {
+      "post": {
+        "tags": [
+          "ad"
+        ],
+        "summary": "POST api/v1/ad/delete (delete)",
+        "operationId": "post_api_v1_ad_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ad_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "ad_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ad/get": {
+      "post": {
+        "tags": [
+          "ad"
+        ],
+        "summary": "POST api/v1/ad/get (get)",
+        "operationId": "post_api_v1_ad_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ad/restore": {
+      "post": {
+        "tags": [
+          "ad"
+        ],
+        "summary": "POST api/v1/ad/restore (restore)",
+        "operationId": "post_api_v1_ad_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ad_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "ad_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ad/update": {
+      "post": {
+        "tags": [
+          "ad"
+        ],
+        "summary": "POST api/v1/ad/update (update)",
+        "operationId": "post_api_v1_ad_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ad_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "url",
+                      "product",
+                      "static"
+                    ]
+                  },
+                  "url": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1,
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "ad_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/brand/create": {
+      "post": {
+        "tags": [
+          "brand"
+        ],
+        "summary": "POST api/v1/brand/create (create)",
+        "operationId": "post_api_v1_brand_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "boolean"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "name_ar",
+                  "slug"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/brand/delete": {
+      "post": {
+        "tags": [
+          "brand"
+        ],
+        "summary": "POST api/v1/brand/delete (delete)",
+        "operationId": "post_api_v1_brand_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brand_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "brand_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/brand/get": {
+      "post": {
+        "tags": [
+          "brand"
+        ],
+        "summary": "POST api/v1/brand/get (get)",
+        "operationId": "post_api_v1_brand_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/brand/restore": {
+      "post": {
+        "tags": [
+          "brand"
+        ],
+        "summary": "POST api/v1/brand/restore (restore)",
+        "operationId": "post_api_v1_brand_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/brand/update": {
+      "post": {
+        "tags": [
+          "brand"
+        ],
+        "summary": "POST api/v1/brand/update (update)",
+        "operationId": "post_api_v1_brand_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "brand_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "boolean"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "brand_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cart/delete": {
+      "post": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "POST api/v1/cart/delete (delete)",
+        "operationId": "post_api_v1_cart_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/cart/get": {
+      "get": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "GET api/v1/cart/get (get)",
+        "operationId": "get_api_v1_cart_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/cart/products": {
+      "get": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "GET api/v1/cart/products (products)",
+        "operationId": "get_api_v1_cart_products",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/cart/total": {
+      "get": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "GET api/v1/cart/total (total)",
+        "operationId": "get_api_v1_cart_total",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/cart/update": {
+      "post": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "POST api/v1/cart/update (update)",
+        "operationId": "post_api_v1_cart_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/category/create": {
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "POST api/v1/category/create (create)",
+        "operationId": "post_api_v1_category_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "name_ar"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/category/delete": {
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "POST api/v1/category/delete (delete)",
+        "operationId": "post_api_v1_category_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "category_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/category/get": {
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "POST api/v1/category/get (get)",
+        "operationId": "post_api_v1_category_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "family_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "offer_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/category/restore": {
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "POST api/v1/category/restore (restore)",
+        "operationId": "post_api_v1_category_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "category_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/category/update": {
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "POST api/v1/category/update (update)",
+        "operationId": "post_api_v1_category_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "category_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/counts": {
+      "get": {
+        "tags": [
+          "counts"
+        ],
+        "summary": "GET api/v1/counts (counts)",
+        "operationId": "get_api_v1_counts",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/discount/create": {
+      "post": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "POST api/v1/discount/create (create)",
+        "operationId": "post_api_v1_discount_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "product_id",
+                  "amount",
+                  "start_date",
+                  "end_date"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/discount/delete": {
+      "post": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "POST api/v1/discount/delete (delete)",
+        "operationId": "post_api_v1_discount_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "discount_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "discount_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/discount/restore": {
+      "post": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "POST api/v1/discount/restore (restore)",
+        "operationId": "post_api_v1_discount_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "discount_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "discount_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/discount/update": {
+      "post": {
+        "tags": [
+          "discount"
+        ],
+        "summary": "POST api/v1/discount/update (update)",
+        "operationId": "post_api_v1_discount_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "discount_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "discount_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/discounts": {
+      "post": {
+        "tags": [
+          "discounts"
+        ],
+        "summary": "POST api/v1/discounts (get)",
+        "operationId": "post_api_v1_discounts",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/driver/create": {
+      "post": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "POST api/v1/driver/create (create)",
+        "operationId": "post_api_v1_driver_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "firstname",
+                  "lastname",
+                  "phone"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/driver/delete": {
+      "post": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "POST api/v1/driver/delete (delete)",
+        "operationId": "post_api_v1_driver_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "driver_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "driver_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/driver/restore": {
+      "post": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "POST api/v1/driver/restore (restore)",
+        "operationId": "post_api_v1_driver_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "driver_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "driver_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/driver/update": {
+      "post": {
+        "tags": [
+          "driver"
+        ],
+        "summary": "POST api/v1/driver/update (update)",
+        "operationId": "post_api_v1_driver_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "driver_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "driver_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/family/create": {
+      "post": {
+        "tags": [
+          "family"
+        ],
+        "summary": "POST api/v1/family/create (create)",
+        "operationId": "post_api_v1_family_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "name_ar",
+                  "categories"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/family/delete": {
+      "post": {
+        "tags": [
+          "family"
+        ],
+        "summary": "POST api/v1/family/delete (delete)",
+        "operationId": "post_api_v1_family_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "family_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "family_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/family/get": {
+      "post": {
+        "tags": [
+          "family"
+        ],
+        "summary": "POST api/v1/family/get (get)",
+        "operationId": "post_api_v1_family_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/family/restore": {
+      "post": {
+        "tags": [
+          "family"
+        ],
+        "summary": "POST api/v1/family/restore (restore)",
+        "operationId": "post_api_v1_family_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "family_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "family_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/family/update": {
+      "post": {
+        "tags": [
+          "family"
+        ],
+        "summary": "POST api/v1/family/update (update)",
+        "operationId": "post_api_v1_family_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "family_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "family_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/home": {
+      "post": {
+        "tags": [
+          "home"
+        ],
+        "summary": "POST api/v1/home (get)",
+        "operationId": "post_api_v1_home",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/info": {
+      "post": {
+        "tags": [
+          "info"
+        ],
+        "summary": "POST api/v1/info (info)",
+        "operationId": "post_api_v1_info",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "longitude": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "latitude": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "region_id": {
+                    "type": "integer",
+                    "example": 1,
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/location/create": {
+      "post": {
+        "tags": [
+          "location"
+        ],
+        "summary": "POST api/v1/location/create (create)",
+        "operationId": "post_api_v1_location_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "region_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "region_id",
+                  "name",
+                  "address",
+                  "longitude",
+                  "latitude"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/location/delete": {
+      "post": {
+        "tags": [
+          "location"
+        ],
+        "summary": "POST api/v1/location/delete (delete)",
+        "operationId": "post_api_v1_location_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "location_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "location_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/location/get": {
+      "get": {
+        "tags": [
+          "location"
+        ],
+        "summary": "GET api/v1/location/get (get)",
+        "operationId": "get_api_v1_location_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/location/update": {
+      "post": {
+        "tags": [
+          "location"
+        ],
+        "summary": "POST api/v1/location/update (update)",
+        "operationId": "post_api_v1_location_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "location_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "address": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "longitude": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "latitude": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "location_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "tags": [
+          "login"
+        ],
+        "summary": "POST api/v1/login (login)",
+        "operationId": "post_api_v1_login",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string"
+                  },
+                  "fcm_token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "uid"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/logout": {
+      "get": {
+        "tags": [
+          "logout"
+        ],
+        "summary": "GET api/v1/logout (logout)",
+        "operationId": "get_api_v1_logout",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/notification/get": {
+      "post": {
+        "tags": [
+          "notification"
+        ],
+        "summary": "POST api/v1/notification/get (get)",
+        "operationId": "post_api_v1_notification_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "is_read": {
+                    "type": "string",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4
+                    ]
+                  },
+                  "priority": {
+                    "type": "string",
+                    "enum": [
+                      0,
+                      1
+                    ]
+                  },
+                  "all": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notification/read": {
+      "post": {
+        "tags": [
+          "notification"
+        ],
+        "summary": "POST api/v1/notification/read (read)",
+        "operationId": "post_api_v1_notification_read",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "notification_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "notification_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/offer/create": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "POST api/v1/offer/create (create)",
+        "operationId": "post_api_v1_offer_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "name_ar",
+                  "categories"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/offer/delete": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "POST api/v1/offer/delete (delete)",
+        "operationId": "post_api_v1_offer_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "offer_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "offer_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/offer/get": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "POST api/v1/offer/get (get)",
+        "operationId": "post_api_v1_offer_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/offer/restore": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "POST api/v1/offer/restore (restore)",
+        "operationId": "post_api_v1_offer_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "offer_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "offer_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/offer/update": {
+      "post": {
+        "tags": [
+          "offer"
+        ],
+        "summary": "POST api/v1/offer/update (update)",
+        "operationId": "post_api_v1_offer_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "offer_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "offer_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/order/accept": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "POST api/v1/order/accept (accept)",
+        "operationId": "post_api_v1_order_accept",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/order/cancel": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "POST api/v1/order/cancel (cancel)",
+        "operationId": "post_api_v1_order_cancel",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/order/create": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "POST api/v1/order/create (create)",
+        "operationId": "post_api_v1_order_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "longitude": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": "string"
+                  },
+                  "delivery_time": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "discount_code": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "payment_method": {
+                    "type": "string",
+                    "enum": [
+                      "ccp",
+                      "baridi",
+                      "chargily",
+                      "cash"
+                    ]
+                  },
+                  "payment_receipt": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "checkout_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "region_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "phone",
+                  "longitude",
+                  "latitude",
+                  "delivery_time",
+                  "payment_method",
+                  "region_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/order/get": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "summary": "POST api/v1/order/get (get)",
+        "operationId": "post_api_v1_order_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/privacy_policy": {
+      "get": {
+        "tags": [
+          "privacy policy"
+        ],
+        "summary": "GET api/v1/privacy_policy (privacy policy)",
+        "operationId": "get_api_v1_privacy_policy",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/product/create": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "POST api/v1/product/create (create)",
+        "operationId": "post_api_v1_product_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subcategory_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "unit_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "brand_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "unit_price": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "pack_price": {
+                    "type": "number",
+                    "example": 1,
+                    "nullable": true
+                  },
+                  "pack_units": {
+                    "type": "integer",
+                    "example": 1,
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "subcategory_id",
+                  "unit_id",
+                  "brand_id",
+                  "name_ar",
+                  "unit_price",
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product/delete": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "POST api/v1/product/delete (delete)",
+        "operationId": "post_api_v1_product_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "product_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product/get": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "POST api/v1/product/get (get)",
+        "operationId": "post_api_v1_product_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "subcategory_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "brand_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product/restore": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "POST api/v1/product/restore (restore)",
+        "operationId": "post_api_v1_product_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "product_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product/update": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "POST api/v1/product/update (update)",
+        "operationId": "post_api_v1_product_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "unit_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "brand_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name_fr": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "unit_price": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "pack_price": {
+                    "type": "number",
+                    "example": 1,
+                    "nullable": true
+                  },
+                  "pack_units": {
+                    "type": "integer",
+                    "example": 1,
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      1,
+                      2
+                    ]
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "product_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/region/get": {
+      "post": {
+        "tags": [
+          "region"
+        ],
+        "summary": "POST api/v1/region/get (get)",
+        "operationId": "post_api_v1_region_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/register": {
+      "post": {
+        "tags": [
+          "register"
+        ],
+        "summary": "POST api/v1/register (register)",
+        "operationId": "post_api_v1_register",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "uid"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/create": {
+      "post": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "POST api/v1/reminder/create (create)",
+        "operationId": "post_api_v1_reminder_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "product_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/delete": {
+      "post": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "POST api/v1/reminder/delete (delete)",
+        "operationId": "post_api_v1_reminder_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reminder_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "reminder_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/create": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "POST api/v1/review/create (create)",
+        "operationId": "post_api_v1_review_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "content": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "score": {
+                    "type": "number",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "order_id",
+                  "score"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/delete": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "POST api/v1/review/delete (delete)",
+        "operationId": "post_api_v1_review_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "review_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "review_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/section/add": {
+      "post": {
+        "tags": [
+          "section"
+        ],
+        "summary": "POST api/v1/section/add (add)",
+        "operationId": "post_api_v1_section_add",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "offer",
+                      "family",
+                      "group",
+                      "ad"
+                    ]
+                  },
+                  "element": {
+                    "type": "number",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/section/delete": {
+      "post": {
+        "tags": [
+          "section"
+        ],
+        "summary": "POST api/v1/section/delete (delete)",
+        "operationId": "post_api_v1_section_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "section_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "section_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/section/insert": {
+      "post": {
+        "tags": [
+          "section"
+        ],
+        "summary": "POST api/v1/section/insert (insert)",
+        "operationId": "post_api_v1_section_insert",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "section_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "rank": {
+                    "type": "number",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "section_id",
+                  "rank"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/section/switch": {
+      "post": {
+        "tags": [
+          "section"
+        ],
+        "summary": "POST api/v1/section/switch (switch)",
+        "operationId": "post_api_v1_section_switch",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "section_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "rank": {
+                    "type": "number",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "section_id",
+                  "rank"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/settings": {
+      "get": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "GET api/v1/settings (get)",
+        "operationId": "get_api_v1_settings",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/subcategory/create": {
+      "post": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "POST api/v1/subcategory/create (create)",
+        "operationId": "post_api_v1_subcategory_create",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string"
+                  },
+                  "name_fr": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "category_id",
+                  "name_ar",
+                  "name_en",
+                  "name_fr"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/subcategory/delete": {
+      "post": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "POST api/v1/subcategory/delete (delete)",
+        "operationId": "post_api_v1_subcategory_delete",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subcategory_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "subcategory_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/subcategory/get": {
+      "post": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "POST api/v1/subcategory/get (get)",
+        "operationId": "post_api_v1_subcategory_get",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "group_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/subcategory/restore": {
+      "post": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "POST api/v1/subcategory/restore (restore)",
+        "operationId": "post_api_v1_subcategory_restore",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subcategory_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                },
+                "required": [
+                  "subcategory_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/subcategory/update": {
+      "post": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "POST api/v1/subcategory/update (update)",
+        "operationId": "post_api_v1_subcategory_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subcategory_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "category_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name_ar": {
+                    "type": "string"
+                  },
+                  "name_en": {
+                    "type": "string"
+                  },
+                  "name_fr": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "subcategory_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/change_password": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "POST api/v1/user/change_password (change password)",
+        "operationId": "post_api_v1_user_change_password",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "old_password": {
+                    "type": "string"
+                  },
+                  "new_password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "old_password",
+                  "new_password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/deactivate": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "GET api/v1/user/deactivate (deactivate)",
+        "operationId": "get_api_v1_user_deactivate",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user/update": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "POST api/v1/user/update (update)",
+        "operationId": "post_api_v1_user_update",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      0,
+                      1,
+                      2
+                    ]
+                  }
+                },
+                "required": [
+                  "user_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/version": {
+      "get": {
+        "tags": [
+          "version"
+        ],
+        "summary": "GET api/v1/version (get)",
+        "operationId": "get_api_v1_version",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  }
+}

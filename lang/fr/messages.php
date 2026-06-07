@@ -73,5 +73,12 @@ return [
         'title' => 'Nouvelle Réduction sur Produit',
         'content' => 'Obtenez :discount% de réduction sur :product_name !'
       ]
+    ],
+
+  'brand' => [
+    'deleted' => [
+      'title' => 'Marque Supprimée',
+      'content' => 'La marque :brand_name a été supprimée de notre plateforme.'
     ]
+  ]
 ];

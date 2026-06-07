@@ -43,6 +43,7 @@ Route::group(['middleware' => ['sometimes.auth']], function () {
   Route::get('/v1/counts','App\Http\Controllers\SetController@counts');
 
   Route::post('/v1/category/get','App\Http\Controllers\CategoryController@get');
+  Route::post('/v1/brand/get','App\Http\Controllers\BrandController@get');
   Route::post('/v1/subcategory/get','App\Http\Controllers\SubcategoryController@get');
   Route::post('/v1/family/get','App\Http\Controllers\FamilyController@get');
   Route::post('/v1/product/get','App\Http\Controllers\ProductController@get');
@@ -50,6 +51,8 @@ Route::group(['middleware' => ['sometimes.auth']], function () {
   Route::post('/v1/offer/get','App\Http\Controllers\OfferController@get');
   Route::post('/v1/region/get','App\Http\Controllers\RegionController@get');
   // Route::post('/v1/driver/get','App\Http\Controllers\DriverController@get');
+
+
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -67,6 +70,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/v1/category/update','App\Http\Controllers\CategoryController@update');
   Route::post('/v1/category/delete','App\Http\Controllers\CategoryController@delete');
   Route::post('/v1/category/restore','App\Http\Controllers\CategoryController@restore');
+
+  Route::post('/v1/brand/create','App\Http\Controllers\BrandController@create');
+  Route::post('/v1/brand/update','App\Http\Controllers\BrandController@update');
+  Route::post('/v1/brand/delete','App\Http\Controllers\BrandController@delete');
+  Route::post('/v1/brand/restore','App\Http\Controllers\BrandController@restore');
 
 
   Route::post('/v1/subcategory/create','App\Http\Controllers\SubcategoryController@create');

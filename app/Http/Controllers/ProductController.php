@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Session;
-use Exception;
-use App\Models\Unit;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\Subcategory;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use App\Http\Resources\ProductResource;
-use App\Http\Resources\ProductCollection;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\PaginatedProductCollection;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Subcategory;
+use App\Models\Unit;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Session;
 
 class ProductController extends Controller
 {
@@ -31,6 +32,7 @@ class ProductController extends Controller
     $validator = Validator::make($request->all(), [
       'subcategory_id' => 'required|exists:subcategories,id',
       'unit_id' => 'required|exists:units,id',
+      'brand_id' => 'required|exists:brands,id',
       'name_ar' => 'required|string',
       'name_en' => 'sometimes|nullable|string',
       'name_fr' => 'sometimes|nullable|string',
@@ -91,6 +93,7 @@ class ProductController extends Controller
     $validator = Validator::make($request->all(), [
       'product_id' => 'required|exists:products,id',
       'unit_id' => 'sometimes|exists:units,id',
+      'brand_id' => 'sometimes|exists:brands,id',
       'name_ar' => 'sometimes|string',
       'name_en' => 'sometimes|nullable|string',
       'name_fr' => 'sometimes|nullable|string',
@@ -235,6 +238,7 @@ class ProductController extends Controller
     $validator = Validator::make($request->all(), [
       'category_id' => 'sometimes|missing_with:subcategory_id|exists:categories,id',
       'subcategory_id' => 'sometimes|exists:subcategories,id',
+      'brand_id' => 'sometimes|exists:brands,id',
       'search' => 'sometimes|string',
 
     ]);
@@ -264,6 +268,13 @@ class ProductController extends Controller
         $subcategory = Subcategory::findOrFail($request->subcategory_id);
         $sub_products = $subcategory->products()->pluck('id')->toArray();
         $products = $products->whereIn('id', $sub_products);
+      }
+
+      if ($request->has('brand_id')) {
+
+        $brand = Brand::findOrFail($request->brand_id);
+        $brand_products = $brand->products()->pluck('id')->toArray();
+        $products = $products->whereIn('id', $brand_products);
       }
 
       if ($request->has('search')) {

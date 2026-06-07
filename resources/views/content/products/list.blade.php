@@ -28,10 +28,19 @@
                             <option value="{{ $category->id }}"> {{ $category->name }} </option>
                         @endforeach
                     </select>
+
                 </div>
                 <div class="col-md-auto">
                     <select class="form-select filter-select" id="subcategory" name="subcategory">
                         <option value=""> {{ __('Subcategory filter') }} </option>
+                    </select>
+                </div>
+                <div class="col-md-auto">
+                    <select class="form-select filter-select" id="brand" name="brand">
+                        <option value=""> {{ __('Brand filter') }}</option>
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->id }}"> {{ $brand->name }} </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-auto" hidden>

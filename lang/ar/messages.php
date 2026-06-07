@@ -74,6 +74,13 @@ return [
         'title' => 'خصم جديد على المنتج',
         'content' => 'احصل على خصم :discount% على :product_name!'
       ]
+    ],
+
+  'brand' => [
+    'deleted' => [
+      'title' => 'تم حذف العلامة التجارية',
+      'content' => 'تم حذف العلامة التجارية :brand_name من منصتنا.'
     ]
+  ]
 
 ];

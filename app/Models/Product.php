@@ -17,6 +17,7 @@ class Product extends Model
   protected $fillable = [
     'subcategory_id',
     'unit_id',
+    'brand_id',
     'name_en',
     'name_fr',
     'name_ar',
@@ -54,6 +55,11 @@ class Product extends Model
   public function unit()
   {
     return $this->belongsTo(Unit::class);
+  }
+
+  public function brand()
+  {
+    return $this->belongsTo(Brand::class);
   }
 
   public function items()

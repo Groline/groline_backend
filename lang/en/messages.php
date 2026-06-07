@@ -73,5 +73,12 @@ return [
         'title' => 'New Product Discount',
         'content' => 'Get :discount% off on :product_name!'
       ]
+    ],
+  
+  'brand' => [
+    'deleted' => [
+      'title' => 'Brand Deleted',
+      'content' => 'The brand :brand_name has been deleted from our platform.'
     ]
+  ]
 ];

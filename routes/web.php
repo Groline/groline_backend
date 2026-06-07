@@ -1,44 +1,45 @@
 <?php
 
-use App\Models\Set;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdController;
-use App\Http\Controllers\SetController;
-use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\UnitController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\OfferController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\pages\MiscError;
-use App\Http\Controllers\CouponController;
-use App\Http\Controllers\DriverController;
-use App\Http\Controllers\FamilyController;
-use App\Http\Controllers\NoticeController;
-use App\Http\Controllers\RegionController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SectionController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\authentications\ForgotPasswordBasic;
+use App\Http\Controllers\authentications\LoginBasic;
+use App\Http\Controllers\authentications\LogoutBasic;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargilyController;
-use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\DatatablesController;
-use App\Http\Controllers\SubcategoryController;
-use App\Http\Controllers\ProductImageController;
-use App\Http\Controllers\ProductVideoController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\DocumentationController;
-use App\Http\Controllers\authentications\LoginBasic;
-use App\Http\Controllers\pages\MiscUnderMaintenance;
-use App\Http\Controllers\authentications\LogoutBasic;
+use App\Http\Controllers\DriverController;
+use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\pages\AccountSettingsAccount;
 use App\Http\Controllers\pages\AccountSettingsConnections;
 use App\Http\Controllers\pages\AccountSettingsNotifications;
-use App\Http\Controllers\authentications\ForgotPasswordBasic;
+use App\Http\Controllers\pages\MiscError;
+use App\Http\Controllers\pages\MiscUnderMaintenance;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\ProductVideoController;
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SetController;
+use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UserController;
+use App\Models\Set;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', [Analytics::class, 'landing'])->name('landing-page');
 Route::get('/privacy_policy', [DocumentationController::class, 'privacy']);
@@ -110,6 +111,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update', [CategoryController::class, 'update']);
         Route::post('/delete', [CategoryController::class, 'delete']);
         Route::post('/restore', [CategoryController::class, 'restore']);
+    });
+
+    Route::prefix('brand')->middleware('role:0,1,2')->group(function () {
+        Route::get('/browse', [BrandController::class, 'index'])->name('settings-brand-browse');
+        Route::get('/list', [DatatablesController::class, 'brands'])->name('brand-list');
+        Route::post('/create', [BrandController::class, 'create']);
+        Route::post('/update', [BrandController::class, 'update']);
+        Route::post('/delete', [BrandController::class, 'delete']);
+        Route::post('/restore', [BrandController::class, 'restore']);
     });
 
     Route::prefix('subcategory')->middleware('role:0,1,2')->group(function () {

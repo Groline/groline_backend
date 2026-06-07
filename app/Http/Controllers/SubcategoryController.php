@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Validator;
 class SubcategoryController extends Controller
 {
 
-  public function index(){
+  public function index()
+  {
     $categories = Category::all();
     return view('content.subcategories.list')
-    ->with('categories',$categories);
+      ->with('categories', $categories);
   }
-  public function create(Request $request){
+  public function create(Request $request)
+  {
     $validator = Validator::make($request->all(), [
       'category_id' => 'required|exists:categories,id',
       'name_ar' => 'required|string',
@@ -29,11 +31,11 @@ class SubcategoryController extends Controller
 
     if ($validator->fails()) {
       return response()->json([
-        'status'=> 0,
+        'status' => 0,
         'message' => $validator->errors()->first()
       ]);
     }
-    try{
+    try {
 
       $subcategory = Subcategory::create($request->all());
 
@@ -43,17 +45,18 @@ class SubcategoryController extends Controller
         'message' => 'success',
         'data' => new SubcategoryResource($subcategory)
       ]);
-
-    }catch(Exception $e){
-      return response()->json([
-        'status' => 0,
-        'message' => $e->getMessage()
-      ]
-    );
+    } catch (Exception $e) {
+      return response()->json(
+        [
+          'status' => 0,
+          'message' => $e->getMessage()
+        ]
+      );
     }
   }
 
-  public function update(Request $request){
+  public function update(Request $request)
+  {
 
     $validator = Validator::make($request->all(), [
       'subcategory_id' => 'required',
@@ -63,19 +66,20 @@ class SubcategoryController extends Controller
       'name_fr' => 'sometimes|string',
     ]);
 
-    if ($validator->fails()){
-      return response()->json([
+    if ($validator->fails()) {
+      return response()->json(
+        [
           'status' => 0,
           'message' => $validator->errors()->first()
         ]
       );
     }
 
-    try{
+    try {
 
       $subcategory = Subcategory::findOrFail($request->subcategory_id);
 
-      $subcategory->update($request->except('subcategory_id' ));
+      $subcategory->update($request->except('subcategory_id'));
 
 
       return response()->json([
@@ -83,32 +87,33 @@ class SubcategoryController extends Controller
         'message' => 'success',
         'data' => new SubcategoryResource($subcategory)
       ]);
-
-    }catch(Exception $e){
-      return response()->json([
-        'status' => 0,
-        'message' => $e->getMessage()
-      ]
-    );
+    } catch (Exception $e) {
+      return response()->json(
+        [
+          'status' => 0,
+          'message' => $e->getMessage()
+        ]
+      );
     }
-
   }
 
-  public function delete(Request $request){
+  public function delete(Request $request)
+  {
 
     $validator = Validator::make($request->all(), [
       'subcategory_id' => 'required',
     ]);
 
-    if ($validator->fails()){
-      return response()->json([
+    if ($validator->fails()) {
+      return response()->json(
+        [
           'status' => 0,
           'message' => $validator->errors()->first()
         ]
       );
     }
 
-    try{
+    try {
 
       $subcategory = Subcategory::findOrFail($request->subcategory_id);
 
@@ -118,32 +123,33 @@ class SubcategoryController extends Controller
         'status' => 1,
         'message' => 'success',
       ]);
-
-    }catch(Exception $e){
-      return response()->json([
-        'status' => 0,
-        'message' => $e->getMessage()
-      ]
-    );
+    } catch (Exception $e) {
+      return response()->json(
+        [
+          'status' => 0,
+          'message' => $e->getMessage()
+        ]
+      );
     }
-
   }
 
-  public function restore(Request $request){
+  public function restore(Request $request)
+  {
 
     $validator = Validator::make($request->all(), [
       'subcategory_id' => 'required',
     ]);
 
-    if ($validator->fails()){
-      return response()->json([
+    if ($validator->fails()) {
+      return response()->json(
+        [
           'status' => 0,
           'message' => $validator->errors()->first()
         ]
       );
     }
 
-    try{
+    try {
 
       $subcategory = Subcategory::withTrashed()->findOrFail($request->subcategory_id);
 
@@ -154,18 +160,18 @@ class SubcategoryController extends Controller
         'message' => 'success',
         'data' => new SubcategoryResource($subcategory)
       ]);
-
-    }catch(Exception $e){
-      return response()->json([
-        'status' => 0,
-        'message' => $e->getMessage()
-      ]
-    );
+    } catch (Exception $e) {
+      return response()->json(
+        [
+          'status' => 0,
+          'message' => $e->getMessage()
+        ]
+      );
     }
-
   }
 
-  public function get(Request $request){  //paginated
+  public function get(Request $request)
+  {  //paginated
     $validator = Validator::make($request->all(), [
       'category_id' => 'sometimes',
       'group_id' => 'sometimes',
@@ -173,62 +179,62 @@ class SubcategoryController extends Controller
 
     ]);
 
-    if ($validator->fails()){
-      return response()->json([
+    if ($validator->fails()) {
+      return response()->json(
+        [
           'status' => 0,
           'message' => $validator->errors()->first()
         ]
       );
     }
 
-    try{
+    try {
 
-    $subcategories = Subcategory::orderBy('created_at','DESC');
+      $subcategories = Subcategory::orderBy('created_at', 'DESC');
 
-    if($request->has('category_id')){
+      if ($request->has('category_id')) {
 
-      $category = Category::findOrFail($request->category_id);
-      $category_subs = $category->subcategories()->pluck('id')->toArray();
-      $subcategories = $subcategories->whereIn('id',$category_subs);
-    }
+        $category = Category::findOrFail($request->category_id);
+        $category_subs = $category->subcategories()->pluck('id')->toArray();
+        $subcategories = $subcategories->whereIn('id', $category_subs);
+      }
 
-    if($request->has('group_id')){
-      $subcategories = $subcategories->whereHas('elements', function($query) use ($request){
-        $query->where('group_id', $request->group_id);
-      });
-    }
+      if ($request->has('group_id')) {
+        $subcategories = $subcategories->whereHas('elements', function ($query) use ($request) {
+          $query->where('group_id', $request->group_id);
+        });
+      }
 
-    if($request->has('search')){
+      if ($request->has('search')) {
 
-      $subcategories = $subcategories->where('name', 'like', '%' . $request->search . '%');
-    }
+        $subcategories = $subcategories->where('name', 'like', '%' . $request->search . '%');
+      }
 
-    if($request->has('all')){
-      $subcategories = $subcategories->get();
-      return response()->json([
-        'status' => 1,
-        'message' => 'success',
-        'data' => new SubcategoryCollection($subcategories)
-      ]);
-    }
+      if ($request->has('all')) {
+        $subcategories = $subcategories->get();
+        return response()->json([
+          'status' => 1,
+          'message' => 'success',
+          'data' => new SubcategoryCollection($subcategories)
+        ]);
+      }
       $subcategories = $subcategories->paginate(10);
 
 
 
 
-    return response()->json([
-      'status' => 1,
-      'message' => 'success',
-      'data' => new PaginatedSubcategoryCollection($subcategories)
-    ]);
-
-  }catch(Exception $e){
-    return response()->json([
-      'status' => 0,
-      'message' => $e->getMessage()
-    ]
-  );
-  }
-
+      return response()->json([
+        'status' => 1,
+        'message' => 'success',
+        'data' => new PaginatedSubcategoryCollection($subcategories)
+      ]);
+    } catch (Exception $e) {
+      return response()->json(
+        [
+          'status' => 0,
+          'message' => $e->getMessage()
+        ]
+      );
+    }
   }
 }

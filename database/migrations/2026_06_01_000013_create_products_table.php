@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('unit_id')->nullable()->default(null)->constrained();
             $table->foreignId('subcategory_id')->constrained();
+            $table->foreignId('brand_id')->nullable()->default(null)->constrained();
             $table->string('name_ar')->nullable()->default(null);
             $table->string('name_fr')->nullable()->default(null);
             $table->string('name_en')->nullable()->default(null);
