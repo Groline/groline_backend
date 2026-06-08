@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Exception;
 use App\Models\Set;
 use App\Models\Cart;
-use App\Models\Item;
-use App\Models\User;
 use App\Models\Admin;
 use App\Models\Order;
-use App\Models\Driver;
 use App\Models\Notice;
 use App\Models\Region;
 use App\Models\Invoice;
@@ -21,11 +18,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\OrderResource;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\OrderDetailResource;
 use App\Http\Resources\PaginatedOrderCollection;
-use Kreait\Firebase\Exception\FirebaseException;
 
 class OrderController extends Controller
 {
@@ -73,7 +68,6 @@ class OrderController extends Controller
 
         ]
       );
-
     } catch (Exception $e) {
       return response()->json(
         [
@@ -171,7 +165,6 @@ class OrderController extends Controller
         'message' => 'success',
         'data' => new OrderResource($order)
       ]);
-
     } catch (Exception $e) {
       return response()->json(
         [
@@ -247,7 +240,6 @@ class OrderController extends Controller
         }
 
         $user->notify(Notice::OrderNotice($order->identifier, $request->status));
-
       }
 
       if ($request->has('note')) {
@@ -263,7 +255,6 @@ class OrderController extends Controller
         'message' => 'success',
         'data' => new OrderDetailResource($order)
       ]);
-
     } catch (Exception $e) {
       return response()->json(
         [
@@ -272,7 +263,6 @@ class OrderController extends Controller
         ]
       );
     }
-
   }
 
 
@@ -304,7 +294,6 @@ class OrderController extends Controller
         'status' => 1,
         'message' => 'success',
       ]);
-
     } catch (Exception $e) {
       return response()->json(
         [
@@ -313,7 +302,6 @@ class OrderController extends Controller
         ]
       );
     }
-
   }
 
   public function restore(Request $request)
@@ -343,7 +331,6 @@ class OrderController extends Controller
         'message' => 'success',
         'data' => new OrderResource($order)
       ]);
-
     } catch (Exception $e) {
       return response()->json(
         [
@@ -352,7 +339,6 @@ class OrderController extends Controller
         ]
       );
     }
-
   }
 
   public function get(Request $request)
@@ -384,11 +370,10 @@ class OrderController extends Controller
           'message' => 'success',
           'data' => new OrderDetailResource($order)
         ]);
-
       }
 
       $orders = $user->orders()
-        ->where('status','!=','chargily')
+        ->where('status', '!=', 'chargily')
         ->orderBy('updated_at', 'DESC')
         ->paginate(10);
 
@@ -400,7 +385,6 @@ class OrderController extends Controller
         'count' => $user->order_count,
         'data' => new PaginatedOrderCollection($orders),
       ]);
-
     } catch (Exception $e) {
       return response()->json(
         [
@@ -410,7 +394,4 @@ class OrderController extends Controller
       );
     }
   }
-
-
-
 }
