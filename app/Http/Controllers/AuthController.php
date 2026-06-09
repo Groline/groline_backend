@@ -6,16 +6,11 @@ use Exception;
 use App\Models\User;
 use App\Models\Set;
 use Illuminate\Http\Request;
-use Kreait\Firebase\Auth\UserQuery;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Hash;
 use Chargily\ChargilyPay\ChargilyPay;
-use Kreait\Firebase\JWT\IdTokenVerifier;
 use Illuminate\Support\Facades\Validator;
 use Chargily\ChargilyPay\Auth\Credentials;
 use Kreait\Laravel\Firebase\Facades\Firebase;
-use Kreait\Firebase\Exception\Auth\FailedToVerifyToken;
-use Kreait\Firebase\JWT\Error\IdTokenVerificationFailed;
 
 class AuthController extends Controller
 {
@@ -63,7 +58,6 @@ class AuthController extends Controller
         'token' => $token,
         'data' => new UserResource($user),
       ]);
-
     } catch (Exception $e) {
       //dd($e->getMessage());
 
@@ -138,7 +132,6 @@ class AuthController extends Controller
         'token' => $token,
         'data' => new UserResource($user),
       ]);
-
     } catch (Exception $e) {
       //dd($e->getMessage());
 
@@ -147,8 +140,6 @@ class AuthController extends Controller
         'message' => $e->getMessage(),
       ]);
     }
-
-
   }
 
   public function logout(Request $request)
@@ -168,6 +159,5 @@ class AuthController extends Controller
         'message' => $e->getMessage(),
       ]);
     }
-
   }
 }

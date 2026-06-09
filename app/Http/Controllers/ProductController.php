@@ -23,9 +23,11 @@ class ProductController extends Controller
   {
     $categories = Category::all();
     $units = Unit::all();
+    $brands = Brand::all();
     return view('content.products.list')
       ->with('categories', $categories)
-      ->with('units', $units);
+      ->with('units', $units)
+      ->with('brands', $brands);
   }
   public function create(Request $request)
   {
