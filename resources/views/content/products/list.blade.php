@@ -63,6 +63,7 @@
                     <tr>
                         <th>#</th>
                         <th>{{ __('Name') }}</th>
+                        <th>{{ __('Brand') }}</th>
                         <th>{{ __('Price') }}</th>
                         <th>{{ __('Created at') }}</th>
                         <th>{{ __('is_available') }}</th>
@@ -75,155 +76,163 @@
         </div>
     </div>
 
-{{-- product modal --}}
-<div class="modal fade" id="modal" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="fw-bold py-1 mb-1">{{ __('Add product') }}</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="form_type" hidden />
-                <input type="text" class="form-control" id="id" name="id" hidden />
-                <form class="form-horizontal" onsubmit="event.preventDefault()" action="#"
-                    enctype="multipart/form-data" id="form">
-                    <div class="row">
-                        {{-- First Column: Required Fields --}}
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                    <div hidden><img src="{{ asset('assets/img/icons/file-not-found.jpg') }}"
-                                            alt="image" class="d-block rounded" height="100" width="100"
-                                            id="old-image" /> </div>
-                                    <img src="{{ asset('assets/img/icons/file-not-found.jpg') }}" alt="image"
-                                        class="d-block rounded" height="100" width="100" id="uploaded-image" />
-                                    <div class="button-wrapper">
-                                        <label for="image" class="btn btn-primary" tabindex="0">
-                                            <span class="d-none d-sm-block">{{ __('New image') }}</span>
-                                            <i class="bx bx-upload d-block d-sm-none"></i>
-                                            <input class="image-input" type="file" id="image" name="image"
-                                                hidden accept="image/png, image/jpeg" />
-                                        </label>
-                                        <button type="button" class="btn btn-outline-secondary image-reset">
-                                            <i class="bx bx-reset d-block d-sm-none"></i>
-                                            <span class="d-none d-sm-block">{{ __('Reset') }}</span>
-                                        </button>
-                                        {{-- <small class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</small> --}}
+    {{-- product modal --}}
+    <div class="modal fade" id="modal" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="fw-bold py-1 mb-1">{{ __('Add product') }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="form_type" hidden />
+                    <input type="text" class="form-control" id="id" name="id" hidden />
+                    <form class="form-horizontal" onsubmit="event.preventDefault()" action="#" enctype="multipart/form-data"
+                        id="form">
+                        <div class="row">
+                            {{-- First Column: Required Fields --}}
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                        <div hidden><img src="{{ asset('assets/img/icons/file-not-found.jpg') }}"
+                                                alt="image" class="d-block rounded" height="100" width="100"
+                                                id="old-image" /> </div>
+                                        <img src="{{ asset('assets/img/icons/file-not-found.jpg') }}" alt="image"
+                                            class="d-block rounded" height="100" width="100" id="uploaded-image" />
+                                        <div class="button-wrapper">
+                                            <label for="image" class="btn btn-primary" tabindex="0">
+                                                <span class="d-none d-sm-block">{{ __('New image') }}</span>
+                                                <i class="bx bx-upload d-block d-sm-none"></i>
+                                                <input class="image-input" type="file" id="image" name="image" hidden
+                                                    accept="image/png, image/jpeg" />
+                                            </label>
+                                            <button type="button" class="btn btn-outline-secondary image-reset">
+                                                <i class="bx bx-reset d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">{{ __('Reset') }}</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr class="my-0">
+                                <hr class="my-0">
 
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label" for="name_ar">{{ __('Name in Arabic') }}</label>
-                                    <input type="text" class="form-control" id="name_ar" name="name_ar"
-                                        placeholder="{{ __('Name in Arabic') }}" />
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label" for="name_ar">{{ __('Name in Arabic') }}</label>
+                                        <input type="text" class="form-control" id="name_ar" name="name_ar"
+                                            placeholder="{{ __('Name in Arabic') }}" />
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label" for="name_en">{{ __('Name in English') }}</label>
+                                        <input type="text" class="form-control" id="name_en" name="name_en"
+                                            placeholder="{{ __('Name in English') }}" />
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label" for="name_fr">{{ __('Name in French') }}</label>
+                                        <input type="text" class="form-control" id="name_fr" name="name_fr"
+                                            placeholder="{{ __('Name in French') }}" />
+                                    </div>
                                 </div>
 
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label" for="name_en">{{ __('Name in English') }}</label>
-                                    <input type="text" class="form-control" id="name_en" name="name_en"
-                                        placeholder="{{ __('Name in English') }}" />
+                                <div class="mb-3">
+                                    <label class="form-label" for="unit_price">{{ __('Price') }}</label>
+                                    <input type="text" class="form-control" id="unit_price" name="unit_price"
+                                        placeholder="{{ __('Unit price') }}" />
                                 </div>
 
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label" for="name_fr">{{ __('Name in French') }}</label>
-                                    <input type="text" class="form-control" id="name_fr" name="name_fr"
-                                        placeholder="{{ __('Name in French') }}" />
+                                <div class="row">
+
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="category_id">{{ __('Category') }}</label>
+                                        <select class="form-select" id="category_id">
+                                            <option value=""> {{ __('Select category') }}</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="subcategory_id">{{ __('Subcategory') }}</label>
+                                        <select class="form-select" id="subcategory_id" name="subcategory_id">
+                                            <option value=""> {{ __('Select category first') }} </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {{-- Brand --}}
+                                <div class="mb-3">
+                                    <label class="form-label" for="brand_id">{{ __('Brand') }}</label>
+                                    <select class="form-select" id="brand_id" name="brand_id">
+                                        <option value=""> {{ __('Select brand') }}</option>
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}"> {{ $brand->name }} </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label" for="unit_price">{{ __('Price') }}</label>
-                                <input type="text" class="form-control" id="unit_price" name="unit_price"
-                                    placeholder="{{ __('Unit price') }}" />
-                            </div>
+                            {{-- Second Column: Optional Fields --}}
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="pack_price">{{ __('Pack price') }}</label>
+                                        <input type="number" class="form-control" id="pack_price" name="pack_price"
+                                            placeholder="{{ __('Pack price') }}" />
+                                    </div>
 
-                            <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="pack_units">{{ __('Pack units') }}</label>
+                                        <input type="number" class="form-control" id="pack_units" name="pack_units"
+                                            placeholder="{{ __('Pack units') }}" />
+                                    </div>
+                                </div>
 
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" for="category_id">{{ __('Category') }}</label>
-                                <select class="form-select" id="category_id">
-                                    <option value=""> {{ __('Select category') }}</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}"> {{ $category->name }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="unit_id">{{ __('Unit type') }}</label>
+                                    <select class="form-select" id="unit_id" name="unit_id">
+                                        @foreach ($units as $unit)
+                                            <option value="{{ $unit->id }}"> {{ $unit->name(session('locale')) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" for="subcategory_id">{{ __('Subcategory') }}</label>
-                                <select class="form-select" id="subcategory_id" name="subcategory_id">
-                                    <option value=""> {{ __('Select category first') }} </option>
-                                </select>
-                            </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="status">{{ __('Status') }}</label>
+                                    <select class="form-select" id="status" name="status">
+                                        <option value="1"> {{ __('Available') }}</option>
+                                        <option value="2"> {{ __('Unavailable') }}</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label">{{ __('Description') }}</label>
+                                    <textarea name="description" id="description" class="form-control" rows="4"></textarea>
+                                </div>
                             </div>
                         </div>
 
-                        {{-- Second Column: Optional Fields --}}
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label" for="pack_price">{{ __('Pack price') }}</label>
-                                    <input type="number" class="form-control" id="pack_price" name="pack_price"
-                                        placeholder="{{ __('Pack price') }}" />
-                                </div>
-
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label" for="pack_units">{{ __('Pack units') }}</label>
-                                    <input type="number" class="form-control" id="pack_units" name="pack_units"
-                                        placeholder="{{ __('Pack units') }}" />
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label" for="unit_id">{{ __('Unit type') }}</label>
-                                <select class="form-select" id="unit_id" name="unit_id">
-                                    {{-- <option value=""> {{ __('Select category') }}</option> --}}
-                                    @foreach ($units as $unit)
-                                        <option value="{{ $unit->id }}"> {{ $unit->name(session('locale')) }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label" for="status">{{ __('Status') }}</label>
-                                <select class="form-select" id="status" name="status">
-                                    <option value="1"> {{ __('Available') }}</option>
-                                    <option value="2"> {{ __('Unavailable') }}</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="" class="form-label">{{ __('Description') }}</label>
-                                <textarea name="description" id="description" class="form-control" rows="4"></textarea>
-                            </div>
+                        {{-- Submit Button --}}
+                        <div class="mb-3" style="text-align: center">
+                            <button type="submit" id="submit" name="submit"
+                                class="btn btn-primary">{{ __('Send') }}</button>
                         </div>
-                    </div>
-
-                    {{-- Submit Button --}}
-                    <div class="mb-3" style="text-align: center">
-                        <button type="submit" id="submit" name="submit"
-                            class="btn btn-primary">{{ __('Send') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 @endsection
 
 @section('page-script')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             load_data();
 
             function load_data(category = null, subcategory = null, discount = null, availability = null) {
-                //$.fn.dataTable.moment( 'YYYY-M-D' );
                 var table = $('#laravel_datatable').DataTable({
 
                     language: {!! file_get_contents(base_path('lang/' . session('locale', 'en') . '/datatable.json')) !!},
@@ -258,6 +267,13 @@
                             name: 'name'
                         },
 
+                        // ========== brand column added ==========
+                        {
+                            data: 'brand',
+                            name: 'brand'
+                        },
+                        // ========================================
+
                         {
                             data: 'price',
                             name: 'price'
@@ -271,7 +287,7 @@
                         {
                             data: 'availability',
                             name: 'availability',
-                            render: function(data) {
+                            render: function (data) {
                                 if (data == false) {
                                     return '<span class="badge bg-danger">{{ __('No') }}</span>';
                                 } else {
@@ -283,7 +299,7 @@
                         {
                             data: 'is_discounted',
                             name: 'is_discounted',
-                            render: function(data) {
+                            render: function (data) {
                                 if (data == false) {
                                     return '<span class="badge bg-danger">{{ __('No') }}</span>';
                                 } else {
@@ -292,12 +308,10 @@
                             }
                         },
 
-
                         {
                             data: 'discount',
                             name: 'discount'
                         },
-
 
                         {
                             data: 'action',
@@ -309,7 +323,7 @@
                 });
             }
 
-            $('#category').on('change', function() {
+            $('#category').on('change', function () {
 
                 var category_id = document.getElementById('category').value;
                 var subcategory_id = document.getElementById('subcategory').value;
@@ -325,13 +339,12 @@
                         category_id: category_id
                     },
                     dataType: 'JSON',
-                    success: function(response) {
+                    success: function (response) {
                         if (response.status == 1) {
 
                             var subcategories = document.getElementById('subcategory');
                             subcategories.innerHTML =
                                 '<option value="">{{ __('Not selected') }}</option>';
-                            console.log(response.data);
                             for (var i = 0; i < response.data.length; i++) {
                                 var option = document.createElement('option');
                                 option.value = response.data[i].id;
@@ -343,13 +356,12 @@
                     }
                 });
 
-
                 var table = $('#laravel_datatable').DataTable();
                 table.destroy();
                 load_data(category_id, subcategory_id, discount, availability);
             });
 
-            $('#subcategory').on('change', function() {
+            $('#subcategory').on('change', function () {
 
                 var category_id = document.getElementById('category').value;
                 var subcategory_id = document.getElementById('subcategory').value;
@@ -362,7 +374,7 @@
 
             });
 
-            $('#discount').on('change', function() {
+            $('#discount').on('change', function () {
 
                 var category_id = document.getElementById('category').value;
                 var subcategory_id = document.getElementById('subcategory').value;
@@ -375,7 +387,7 @@
 
             });
 
-            $('#availability').on('change', function() {
+            $('#availability').on('change', function () {
 
                 var category_id = document.getElementById('category').value;
                 var subcategory_id = document.getElementById('subcategory').value;
@@ -388,21 +400,7 @@
 
             });
 
-            /* $('#unit_name').on('blur', function() {
-
-                var unit_name = document.getElementById('unit_name').value;
-
-                if (unit_name) {
-                    document.getElementById('pack_name').value = unit_name + " ({{ __('pack') }}) ";
-                }
-
-
-
-
-            }); */
-
-
-            $('#create').on('click', function() {
+            $('#create').on('click', function () {
                 document.getElementById('form').reset();
                 document.getElementById('form_type').value = "create";
                 document.getElementById('uploaded-image').src =
@@ -413,7 +411,7 @@
             });
 
 
-            $(document.body).on('click', '.update', function() {
+            $(document.body).on('click', '.update', function () {
                 document.getElementById('form').reset();
                 document.getElementById('form_type').value = "update";
                 var product_id = $(this).attr('table_id');
@@ -429,7 +427,7 @@
                         product_id: product_id
                     },
                     dataType: 'JSON',
-                    success: function(response) {
+                    success: function (response) {
                         if (response.status == 1) {
 
                             document.getElementById('name_en').value = response.data.name_en;
@@ -448,23 +446,24 @@
                             document.getElementById('description').value = response.data
                                 .description;
 
+                            // ========== brand_id populated on edit ==========
+                            document.getElementById('brand_id').value = response.data.brand_id;
+                            // ================================================
+
                             var image = response.data.image == null ?
                                 "{{ asset('assets/img/icons/file-not-found.jpg') }}" : response
-                                .data.image;
+                                    .data.image;
 
                             document.getElementById('uploaded-image').src = image;
                             document.getElementById('old-image').src = image;
 
-                            console.log(response.data.category_id);
                             document.getElementById('category_id').value = response.data
                                 .category_id;
 
-                            $('#category_id').trigger("change", function() {
+                            $('#category_id').trigger("change", function () {
                                 document.getElementById('subcategory_id').value =
                                     response.data.subcategory_id;
                             });
-
-
 
                             $("#modal").modal("show");
                         }
@@ -472,7 +471,7 @@
                 });
             });
 
-            $('#category_id').on('change', function(e, callback) {
+            $('#category_id').on('change', function (e, callback) {
                 var category_id = document.getElementById('category_id').value;
                 $.when(
                     $.ajax({
@@ -485,7 +484,7 @@
                             category_id: category_id
                         },
                         dataType: 'JSON',
-                        success: function(response) {
+                        success: function (response) {
                             if (response.status == 1) {
 
                                 var subcategories = document.getElementById('subcategory_id');
@@ -502,29 +501,17 @@
                             }
                         }
                     })
-                ).done(function(a1, a2) {
+                ).done(function (a1, a2) {
                     callback();
                 });
 
-
-
             });
 
-            $('#submit').on('click', function() {
+            $('#submit').on('click', function () {
 
-                /* var formdata = new FormData($("#form")[0]); */
                 var queryString = new FormData($("#form")[0]);
-                /* console.log(formdata.entries());
-                for (var pair of formdata.entries()) {
-                  //console.log(pair[1]);
-                  if(pair[1] == '' ){
-                    queryString.delete(pair[0]);
-                    //console.log(pair[0])
-                  }
-                } */
 
                 var formtype = document.getElementById('form_type').value;
-                //console.log(formtype);
                 if (formtype == "create") {
                     url = "{{ url('product/create') }}";
                 }
@@ -536,7 +523,6 @@
 
                 $("#modal").modal("hide");
 
-
                 $.ajax({
                     url: url,
                     headers: {
@@ -547,7 +533,7 @@
                     dataType: 'JSON',
                     contentType: false,
                     processData: false,
-                    success: function(response) {
+                    success: function (response) {
                         if (response.status == 1) {
                             Swal.fire({
                                 title: "{{ __('Success') }}",
@@ -566,7 +552,7 @@
                             );
                         }
                     },
-                    error: function(data) {
+                    error: function (data) {
                         var errors = data.responseJSON;
                         console.log(errors);
                         Swal.fire(
@@ -574,12 +560,11 @@
                             errors.message,
                             'error'
                         );
-                        // Render the errors with js ...
                     }
                 });
             });
 
-            $(document.body).on('click', '.delete', function() {
+            $(document.body).on('click', '.delete', function () {
 
                 var product_id = $(this).attr('table_id');
 
@@ -605,7 +590,7 @@
                                 product_id: product_id
                             },
                             dataType: 'JSON',
-                            success: function(response) {
+                            success: function (response) {
                                 if (response.status == 1) {
 
                                     Swal.fire(
@@ -620,24 +605,23 @@
                             }
                         });
 
-
                     }
                 })
             });
 
-            $(document.body).on('change', '.image-input', function() {
+            $(document.body).on('change', '.image-input', function () {
                 const fileInput = document.querySelector('.image-input');
                 if (fileInput.files[0]) {
                     document.getElementById('uploaded-image').src = window.URL.createObjectURL(fileInput
                         .files[0]);
                 }
             });
-            $(document.body).on('click', '.image-reset', function() {
+            $(document.body).on('click', '.image-reset', function () {
                 const fileInput = document.querySelector('.image-input');
                 fileInput.value = '';
                 document.getElementById('uploaded-image').src = document.getElementById('old-image').src;
             });
-            $('#modal').on('show.bs.modal', function() {
+            $('#modal').on('show.bs.modal', function () {
                 var formType = $(this).find('#form_type').val();
                 var headerH4 = $(this).find('.modal-header h4');
                 if (formType === 'create') {

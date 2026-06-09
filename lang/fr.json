@@ -464,5 +464,8 @@
   "English Name": "Nom en anglais",
   "Slug": "Slug",
   "Brand info": "Informations sur la marque",
-  "Brand filter": "Filtre par marque"
+  "Brand filter": "Filtre par marque",
+  "Add Brand": "Ajouter une marque",
+  "Edit Brand": "Modifier la marque",
+  "Select brand": "Sélectionner une marque"
 }
