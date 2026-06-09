@@ -350,7 +350,7 @@ class DatatablesController extends Controller
   public function products(Request $request)
   {
 
-    $products = Product::whereNotNull('image')->orderBy('created_at', 'DESC');
+    $products = Product::all();
 
     if (!empty($request->category)) {
       $products = $products->whereHas('subcategory', function ($query) use ($request) {
@@ -381,7 +381,7 @@ class DatatablesController extends Controller
 
     }
 
-    $products = $products->get();
+    //$products = $products->get();
 
     return datatables()
       ->of($products)
@@ -406,10 +406,20 @@ class DatatablesController extends Controller
         return $btn;
       })
 
+      ->addColumn('name_ar', function ($row) {
+        return $row->name_ar;
+      })
+
+      ->addColumn('name_en', function ($row) {
+        return $row->name_en;
+      })
+
       ->addColumn('name', function ($row) {
+        return $row->name;
+      })
 
-        return $row->name(session('locale'));
-
+      ->addColumn('brand', function ($row) {
+        return $row->brand ? $row->brand->name : '';
       })
 
       ->addColumn('price', function ($row) {

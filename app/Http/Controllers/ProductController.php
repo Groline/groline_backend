@@ -21,10 +21,12 @@ class ProductController extends Controller
 
   public function index()
   {
+    $products = Product::all();
     $categories = Category::all();
     $units = Unit::all();
     $brands = Brand::all();
     return view('content.products.list')
+      ->with('products', $products)
       ->with('categories', $categories)
       ->with('units', $units)
       ->with('brands', $brands);

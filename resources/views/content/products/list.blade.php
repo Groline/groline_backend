@@ -39,7 +39,7 @@
                     <select class="form-select filter-select" id="brand" name="brand">
                         <option value=""> {{ __('Brand filter') }}</option>
                         @foreach ($brands as $brand)
-                            <option value="{{ $brand->id }}"> {{ $brand->name }} </option>
+                            <option value="{{ $brand->id }}"> {{ $brand->{'name_' . session('locale', 'ar')} }} </option>
                         @endforeach
                     </select>
                 </div>
