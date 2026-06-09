@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        {{-- category modal --}}
+        {{-- Brand modal --}}
         <div class="modal fade" id="modal" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
@@ -128,7 +128,7 @@
                     pageLength: 10,
 
                     ajax: {
-                        url: "{{ url('category/list') }}",
+                        url: "{{ url('Brand/list') }}",
                     },
 
                     type: 'GET',
@@ -181,17 +181,17 @@
             $(document.body).on('click', '.update', function() {
                 document.getElementById('form').reset();
                 document.getElementById('form_type').value = "update";
-                var category_id = $(this).attr('table_id');
-                $("#id").val(category_id);
+                var Brand_id = $(this).attr('table_id');
+                $("#id").val(Brand_id);
 
                 $.ajax({
-                    url: '{{ url('category/update') }}',
+                    url: '{{ url('Brand/update') }}',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'POST',
                     data: {
-                        category_id: category_id
+                        Brand_id: Brand_id
                     },
                     dataType: 'JSON',
                     success: function(response) {
@@ -222,12 +222,12 @@
                 var formtype = document.getElementById('form_type').value;
                 console.log(formtype);
                 if (formtype == "create") {
-                    url = "{{ url('category/create') }}";
+                    url = "{{ url('Brand/create') }}";
                 }
 
                 if (formtype == "update") {
-                    url = "{{ url('category/update') }}";
-                    formdata.append("category_id", document.getElementById('id').value)
+                    url = "{{ url('Brand/update') }}";
+                    formdata.append("Brand_id", document.getElementById('id').value)
                 }
 
                 $("#modal").modal("hide");
@@ -277,7 +277,7 @@
 
             $(document.body).on('click', '.delete', function() {
 
-                var category_id = $(this).attr('table_id');
+                var Brand_id = $(this).attr('table_id');
 
                 Swal.fire({
                     title: "{{ __('Warning') }}",
@@ -292,13 +292,13 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            url: "{{ url('category/delete') }}",
+                            url: "{{ url('Brand/delete') }}",
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             type: 'POST',
                             data: {
-                                category_id: category_id
+                                Brand_id: Brand_id
                             },
                             dataType: 'JSON',
                             success: function(response) {
@@ -343,9 +343,9 @@
                 var formType = $(this).find('#form_type').val();
                 var headerH4 = $(this).find('.modal-header h4');
                 if (formType === 'create') {
-                    headerH4.text("{{ __('Add category') }}");
+                    headerH4.text("{{ __('Add Brand') }}");
                 } else if (formType === 'update') {
-                    headerH4.text("{{ __('Edit category') }}");
+                    headerH4.text("{{ __('Edit Brand') }}");
                 }
             });
         });

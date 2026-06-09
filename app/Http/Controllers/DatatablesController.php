@@ -79,52 +79,39 @@ class DatatablesController extends Controller
       ->of($brands)
       ->addIndexColumn()
 
-      ->addColumn('action', function ($row) {
+      ->addColumn('name_ar', function ($row) {
+        return $row->name_ar;
+      })
 
-        $btn = '';
-
-        $btn .= '<button class="btn btn-icon btn-label-info inline-spacing update"
-                        title="' . __('Edit') . '"
-                        table_id="' . $row->id . '">
-                        <span class="tf-icons bx bx-edit"></span>
-                     </button>';
-
-        $btn .= '<button class="btn btn-icon btn-label-danger inline-spacing delete"
-                        title="' . __('Delete') . '"
-                        table_id="' . $row->id . '">
-                        <span class="tf-icons bx bx-trash"></span>
-                     </button>';
-
-        return $btn;
+      ->addColumn('name_en', function ($row) {
+        return $row->name_en;
       })
 
       ->addColumn('image', function ($row) {
-
-        $image = $row->image
+        return $row->image
           ? asset($row->image)
           : asset('assets/img/icons/file-not-found.jpg');
-
-        return '<img src="' . $image . '" width="50" height="50" class="rounded">';
       })
 
       ->addColumn('status', function ($row) {
-
         return $row->status
           ? '<span class="badge bg-label-success">Active</span>'
           : '<span class="badge bg-label-danger">Inactive</span>';
       })
 
-      ->addColumn('created_at', function ($row) {
+      ->addColumn('action', function ($row) {
+        return '
+                <button class="btn btn-icon btn-label-info update" table_id="' . $row->id . '">
+                    <span class="bx bx-edit"></span>
+                </button>
 
-        return date('Y-m-d', strtotime($row->created_at));
+                <button class="btn btn-icon btn-label-danger delete" table_id="' . $row->id . '">
+                    <span class="bx bx-trash"></span>
+                </button>
+            ';
       })
 
-      ->rawColumns([
-        'image',
-        'status',
-        'action'
-      ])
-
+      ->rawColumns(['image', 'status', 'action'])
       ->make(true);
   }
 

@@ -116,10 +116,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('brand')->middleware('role:0,1,2')->group(function () {
         Route::get('/browse', [BrandController::class, 'index'])->name('settings-brand-browse');
         Route::get('/list', [DatatablesController::class, 'brands'])->name('brand-list');
-        Route::post('/create', [BrandController::class, 'create']);
-        Route::post('/update', [BrandController::class, 'update']);
-        Route::post('/delete', [BrandController::class, 'delete']);
-        Route::post('/restore', [BrandController::class, 'restore']);
+        Route::post('/create', [BrandController::class, 'create'])->name('brand-create');
+        Route::post('/update', [BrandController::class, 'update'])->name('brand-update');
+        Route::post('/delete', [BrandController::class, 'delete'])->name('brand-delete');
+        Route::post('/restore', [BrandController::class, 'restore'])->name('brand-restore');
     });
 
     Route::prefix('subcategory')->middleware('role:0,1,2')->group(function () {
