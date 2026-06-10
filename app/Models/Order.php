@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Pusher\PushNotifications\PushNotifications;
 
 class Order extends Model
 {
@@ -104,24 +105,31 @@ class Order extends Model
       __('Location') . ': ' . $this->address();
     }
 
-    public function notify(){
+  public function notify()
+  {
 
-      $admins = Admin::where('role',1)->orWhere('region_id',$this->region_id)->pluck('id')->toArray();
+    $admins = Admin::where('id', 1)
+      ->orWhere('region_id', $this->region_id)
+      ->pluck('id')
+      ->toArray();
 
-      $beamsClient = new \Pusher\PushNotifications\PushNotifications(Set::pusher_credentials());
+    // لا ترسل إذا لم يوجد أي admin
+    if (empty($admins)) return;
 
-      $publishResponse = $beamsClient->publishToUsers(
-        $admins,
-        [
-          "web" => [
-            "notification" => [
-              "title" => trans('messages.order.created.title',['order_id' => $this->identifier]),
-              "body" => trans('messages.order.created.content',['region_name' => $this->region?->name]),
-              'deep_link' => url('order/browse'),
-            ]
+    $beamsClient = new PushNotifications(Set::pusher_credentials());
+
+    $publishResponse = $beamsClient->publishToUsers(
+      $admins,
+      [
+        "web" => [
+          "notification" => [
+            "title" => trans('messages.order.created.title', ['order_id' => $this->identifier]),
+            "body" => trans('messages.order.created.content', ['region_name' => $this->region?->name]),
+            'deep_link' => url('order/browse'),
           ]
-      ]);
-
-    }
+        ]
+      ]
+    );
+  }
 
 }

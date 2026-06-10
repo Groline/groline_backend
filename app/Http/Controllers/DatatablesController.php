@@ -419,7 +419,9 @@ class DatatablesController extends Controller
       })
 
       ->addColumn('brand', function ($row) {
-        return $row->brand ? $row->brand->name : '';
+        return $row->brand
+          ? $row->brand->{'name_' . session('locale', 'ar')}
+          : '';
       })
 
       ->addColumn('price', function ($row) {

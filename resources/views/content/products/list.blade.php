@@ -35,11 +35,15 @@
                         <option value=""> {{ __('Subcategory filter') }} </option>
                     </select>
                 </div>
-                <div class="col-md-auto">
-                    <select class="form-select filter-select" id="brand" name="brand">
-                        <option value=""> {{ __('Brand filter') }}</option>
+                {{-- Brand --}}
+                <div class="mb-3">
+                    <label class="form-label" for="brand_id">{{ __('Brand') }}</label>
+                    <select class="form-select" id="brand_id" name="brand_id">
+                        <option value=""> {{ __('Select brand') }}</option>
                         @foreach ($brands as $brand)
-                            <option value="{{ $brand->id }}"> {{ $brand->{'name_' . session('locale', 'ar')} }} </option>
+                            <option value="{{ $brand->id }}">
+                                {{ $brand->{'name_' . session('locale', 'en')} }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
