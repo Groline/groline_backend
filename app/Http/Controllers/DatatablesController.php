@@ -363,6 +363,10 @@ class DatatablesController extends Controller
       $products = $products->where('subcategory_id', $request->subcategory);
     }
 
+    if (!empty($request->brand)) {
+      $products = $products->where('brand_id', $request->brand);
+    }
+
     if (!empty($request->discount)) {
       if ($request->discount == "1") {
         $products = $products->whereHas('active_discount');

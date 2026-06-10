@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\ProductCollection;
 use Illuminate\Database\Query\JoinClause;
 use App\Http\Resources\CategoryCollection;
-use App\Http\Resources\DiscountCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Resources\ProductDiscountCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -61,6 +60,11 @@ class Section extends Model
       return $ad->name;
     }
 
+    if ($this->type == 'brand') {
+      $brand = Brand::find($this->element);
+      return $brand->name;
+    }
+
     if ($this->type == 'offer') {
       if ($this->element == 'popular') {
         return match($lang) {
@@ -105,6 +109,16 @@ class Section extends Model
       $group = Group::find($this->element);
       $products = Product::whereNotNull('image')
       ->whereIn('subcategory_id',  $group->subcategories()->pluck('subcategories.id')->toArray())
+      ->inRandomOrder()->take(10)->get();
+      return new ProductCollection($products);
+
+    }
+
+    if ($this->type == 'brand') {
+
+      $brand = Brand::find($this->element);
+      $products = Product::whereNotNull('image')
+      ->where('brand_id',  $brand->id)
       ->inRandomOrder()->take(10)->get();
       return new ProductCollection($products);
 

@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['ads', 'offer', 'family', 'group', 'ad', 'solo'])->nullable()->default(null);
+            $table->enum('type', ['ads', 'offer', 'family', 'group', 'ad', 'solo', 'brand'])->nullable()->default(null);
             $table->string('element')->nullable()->default(null);
             $table->integer('rank')->nullable()->default(null);
             $table->tinyInteger('deleteable')->default(1);

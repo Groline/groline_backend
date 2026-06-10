@@ -29,7 +29,6 @@
 @endif
 <link rel="stylesheet" href="{{ asset('assets/vendor/css/colors.css') }}">
 <link rel="stylesheet" href="{{ asset(mix('assets/css/demo.css')) }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}" />
 <link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')) }}" />
 {{-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" /> --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
@@ -41,3 +40,7 @@
 
 <!-- Page Styles -->
 @yield('page-style')
+
+<!-- Groline brand overrides -->
+<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}?v={{ filemtime(public_path('assets/css/app.css')) }}" />
+@include('layouts/sections/groline-brand')

@@ -26,7 +26,7 @@ class SectionController extends Controller
     }
     public function add(Request $request){
       $validator = Validator::make($request->all(), [
-        'type' => 'required|in:offer,family,group,ad',
+        'type' => 'required|in:offer,family,group,ad,brand',
         'element' => ['numeric', Rule::exists(Pluralizer::plural($request->type),'id')],
       ]);
 
