@@ -62,7 +62,13 @@ class Section extends Model
 
     if ($this->type == 'brand') {
       $brand = Brand::find($this->element);
-      return $brand->name;
+      if (is_null($brand)) return null;
+
+      return match ($lang) {
+        'ar' => $brand->name_ar,
+        'fr' => $brand->name_fr,
+        default => $brand->name_en
+      };
     }
 
     if ($this->type == 'offer') {
@@ -115,13 +121,12 @@ class Section extends Model
     }
 
     if ($this->type == 'brand') {
-
       $brand = Brand::find($this->element);
+      if (is_null($brand)) return null; 
       $products = Product::whereNotNull('image')
-      ->where('brand_id',  $brand->id)
-      ->inRandomOrder()->take(10)->get();
+        ->where('brand_id', $brand->id)
+        ->inRandomOrder()->take(10)->get();
       return new ProductCollection($products);
-
     }
 
     if ($this->type == 'offer') {

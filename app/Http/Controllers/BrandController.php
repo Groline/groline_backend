@@ -15,7 +15,8 @@ class BrandController extends Controller
 {
     public function index()
     {
-        return view('content.brands.list');
+        $brands = Brand::where('status', 1)->get();
+        return view('content.brands.list', compact('brands'));
     }
 
     public function create(Request $request)

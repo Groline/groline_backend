@@ -24,40 +24,47 @@ class SectionController extends Controller
     public function index(){
       return view('content.sections.list');
     }
-    public function add(Request $request){
-      $validator = Validator::make($request->all(), [
-        'type' => 'required|in:offer,family,group,ad,brand',
-        'element' => ['numeric', Rule::exists(Pluralizer::plural($request->type),'id')],
+  public function add(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'type' => 'required|in:offer,family,group,ad,brand',
+      'elements' => ['required', 'array'],
+      'elements.*' => ['numeric', Rule::exists(Pluralizer::plural($request->type), 'id')],
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json([
+        'status' => 0,
+        'message' => $validator->errors()->first()
       ]);
+    }
 
-      if ($validator->fails()){
-        return response()->json([
-            'status' => 0,
-            'message' => $validator->errors()->first()
-          ]
-        );
+    try {
+      foreach ($request->elements as $element) {
+        // تجنب الإضافة المكررة
+        $exists = Section::where('type', $request->type)
+          ->where('element', $element)
+          ->exists();
+
+        if (!$exists) {
+          Section::create([
+            'type' => $request->type,
+            'element' => $element,
+            'rank' => Section::withTrashed()->count() + 1,
+          ]);
+        }
       }
 
-      try{
-        $request->merge([ 'rank' => Section::withTrashed()->count() + 1 ]);
-
-        $section = Section::create($request->all());
-
-
-        return response()->json([
-          'status' => 1,
-          'message' => 'success',
-          'data' => new SectionResource($section)
-        ]);
-
-      }catch(Exception $e){
-        return response()->json([
-          'status' => 0,
-          'message' => $e->getMessage()
-        ]
-      );
-      }
-
+      return response()->json([
+        'status' => 1,
+        'message' => 'success'
+      ]);
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 0,
+        'message' => $e->getMessage()
+      ]);
+    }
   }
 
   public function delete(Request $request){

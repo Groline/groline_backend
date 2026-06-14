@@ -9,7 +9,8 @@
             <span class="text-muted fw-light">{{ __('Brands') }} /</span>
             {{ __('Browse brands') }}
         </div>
-        <div class="col-md-auto">
+        <div class="col-md-auto d-flex gap-2">
+            <button type="button" class="btn btn-success" id="add_to_home_btn">{{ __('Add to Homepage') }}</button>
             <button type="button" class="btn btn-primary" id="create">{{ __('Add brand') }}</button>
         </div>
     </h4>
@@ -104,6 +105,33 @@
             </div>
         </div>
     </div>
+
+    {{-- Add to home modal --}}
+    <div class="modal fade" id="home_modal" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="fw-bold py-1 mb-1">{{ __('Add Brands to Homepage') }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Select Brands') }}</label>
+                        <select class="selectpicker form-control" id="home_brands" name="home_brands" multiple
+                            data-live-search="true">
+                            @foreach ($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name_en }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3" style="text-align: center">
+                        <button type="button" id="home_submit" class="btn btn-primary">{{ __('Send') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('page-script')
@@ -154,6 +182,7 @@
                 });
             }
 
+            // ==================== Create ====================
             $('#create').on('click', function () {
                 document.getElementById('form').reset();
                 document.getElementById('form_type').value = "create";
@@ -164,6 +193,7 @@
                 $("#modal").modal('show');
             });
 
+            // ==================== Update ====================
             $(document.body).on('click', '.update', function () {
                 document.getElementById('form').reset();
                 document.getElementById('form_type').value = "update";
@@ -199,6 +229,7 @@
                 });
             });
 
+            // ==================== Submit (Create/Update) ====================
             $('#submit').on('click', function () {
 
                 var formdata = new FormData($("#form")[0]);
@@ -254,6 +285,7 @@
                 });
             });
 
+            // ==================== Delete ====================
             $(document.body).on('click', '.delete', function () {
 
                 var brand_id = $(this).attr('table_id');
@@ -293,53 +325,6 @@
                                         "{{ __('Error') }}",
                                         response.message,
                                         'error'
-                                    )
-                                }
-                            }
-                        });
-                    }
-                })
-            });
-
-            $(document.body).on('click', '.add_to_home', function () {
-                var brand_id = $(this).attr('table_id');
-
-                Swal.fire({
-                    title: "{{ __('Warning') }}",
-                    text: "{{ __('Are you sure?') }}",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: "{{ __('Yes') }}",
-                    cancelButtonText: "{{ __('No') }}"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ url('section/add') }}",
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            type: 'POST',
-                            data: {
-                                type: "brand",
-                                element: brand_id
-                            },
-                            dataType: 'JSON',
-                            success: function (response) {
-                                if (response.status == 1) {
-                                    Swal.fire(
-                                        "{{ __('Success') }}",
-                                        "{{ __('success') }}",
-                                        'success'
-                                    ).then(() => {
-                                        $('#laravel_datatable').DataTable().ajax.reload();
-                                    });
-                                } else {
-                                    Swal.fire(
-                                        "{{ __('Error') }}",
-                                        response.message,
-                                        'error'
                                     );
                                 }
                             }
@@ -348,6 +333,65 @@
                 });
             });
 
+            // ==================== Add to Home ====================
+            $('#add_to_home_btn').on('click', function () {
+                $('#home_brands').selectpicker('val', []);
+                $('#home_modal').modal('show');
+            });
+
+            $('#home_submit').on('click', function () {
+                var selected = $('#home_brands').val();
+
+                if (!selected || selected.length === 0) {
+                    Swal.fire(
+                        "{{ __('Error') }}",
+                        "{{ __('Please select at least one brand') }}",
+                        'error'
+                    );
+                    return;
+                }
+
+                $('#home_modal').modal('hide');
+
+                $.ajax({
+                    url: "{{ url('section/add') }}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'POST',
+                    data: {
+                        type: "brand",
+                        elements: selected
+                    },
+                    dataType: 'JSON',
+                    success: function (response) {
+                        if (response.status == 1) {
+                            Swal.fire(
+                                "{{ __('Success') }}",
+                                "{{ __('success') }}",
+                                'success'
+                            ).then(() => {
+                                $('#laravel_datatable').DataTable().ajax.reload();
+                            });
+                        } else {
+                            Swal.fire(
+                                "{{ __('Error') }}",
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function (data) {
+                        Swal.fire(
+                            "{{ __('Error') }}",
+                            data.responseJSON.message,
+                            'error'
+                        );
+                    }
+                });
+            });
+
+            // ==================== Remove from Home ====================
             $(document.body).on('click', '.remove_from_home', function () {
                 var section_id = $(this).attr('table_id');
 
@@ -394,6 +438,7 @@
                 });
             });
 
+            // ==================== Image ====================
             $(document.body).on('change', '.image-input', function () {
                 const fileInput = document.querySelector('.image-input');
                 if (fileInput.files[0]) {
@@ -407,6 +452,7 @@
                 document.getElementById('uploaded-image').src = document.getElementById('old-image').src;
             });
 
+            // ==================== Modal Header ====================
             $('#modal').on('show.bs.modal', function () {
                 var formType = $(this).find('#form_type').val();
                 var headerH4 = $(this).find('.modal-header h4');
