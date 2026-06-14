@@ -30,7 +30,6 @@ class Brand extends Model
 
     public function section()
     {
-        return Section::where('type', 'brand')->where('element', $this->id)->first();
-        
+        return Section::withTrashed()->where('type', 'brand')->where('element', $this->id)->first();
     }
 }

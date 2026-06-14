@@ -318,4 +318,48 @@ class ProductController extends Controller
     }
 
   }
+
+  public function getByBrand(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'brand_id' => 'required|exists:brands,id',
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json([
+        'status' => 0,
+        'message' => $validator->errors()->first()
+      ]);
+    }
+
+    try {
+      $brand = Brand::findOrFail($request->brand_id);
+
+      $products = Product::whereNotNull('image')
+        ->where('brand_id', $brand->id)
+        ->orderBy('created_at', 'DESC');
+
+      if ($request->has('all')) {
+        $products = $products->get();
+        return response()->json([
+          'status' => 1,
+          'message' => 'success',
+          'data' => new ProductCollection($products)
+        ]);
+      }
+
+      $products = $products->paginate(10);
+
+      return response()->json([
+        'status' => 1,
+        'message' => 'success',
+        'data' => new PaginatedProductCollection($products)
+      ]);
+    } catch (Exception $e) {
+      return response()->json([
+        'status' => 0,
+        'message' => $e->getMessage()
+      ]);
+    }
+  }
 }

@@ -28,7 +28,8 @@ class SectionController extends Controller
   {
     $validator = Validator::make($request->all(), [
       'type' => 'required|in:offer,family,group,ad,brand',
-      'elements' => ['required', 'array'],
+      'element' => ['sometimes', 'numeric', Rule::exists(Pluralizer::plural($request->type), 'id')],
+      'elements' => ['sometimes', 'array', 'size:4,6'],
       'elements.*' => ['numeric', Rule::exists(Pluralizer::plural($request->type), 'id')],
     ]);
 
@@ -40,25 +41,38 @@ class SectionController extends Controller
     }
 
     try {
-      foreach ($request->elements as $element) {
-        // تجنب الإضافة المكررة
-        $exists = Section::where('type', $request->type)
-          ->where('element', $element)
-          ->exists();
-
-        if (!$exists) {
-          Section::create([
-            'type' => $request->type,
-            'element' => $element,
-            'rank' => Section::withTrashed()->count() + 1,
-          ]);
-        }
+      // إضافة واحدة (group, family...)
+      if ($request->has('element')) {
+        $request->merge(['rank' => Section::withTrashed()->count() + 1]);
+        $section = Section::create($request->only('type', 'element', 'rank'));
+        return response()->json([
+          'status' => 1,
+          'message' => 'success',
+          'data' => new SectionResource($section)
+        ]);
       }
 
-      return response()->json([
-        'status' => 1,
-        'message' => 'success'
-      ]);
+      // إضافة متعددة (brands)
+      if ($request->has('elements')) {
+        foreach ($request->elements as $element) {
+          $exists = Section::where('type', $request->type)
+            ->where('element', $element)
+            ->whereNull('deleted_at')
+            ->exists();
+
+          if (!$exists) {
+            Section::create([
+              'type' => $request->type,
+              'element' => $element,
+              'rank' => Section::withTrashed()->count() + 1,
+            ]);
+          }
+        }
+        return response()->json([
+          'status' => 1,
+          'message' => 'success'
+        ]);
+      }
     } catch (Exception $e) {
       return response()->json([
         'status' => 0,

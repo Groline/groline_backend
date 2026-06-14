@@ -6,28 +6,27 @@
 
     <h4 class="fw-bold py-3 mb-3 row justify-content-between">
         <div class="col-md-auto">
-            <span class="text-muted fw-light">{{ __('Brands') }} /</span>
-            {{ __('Browse brands') }}
+            <span class="text-muted fw-light">{{ __('Brands') }} /</span> {{ __('Browse brands') }}
         </div>
         <div class="col-md-auto d-flex gap-2">
-            <button type="button" class="btn btn-success" id="add_to_home_btn">{{ __('Add to Homepage') }}</button>
+            <button type="button" class="btn btn-success" id="add_brands_to_home_btn">{{ __('Add to Homepage') }}</button>
             <button type="button" class="btn btn-primary" id="create">{{ __('Add brand') }}</button>
         </div>
     </h4>
 
-    <!-- Basic Bootstrap Table -->
     <div class="card">
         <div class="table-responsive text-nowrap">
+            <div class="table-header row justify-content-between">
+                <h5 class="col-md-auto">{{ __('Brands table') }}</h5>
+            </div>
             <table class="table" id="laravel_datatable">
-                <div class="table-header row justify-content-between">
-                    <h5 class="col-md-auto">{{ __('Brands table') }}</h5>
-                </div>
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>{{ __('Arabic Name') }}</th>
-                        <th>{{ __('English Name') }}</th>
+                        <th>{{ __('Name') }}</th>
+                        <th>{{ __('Created at') }}</th>
                         <th>{{ __('Status') }}</th>
+                        <th>{{ __('Published') }}</th>
                         <th>{{ __('Actions') }}</th>
                     </tr>
                 </thead>
@@ -51,7 +50,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-start align-items-sm-center gap-4">
                                 <div hidden><img src="{{ asset('assets/img/icons/file-not-found.jpg') }}" alt="image"
-                                        class="d-block rounded" height="100" width="100" id="old-image" /> </div>
+                                        class="d-block rounded" height="100" width="100" id="old-image" /></div>
                                 <img src="{{ asset('assets/img/icons/file-not-found.jpg') }}" alt="image"
                                     class="d-block rounded" height="100" width="100" id="uploaded-image" />
                                 <div class="button-wrapper">
@@ -81,12 +80,10 @@
                             <label class="form-label" for="name_fr">{{ __('Name in French') }}</label>
                             <input type="text" class="form-control" id="name_fr" name="name_fr" />
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label" for="slug">Slug</label>
                             <input type="text" class="form-control" id="slug" name="slug" />
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label" for="status">Status</label>
                             <select class="form-control" id="status" name="status">
@@ -94,19 +91,17 @@
                                 <option value="0">Inactive</option>
                             </select>
                         </div>
-
                         <div class="mb-3" style="text-align: center">
                             <button type="submit" id="submit" name="submit"
                                 class="btn btn-primary">{{ __('Send') }}</button>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- Add to home modal --}}
+    {{-- Add brands to home modal --}}
     <div class="modal fade" id="home_modal" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -120,9 +115,10 @@
                         <select class="selectpicker form-control" id="home_brands" name="home_brands" multiple
                             data-live-search="true">
                             @foreach ($brands as $brand)
-                                <option value="{{ $brand->id }}">{{ $brand->name_en }}</option>
+                                <option value="{{ $brand->id }}">{{ $brand->name_ar }} - {{ $brand->name_en }}</option>
                             @endforeach
                         </select>
+                        <small class="text-muted">{{ __('Number of brands must be 4 or 6') }}</small>
                     </div>
                     <div class="mb-3" style="text-align: center">
                         <button type="button" id="home_submit" class="btn btn-primary">{{ __('Send') }}</button>
@@ -146,38 +142,23 @@
                     processing: true,
                     serverSide: true,
                     pageLength: 10,
-
-                    ajax: {
-                        url: "{{ url('brand/list') }}",
-                    },
-
+                    ajax: { url: "{{ url('brand/list') }}" },
                     type: 'GET',
-
                     columns: [
+                        { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                        { data: 'name_ar', name: 'name_ar' },
+                        { data: 'created_at', name: 'created_at' },
+                        { data: 'status', name: 'status', orderable: false, searchable: false },
                         {
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
+                            data: 'is_published',
+                            name: 'is_published',
+                            render: function (data) {
+                                return data == false
+                                    ? '<span class="badge bg-danger">{{ __('No') }}</span>'
+                                    : '<span class="badge bg-success">{{ __('Yes') }}</span>';
+                            }
                         },
-                        {
-                            data: 'name_ar',
-                            name: 'name_ar'
-                        },
-                        {
-                            data: 'name_en',
-                            name: 'name_en'
-                        },
-                        {
-                            data: 'status',
-                            name: 'status',
-                            orderable: false,
-                            searchable: false
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false
-                        }
+                        { data: 'action', name: 'action', searchable: false, orderable: false }
                     ]
                 });
             }
@@ -186,10 +167,8 @@
             $('#create').on('click', function () {
                 document.getElementById('form').reset();
                 document.getElementById('form_type').value = "create";
-                document.getElementById('uploaded-image').src =
-                    "{{ asset('assets/img/icons/file-not-found.jpg') }}";
-                document.getElementById('old-image').src =
-                    "{{ asset('assets/img/icons/file-not-found.jpg') }}";
+                document.getElementById('uploaded-image').src = "{{ asset('assets/img/icons/file-not-found.jpg') }}";
+                document.getElementById('old-image').src = "{{ asset('assets/img/icons/file-not-found.jpg') }}";
                 $("#modal").modal('show');
             });
 
@@ -202,13 +181,9 @@
 
                 $.ajax({
                     url: '{{ url('brand/update') }}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     type: 'POST',
-                    data: {
-                        brand_id: brand_id
-                    },
+                    data: { brand_id: brand_id },
                     dataType: 'JSON',
                     success: function (response) {
                         if (response.status == 1) {
@@ -217,12 +192,12 @@
                             document.getElementById('name_en').value = response.data.name_en;
                             document.getElementById('name_fr').value = response.data.name_fr;
 
-                            var image = response.data.image == null ?
-                                "{{ asset('assets/img/icons/file-not-found.jpg') }}" : response.data.image;
+                            var image = response.data.image == null
+                                ? "{{ asset('assets/img/icons/file-not-found.jpg') }}"
+                                : response.data.image;
 
                             document.getElementById('uploaded-image').src = image;
                             document.getElementById('old-image').src = image;
-
                             $("#modal").modal("show");
                         }
                     }
@@ -231,26 +206,20 @@
 
             // ==================== Submit (Create/Update) ====================
             $('#submit').on('click', function () {
-
                 var formdata = new FormData($("#form")[0]);
                 var formtype = document.getElementById('form_type').value;
 
-                if (formtype == "create") {
-                    url = "{{ url('brand/create') }}";
-                }
-
+                if (formtype == "create") url = "{{ url('brand/create') }}";
                 if (formtype == "update") {
                     url = "{{ url('brand/update') }}";
-                    formdata.append("brand_id", document.getElementById('id').value)
+                    formdata.append("brand_id", document.getElementById('id').value);
                 }
 
                 $("#modal").modal("hide");
 
                 $.ajax({
                     url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                     type: 'POST',
                     data: formdata,
                     dataType: 'JSON',
@@ -263,31 +232,19 @@
                                 text: "{{ __('success') }}",
                                 icon: 'success',
                                 confirmButtonText: 'Ok'
-                            }).then((result) => {
-                                $('#laravel_datatable').DataTable().ajax.reload();
-                            });
+                            }).then(() => { $('#laravel_datatable').DataTable().ajax.reload(); });
                         } else {
-                            Swal.fire(
-                                "{{ __('Error') }}",
-                                response.message,
-                                'error'
-                            );
+                            Swal.fire("{{ __('Error') }}", response.message, 'error');
                         }
                     },
                     error: function (data) {
-                        var errors = data.responseJSON;
-                        Swal.fire(
-                            "{{ __('Error') }}",
-                            errors.message,
-                            'error'
-                        );
+                        Swal.fire("{{ __('Error') }}", data.responseJSON.message, 'error');
                     }
                 });
             });
 
             // ==================== Delete ====================
             $(document.body).on('click', '.delete', function () {
-
                 var brand_id = $(this).attr('table_id');
 
                 Swal.fire({
@@ -303,29 +260,16 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             url: "{{ url('brand/delete') }}",
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
+                            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                             type: 'POST',
-                            data: {
-                                brand_id: brand_id
-                            },
+                            data: { brand_id: brand_id },
                             dataType: 'JSON',
                             success: function (response) {
                                 if (response.status == 1) {
-                                    Swal.fire(
-                                        "{{ __('Success') }}",
-                                        "{{ __('success') }}",
-                                        'success'
-                                    ).then((result) => {
-                                        $('#laravel_datatable').DataTable().ajax.reload();
-                                    });
+                                    Swal.fire("{{ __('Success') }}", "{{ __('success') }}", 'success')
+                                        .then(() => { $('#laravel_datatable').DataTable().ajax.reload(); });
                                 } else {
-                                    Swal.fire(
-                                        "{{ __('Error') }}",
-                                        response.message,
-                                        'error'
-                                    );
+                                    Swal.fire("{{ __('Error') }}", response.message, 'error');
                                 }
                             }
                         });
@@ -333,60 +277,36 @@
                 });
             });
 
-            // ==================== Add to Home ====================
-            $('#add_to_home_btn').on('click', function () {
-                $('#home_brands').selectpicker('val', []);
-                $('#home_modal').modal('show');
-            });
+            // ==================== Add to Home (per row) ====================
+            $(document.body).on('click', '.add_to_home', function () {
+                var brand_id = $(this).attr('table_id');
 
-            $('#home_submit').on('click', function () {
-                var selected = $('#home_brands').val();
-
-                if (!selected || selected.length === 0) {
-                    Swal.fire(
-                        "{{ __('Error') }}",
-                        "{{ __('Please select at least one brand') }}",
-                        'error'
-                    );
-                    return;
-                }
-
-                $('#home_modal').modal('hide');
-
-                $.ajax({
-                    url: "{{ url('section/add') }}",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'POST',
-                    data: {
-                        type: "brand",
-                        elements: selected
-                    },
-                    dataType: 'JSON',
-                    success: function (response) {
-                        if (response.status == 1) {
-                            Swal.fire(
-                                "{{ __('Success') }}",
-                                "{{ __('success') }}",
-                                'success'
-                            ).then(() => {
-                                $('#laravel_datatable').DataTable().ajax.reload();
-                            });
-                        } else {
-                            Swal.fire(
-                                "{{ __('Error') }}",
-                                response.message,
-                                'error'
-                            );
-                        }
-                    },
-                    error: function (data) {
-                        Swal.fire(
-                            "{{ __('Error') }}",
-                            data.responseJSON.message,
-                            'error'
-                        );
+                Swal.fire({
+                    title: "{{ __('Warning') }}",
+                    text: "{{ __('Are you sure?') }}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "{{ __('Yes') }}",
+                    cancelButtonText: "{{ __('No') }}"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ url('section/add') }}",
+                            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                            type: 'POST',
+                            data: { type: "brand", element: brand_id },
+                            dataType: 'JSON',
+                            success: function (response) {
+                                if (response.status == 1) {
+                                    Swal.fire("{{ __('Success') }}", "{{ __('success') }}", 'success')
+                                        .then(() => { $('#laravel_datatable').DataTable().ajax.reload(); });
+                                } else {
+                                    Swal.fire("{{ __('Error') }}", response.message, 'error');
+                                }
+                            }
+                        });
                     }
                 });
             });
@@ -408,32 +328,59 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             url: "{{ url('section/delete') }}",
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
+                            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                             type: 'POST',
-                            data: {
-                                section_id: section_id
-                            },
+                            data: { section_id: section_id },
                             dataType: 'JSON',
                             success: function (response) {
                                 if (response.status == 1) {
-                                    Swal.fire(
-                                        "{{ __('Success') }}",
-                                        "{{ __('success') }}",
-                                        'success'
-                                    ).then(() => {
-                                        $('#laravel_datatable').DataTable().ajax.reload();
-                                    });
+                                    Swal.fire("{{ __('Success') }}", "{{ __('success') }}", 'success')
+                                        .then(() => { $('#laravel_datatable').DataTable().ajax.reload(); });
                                 } else {
-                                    Swal.fire(
-                                        "{{ __('Error') }}",
-                                        response.message,
-                                        'error'
-                                    );
+                                    Swal.fire("{{ __('Error') }}", response.message, 'error');
                                 }
                             }
                         });
+                    }
+                });
+            });
+
+            // ==================== Add multiple brands to Home ====================
+            $('#add_brands_to_home_btn').on('click', function () {
+                $('#home_brands').selectpicker('val', []);
+                $('#home_modal').modal('show');
+            });
+
+            $('#home_submit').on('click', function () {
+                var selected = $('#home_brands').val();
+
+                if (!selected || (selected.length !== 4 && selected.length !== 6)) {
+                    Swal.fire(
+                        "{{ __('Error') }}",
+                        "{{ __('Number of brands must be 4 or 6') }}",
+                        'error'
+                    );
+                    return;
+                }
+
+                $('#home_modal').modal('hide');
+
+                $.ajax({
+                    url: "{{ url('section/add') }}",
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    type: 'POST',
+                    data: { type: "brand", elements: selected },
+                    dataType: 'JSON',
+                    success: function (response) {
+                        if (response.status == 1) {
+                            Swal.fire("{{ __('Success') }}", "{{ __('success') }}", 'success')
+                                .then(() => { $('#laravel_datatable').DataTable().ajax.reload(); });
+                        } else {
+                            Swal.fire("{{ __('Error') }}", response.message, 'error');
+                        }
+                    },
+                    error: function (data) {
+                        Swal.fire("{{ __('Error') }}", data.responseJSON.message, 'error');
                     }
                 });
             });

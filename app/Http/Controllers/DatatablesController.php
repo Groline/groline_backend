@@ -79,6 +79,21 @@ class DatatablesController extends Controller
       ->of($brands)
       ->addIndexColumn()
 
+      ->addColumn('action', function ($row) {
+        $btn = '';
+
+        $btn .= '<button class="btn btn-icon btn-label-info inline-spacing update" title="' . __('Edit') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-edit"></span></button>';
+
+        if (is_null($row->section())) {
+          $btn .= '<button class="btn btn-icon btn-label-danger inline-spacing delete" title="' . __('Delete') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-trash"></span></button>';
+          $btn .= '<button class="btn btn-icon btn-label-success inline-spacing add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '"><span class="tf-icons bx bxs-plus-square"></span></button>';
+        } else {
+          $btn .= '<button class="btn btn-icon btn-label-warning inline-spacing remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $row->section()->id . '"><span class="tf-icons bx bxs-x-square"></span></button>';
+        }
+
+        return $btn;
+      })
+
       ->addColumn('name_ar', function ($row) {
         return $row->name_ar;
       })
@@ -87,39 +102,24 @@ class DatatablesController extends Controller
         return $row->name_en;
       })
 
-      ->addColumn('image', function ($row) {
-        return $row->image
-          ? asset($row->image)
-          : asset('assets/img/icons/file-not-found.jpg');
-      })
-
       ->addColumn('status', function ($row) {
         return $row->status
           ? '<span class="badge bg-label-success">Active</span>'
           : '<span class="badge bg-label-danger">Inactive</span>';
       })
 
-      ->addColumn('action', function ($row) {
-        $btn = '';
-
-        $section = $row->section();
-
-        $btn .= '<button class="btn btn-icon btn-label-info inline-spacing update" title="' . __('Edit') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-edit"></span></button>';
-
-        if (is_null($section) || $section->trashed()) {
-
-          $btn .= '<button class="btn btn-icon btn-label-danger inline-spacing delete" title="' . __('Delete') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-trash"></span></button>';
-
-          $btn .= '<button class="btn btn-icon btn-label-success inline-spacing add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '"><span class="tf-icons bx bxs-plus-square"></span></button>';
-        } else {
-
-          $btn .= '<button class="btn btn-icon btn-label-warning inline-spacing remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $section->id . '"><span class="tf-icons bx bxs-x-square"></span></button>';
+      ->addColumn('is_published', function ($row) {
+        if (is_null($row->section())) {
+          return false;
         }
-
-        return $btn;
+        return true;
       })
 
-      ->rawColumns(['image', 'status', 'action'])
+      ->addColumn('created_at', function ($row) {
+        return date('Y-m-d', strtotime($row->created_at));
+      })
+
+      ->rawColumns(['status', 'action'])
       ->make(true);
   }
 
