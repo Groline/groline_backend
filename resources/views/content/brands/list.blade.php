@@ -115,7 +115,7 @@
                         <select class="selectpicker form-control" id="home_brands" name="home_brands" multiple
                             data-live-search="true">
                             @foreach ($brands as $brand)
-                                <option value="{{ $brand->id }}">{{ $brand->name_ar }} - {{ $brand->name_en }}</option>
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                             @endforeach
                         </select>
                         <small class="text-muted">{{ __('Number of brands must be 4 or 6') }}</small>
