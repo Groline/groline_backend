@@ -164,7 +164,6 @@
                 $("#modal").modal('show');
             });
 
-
             $(document.body).on('click', '.update', function () {
                 document.getElementById('form').reset();
                 document.getElementById('form_type').value = "update";
@@ -300,6 +299,99 @@
                         });
                     }
                 })
+            });
+
+            $(document.body).on('click', '.add_to_home', function () {
+                var brand_id = $(this).attr('table_id');
+
+                Swal.fire({
+                    title: "{{ __('Warning') }}",
+                    text: "{{ __('Are you sure?') }}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "{{ __('Yes') }}",
+                    cancelButtonText: "{{ __('No') }}"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ url('section/add') }}",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: 'POST',
+                            data: {
+                                type: "brand",
+                                element: brand_id
+                            },
+                            dataType: 'JSON',
+                            success: function (response) {
+                                if (response.status == 1) {
+                                    Swal.fire(
+                                        "{{ __('Success') }}",
+                                        "{{ __('success') }}",
+                                        'success'
+                                    ).then(() => {
+                                        $('#laravel_datatable').DataTable().ajax.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        "{{ __('Error') }}",
+                                        response.message,
+                                        'error'
+                                    );
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            $(document.body).on('click', '.remove_from_home', function () {
+                var section_id = $(this).attr('table_id');
+
+                Swal.fire({
+                    title: "{{ __('Warning') }}",
+                    text: "{{ __('Are you sure?') }}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "{{ __('Yes') }}",
+                    cancelButtonText: "{{ __('No') }}"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ url('section/delete') }}",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: 'POST',
+                            data: {
+                                section_id: section_id
+                            },
+                            dataType: 'JSON',
+                            success: function (response) {
+                                if (response.status == 1) {
+                                    Swal.fire(
+                                        "{{ __('Success') }}",
+                                        "{{ __('success') }}",
+                                        'success'
+                                    ).then(() => {
+                                        $('#laravel_datatable').DataTable().ajax.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        "{{ __('Error') }}",
+                                        response.message,
+                                        'error'
+                                    );
+                                }
+                            }
+                        });
+                    }
+                });
             });
 
             $(document.body).on('change', '.image-input', function () {

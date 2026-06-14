@@ -100,15 +100,23 @@ class DatatablesController extends Controller
       })
 
       ->addColumn('action', function ($row) {
-        return '
-                <button class="btn btn-icon btn-label-info update" table_id="' . $row->id . '">
-                    <span class="bx bx-edit"></span>
-                </button>
+        $btn = '';
 
-                <button class="btn btn-icon btn-label-danger delete" table_id="' . $row->id . '">
-                    <span class="bx bx-trash"></span>
-                </button>
-            ';
+        $section = $row->section();
+
+        $btn .= '<button class="btn btn-icon btn-label-info inline-spacing update" title="' . __('Edit') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-edit"></span></button>';
+
+        if (is_null($section) || $section->trashed()) {
+
+          $btn .= '<button class="btn btn-icon btn-label-danger inline-spacing delete" title="' . __('Delete') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-trash"></span></button>';
+
+          $btn .= '<button class="btn btn-icon btn-label-success inline-spacing add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '"><span class="tf-icons bx bxs-plus-square"></span></button>';
+        } else {
+
+          $btn .= '<button class="btn btn-icon btn-label-warning inline-spacing remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $section->id . '"><span class="tf-icons bx bxs-x-square"></span></button>';
+        }
+
+        return $btn;
       })
 
       ->rawColumns(['image', 'status', 'action'])

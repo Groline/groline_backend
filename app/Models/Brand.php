@@ -27,4 +27,10 @@ class Brand extends Model
         $locale = session('locale', 'ar');
         return $this->{"name_{$locale}"};
     }
+
+    public function section()
+    {
+        return Section::where('type', 'brand')->where('element', $this->id)->first();
+        
+    }
 }
