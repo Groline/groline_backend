@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\authentications\ForgotPasswordBasic;
 use App\Http\Controllers\authentications\LoginBasic;
 use App\Http\Controllers\authentications\LogoutBasic;
+use App\Http\Controllers\BandController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChargilyController;
@@ -120,6 +121,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update', [BrandController::class, 'update'])->name('brand-update');
         Route::post('/delete', [BrandController::class, 'delete'])->name('brand-delete');
         Route::post('/restore', [BrandController::class, 'restore'])->name('brand-restore');
+    });
+
+    Route::prefix('band')->middleware('role:0,1,5')->group(function () {
+        Route::get('/browse', [BandController::class, 'index'])->name('settings-band-browse');
+        Route::get('/list', [DatatablesController::class, 'bands'])->name('band-list');
+        Route::post('/create', [BandController::class, 'create'])->name('band-create');
+        Route::post('/update', [BandController::class, 'update'])->name('band-update');
+        Route::post('/delete', [BandController::class, 'delete'])->name('band-delete');
+        Route::post('/restore', [BandController::class, 'restore'])->name('band-restore');
     });
 
     Route::prefix('subcategory')->middleware('role:0,1,2')->group(function () {

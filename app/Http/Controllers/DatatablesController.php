@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ad;
 use App\Models\Admin;
+use App\Models\Band;
 use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\Category;
@@ -295,6 +296,49 @@ class DatatablesController extends Controller
       ->make(true);
   }
 
+  public function bands()
+  {
+    $bands = Band::orderBy('created_at', 'DESC')->get();
+
+    return datatables()
+      ->of($bands)
+      ->addIndexColumn()
+
+      ->addColumn('action', function ($row) {
+        $btn = '';
+
+        $btn .= '<button class="btn btn-icon btn-label-info inline-spacing update" title="' . __('Edit') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-edit"></span></button>';
+
+        if (is_null($row->section())) {
+          $btn .= '<button class="btn btn-icon btn-label-danger inline-spacing delete" title="' . __('Delete') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-trash"></span></button>';
+          $btn .= '<button class="btn btn-icon btn-label-success inline-spacing add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '"><span class="tf-icons bx bxs-plus-square"></span></button>';
+        } else {
+          $btn .= '<button class="btn btn-icon btn-label-warning inline-spacing remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $row->section()->id . '"><span class="tf-icons bx bxs-x-square"></span></button>';
+        }
+
+        return $btn;
+      })
+
+      ->addColumn('name', function ($row) {
+        return $row->name;
+      })
+
+      ->addColumn('brands', function ($row) {
+        return $row->brands()->count();
+      })
+
+      ->addColumn('is_published', function ($row) {
+        return !is_null($row->section());
+      })
+
+      ->addColumn('created_at', function ($row) {
+        return date('Y-m-d', strtotime($row->created_at));
+      })
+
+      ->rawColumns(['action'])
+      ->make(true);
+  }
+
   public function groups()
   {
 
@@ -358,7 +402,7 @@ class DatatablesController extends Controller
   public function products(Request $request)
   {
 
-    $products = Product::all();
+    $products = Product::with(['subcategory', 'brand']);
 
     if (!empty($request->category)) {
       $products = $products->whereHas('subcategory', function ($query) use ($request) {

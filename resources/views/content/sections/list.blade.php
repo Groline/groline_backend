@@ -117,8 +117,8 @@
                                 if (data == 'ad') {
                                     return '<span class="badge bg-danger">{{ __('ad') }}</span>';
                                 }
-                                if (data == 'brand') {
-                                    return '<span class="badge bg-dark">{{ __('Brand') }}</span>';
+                                if (data == 'band') {
+                                    return '<span class="badge bg-dark">{{ __('Band') }}</span>';
                                 }
 
                                 return data;

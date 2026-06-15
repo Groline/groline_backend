@@ -27,7 +27,7 @@ class SectionController extends Controller
   public function add(Request $request)
   {
     $validator = Validator::make($request->all(), [
-      'type' => 'required|in:offer,family,group,ad,brand',
+      'type' => 'required|in:offer,family,group,ad,band',
       'element' => ['sometimes', 'numeric', Rule::exists(Pluralizer::plural($request->type), 'id')],
       'elements' => ['sometimes', 'array', 'size:4,6'],
       'elements.*' => ['numeric', Rule::exists(Pluralizer::plural($request->type), 'id')],
@@ -53,26 +53,26 @@ class SectionController extends Controller
       }
 
       // إضافة متعددة (brands)
-      if ($request->has('elements')) {
-        foreach ($request->elements as $element) {
-          $exists = Section::where('type', $request->type)
-            ->where('element', $element)
-            ->whereNull('deleted_at')
-            ->exists();
+      // if ($request->has('elements')) {
+      //   foreach ($request->elements as $element) {
+      //     $exists = Section::where('type', $request->type)
+      //       ->where('element', $element)
+      //       ->whereNull('deleted_at')
+      //       ->exists();
 
-          if (!$exists) {
-            Section::create([
-              'type' => $request->type,
-              'element' => $element,
-              'rank' => Section::withTrashed()->count() + 1,
-            ]);
-          }
-        }
-        return response()->json([
-          'status' => 1,
-          'message' => 'success'
-        ]);
-      }
+      //     if (!$exists) {
+      //       Section::create([
+      //         'type' => $request->type,
+      //         'element' => $element,
+      //         'rank' => Section::withTrashed()->count() + 1,
+      //       ]);
+      //     }
+      //   }
+      //   return response()->json([
+      //     'status' => 1,
+      //     'message' => 'success'
+      //   ]);
+      // }
     } catch (Exception $e) {
       return response()->json([
         'status' => 0,

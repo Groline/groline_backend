@@ -60,10 +60,10 @@ class Section extends Model
       return $ad->name;
     }
 
-    if ($this->type == 'brand') {
-      $brand = Brand::find($this->element);
-      if (is_null($brand)) return null;
-      return $brand->name;
+    if ($this->type == 'band') {
+      $band = Band::find($this->element);
+      if (is_null($band)) return null;
+      return $band->name;
     }
 
     if ($this->type == 'offer') {
@@ -105,6 +105,15 @@ class Section extends Model
 
     }
 
+    if ($this->type == 'band') {
+      $band = Band::find($this->element);
+      if (is_null($band)) return null;
+      $products = Product::whereNotNull('image')
+        ->whereIn('brand_id', $band->brands()->pluck('brands.id')->toArray())
+        ->inRandomOrder()->take(10)->get();
+      return new ProductCollection($products);
+    }
+
     if ($this->type == 'group') {
 
       $group = Group::find($this->element);
@@ -115,14 +124,6 @@ class Section extends Model
 
     }
 
-    if ($this->type == 'brand') {
-      $brand = Brand::find($this->element);
-      if (is_null($brand)) return null;
-      $products = Product::whereNotNull('image')
-        ->where('brand_id', $brand->id)
-        ->inRandomOrder()->take(10)->get();
-      return new ProductCollection($products);
-    }
 
     if ($this->type == 'offer') {
 

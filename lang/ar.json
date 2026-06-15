@@ -472,5 +472,10 @@
      "order N": "طلب رقم",
      "Select Brands": "اختر العلامات التجارية",
      "Number of brands must be 4 or 6": "عدد العلامات التجارية يجب أن يكون 4 أو 6",
-     "Add Brands to Homepage": "إضافة العلامات التجارية للواجهة"
+     "Add Brands to Homepage": "إضافة العلامات التجارية للواجهة",
+     "Bands": "فرق العلامات",
+     "Browse bands": "تصفح فرق العلامات",
+     "Add band": "إضافة فرقة علامة",
+     "Bands table":"جدول فرق العلامات"
+
 }

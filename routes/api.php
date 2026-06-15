@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BandController;
+use App\Http\Controllers\DatatablesController;
 use App\Http\Controllers\FcmController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -87,6 +89,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/v1/family/update', 'App\Http\Controllers\FamilyController@update');
   Route::post('/v1/family/delete', 'App\Http\Controllers\FamilyController@delete');
   Route::post('/v1/family/restore', 'App\Http\Controllers\FamilyController@restore');
+
+  Route::get('/V1/band/list', [DatatablesController::class, 'bands']);
+  Route::post('/V1/band/create', [BandController::class, 'create']);
+  Route::post('/V1/band/update', [BandController::class, 'update']);
+  Route::post('/V1/band/delete', [BandController::class, 'delete']);
 
 
   Route::post('/v1/product/create', 'App\Http\Controllers\ProductController@create');

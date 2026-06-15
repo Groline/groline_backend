@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Models\Set;
 use App\Models\Cart;
@@ -92,7 +93,7 @@ class OrderController extends Controller
       'payment_method' => 'required|in:ccp,baridi,chargily,cash',
       //'payment_account' => Rule::requiredIf(in_array($request->payment_method, ['ccp', 'baridi'])),
       'payment_receipt' => Rule::requiredIf(in_array($request->payment_method, ['ccp', 'baridi'])),
-      'checkout_id' => 'required_if:payment_method,chargily',
+      'checkout_id' => 'required_if:payment_method,chargily,uuid',
       'region_id' => 'required|exists:regions,id',
       //'products' => 'required|array',
       //'products.*.id' => 'required|distinct|exists:products,id',
@@ -157,8 +158,15 @@ class OrderController extends Controller
 
       //$this->send_fcm_multi(__('New order'), __('There is a new order pending'), $admin_tokens);
 
-      $user->notify(Notice::OrderNotice($order->identifier, 'pending'), false);
-      $order->notify();
+
+
+      try {
+        $user->notify(Notice::OrderNotice($order->identifier, 'pending'), false);
+        $order->notify();
+      } catch (\Exception $e) {
+        Log::error('Notification failed: ' . $e->getMessage());
+        // الأوردر اتنشأ بنجاح، فقط الإشعار فشل
+      }
 
       return response()->json([
         'status' => 1,

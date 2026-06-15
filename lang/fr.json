@@ -471,5 +471,7 @@
   "order N": "commande N°",
   "Select Brands": "Sélectionner les marques",
   "Number of brands must be 4 or 6": "Le nombre de marques doit être de 4 ou 6",
-  "Add Brands to Homepage": "Ajouter les marques à la page d'accueil"
+  "Add Brands to Homepage": "Ajouter les marques à la page d'accueil",
+  "Bands": "Groupes de marques",
+  "Browse bands": "Parcourir les groupes de marques"
 }
