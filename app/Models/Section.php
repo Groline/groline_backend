@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Resources\AdCollection;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\ProductCollection;
+use App\Http\Resources\BrandCollection;
 use Illuminate\Database\Query\JoinClause;
 use App\Http\Resources\CategoryCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -108,10 +109,8 @@ class Section extends Model
     if ($this->type == 'band') {
       $band = Band::find($this->element);
       if (is_null($band)) return null;
-      $products = Product::whereNotNull('image')
-        ->whereIn('brand_id', $band->brands()->pluck('brands.id')->toArray())
-        ->inRandomOrder()->take(10)->get();
-      return new ProductCollection($products);
+      $brands = $band->brands;
+      return new BrandCollection($brands);
     }
 
     if ($this->type == 'group') {
