@@ -84,7 +84,14 @@
           "url": "/unit/browse",
           "name": "Units",
           "slug": "settings-unit-browse"
-        },
+        }
+      ]
+    },
+    {
+      "name": "Homepage Settings",
+      "icon": "menu-icon tf-icons bx bxs-home",
+      "slug": "settings",
+      "submenu": [
         {
           "url": "/family/browse",
           "name": "Families",

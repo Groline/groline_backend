@@ -31,34 +31,10 @@
       "slug": "notice-browse"
     },
     {
-      "url": "/family/browse",
-      "name": "Families",
-      "icon": "menu-icon tf-icons bx bxs-collection",
-      "slug": "settings-family-browse"
-    },
-    {
-      "url": "/group/browse",
-      "name": "Groups",
-      "icon": "menu-icon tf-icons bx bxs-layer",
-      "slug": "settings-group-browse"
-    },
-    {
       "url": "/ad/browse",
       "name": "Ads",
       "icon": "menu-icon tf-icons bx bxs-badge-dollar",
       "slug": "ad-browse"
-    },
-    {
-      "url": "/offer/browse",
-      "name": "Offers",
-      "icon": "menu-icon tf-icons bx bxs-offer",
-      "slug": "settings-offer-browse"
-    },
-    {
-      "url": "/section/browse",
-      "name": "Sections",
-      "icon": "menu-icon tf-icons bx bxs-layout",
-      "slug": "settings-section-browse"
     }
 
   ]

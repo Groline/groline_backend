@@ -79,36 +79,6 @@
           "url": "/unit/browse",
           "name": "Units",
           "slug": "settings-unit-browse"
-        },
-        {
-          "url": "/family/browse",
-          "name": "Families",
-          "slug": "settings-family-browse"
-        },
-        {
-          "url": "/band/browse",
-          "name": "Bands",
-          "slug": "settings-band-browse"
-        },
-        {
-          "url": "/section/browse",
-          "name": "Sections",
-          "slug": "settings-section-browse"
-        },
-        {
-          "url": "/offer/browse",
-          "name": "Offers",
-          "slug": "settings-offer-browse"
-        },
-        {
-          "url": "/group/browse",
-          "name": "Groups",
-          "slug": "settings-group-browse"
-        },
-        {
-          "url": "/section/browse",
-          "name": "Sections",
-          "slug": "settings-section-browse"
         }
       ]
     },

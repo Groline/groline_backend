@@ -78,21 +78,23 @@
           "url": "/unit/browse",
           "name": "Units",
           "slug": "settings-unit-browse"
-        },
-        {
-          "url": "/offer/browse",
-          "name": "Offers",
-          "slug": "settings-offer-browse"
-        },
-        {
-          "url": "/group/browse",
-          "name": "Groups",
-          "slug": "settings-group-browse"
-        },
+        }
+      ]
+    },
+    {
+      "name": "Homepage Settings",
+      "icon": "menu-icon tf-icons bx bxs-home",
+      "slug": "settings",
+      "submenu": [
         {
           "url": "/family/browse",
           "name": "Families",
           "slug": "settings-family-browse"
+        },
+        {
+          "url": "/band/browse",
+          "name": "Bands",
+          "slug": "settings-band-browse"
         },
         {
           "url": "/offer/browse",
