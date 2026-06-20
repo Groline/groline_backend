@@ -94,7 +94,7 @@
           "url": "/section/browse",
           "name": "Sections",
           "slug": "settings-section-browse"
-        }
+        },
         {
           "url": "/offer/browse",
           "name": "Offers",
