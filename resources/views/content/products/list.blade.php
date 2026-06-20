@@ -37,7 +37,7 @@
                 </div>
                 {{-- Brand --}}
                 <div class="col-md-auto">
-                    <select class="form-select filter-select" id="brand_id" name="brand_id">
+                    <select class="form-select filter-select" id="brand" name="brand">
                         <option value=""> {{ __('Select brand') }}</option>
                         @foreach ($brands as $brand)
                             <option value="{{ $brand->id }}">
@@ -235,7 +235,7 @@
         $(document).ready(function () {
             load_data();
 
-            function load_data(category = null, subcategory = null, discount = null, availability = null) {
+            function load_data(category = null, subcategory = null, discount = null, availability = null, brand = null) {
                 var table = $('#laravel_datatable').DataTable({
 
                     language: {!! file_get_contents(base_path('lang/' . session('locale', 'en') . '/datatable.json')) !!},
@@ -328,25 +328,31 @@
                 });
             }
 
-            $('#category').on('change', function () {
+            function refresh_table() {
+                var table = $('#laravel_datatable').DataTable();
+                table.destroy();
+                load_data(
+                    document.getElementById('category').value,
+                    document.getElementById('subcategory').value,
+                    document.getElementById('discount').value,
+                    document.getElementById('availability').value,
+                    document.getElementById('brand').value
+                );
+            }
 
+            $('#category').on('change', function () {
                 var category_id = document.getElementById('category').value;
-                var subcategory_id = document.getElementById('subcategory').value;
-                var discount = document.getElementById('discount').value;
-                var availability = document.getElementById('availability').value;
+
                 $.ajax({
                     url: '{{ url('api/v1/subcategory/get?all=1') }}',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'POST',
-                    data: {
-                        category_id: category_id
-                    },
+                    data: { category_id: category_id },
                     dataType: 'JSON',
                     success: function (response) {
                         if (response.status == 1) {
-
                             var subcategories = document.getElementById('subcategory');
                             subcategories.innerHTML =
                                 '<option value="">{{ __('Not selected') }}</option>';
@@ -356,54 +362,20 @@
                                 option.innerHTML = response.data[i].name;
                                 subcategories.appendChild(option);
                             }
-
                         }
                     }
                 });
 
-                var table = $('#laravel_datatable').DataTable();
-                table.destroy();
-                load_data(category_id, subcategory_id, discount, availability);
+                refresh_table();
             });
 
-            $('#subcategory').on('change', function () {
+            $('#subcategory').on('change', function () { refresh_table(); });
 
-                var category_id = document.getElementById('category').value;
-                var subcategory_id = document.getElementById('subcategory').value;
-                var discount = document.getElementById('discount').value;
-                var availability = document.getElementById('availability').value;
+            $('#discount').on('change', function () { refresh_table(); });
 
-                var table = $('#laravel_datatable').DataTable();
-                table.destroy();
-                load_data(category_id, subcategory_id, discount, availability);
+            $('#availability').on('change', function () { refresh_table(); });
 
-            });
-
-            $('#discount').on('change', function () {
-
-                var category_id = document.getElementById('category').value;
-                var subcategory_id = document.getElementById('subcategory').value;
-                var discount = document.getElementById('discount').value;
-                var availability = document.getElementById('availability').value;
-
-                var table = $('#laravel_datatable').DataTable();
-                table.destroy();
-                load_data(category_id, subcategory_id, discount, availability);
-
-            });
-
-            $('#availability').on('change', function () {
-
-                var category_id = document.getElementById('category').value;
-                var subcategory_id = document.getElementById('subcategory').value;
-                var discount = document.getElementById('discount').value;
-                var availability = document.getElementById('availability').value;
-
-                var table = $('#laravel_datatable').DataTable();
-                table.destroy();
-                load_data(category_id, subcategory_id, discount, availability);
-
-            });
+            $('#brand').on('change', function () { refresh_table(); });
 
             $('#create').on('click', function () {
                 document.getElementById('form').reset();
@@ -414,7 +386,6 @@
                     "{{ asset('assets/img/icons/file-not-found.jpg') }}";
                 $("#modal").modal('show');
             });
-
 
             $(document.body).on('click', '.update', function () {
                 document.getElementById('form').reset();
