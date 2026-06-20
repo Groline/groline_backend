@@ -84,32 +84,32 @@
     {
       "name": "Homepage Settings",
       "icon": "menu-icon tf-icons bx bxs-home",
-      "slug": "settings",
+      "slug": "homepage",
       "submenu": [
         {
           "url": "/family/browse",
           "name": "Families",
-          "slug": "settings-family-browse"
+          "slug": "homepage-family-browse"
         },
         {
           "url": "/band/browse",
           "name": "Bands",
-          "slug": "settings-band-browse"
+          "slug": "homepage-band-browse"
         },
         {
           "url": "/offer/browse",
           "name": "Offers",
-          "slug": "settings-offer-browse"
+          "slug": "homepage-offer-browse"
         },
         {
           "url": "/group/browse",
           "name": "Groups",
-          "slug": "settings-group-browse"
+          "slug": "homepage-group-browse"
         },
         {
           "url": "/section/browse",
           "name": "Sections",
-          "slug": "settings-section-browse"
+          "slug": "homepage-section-browse"
         }
       ]
     },

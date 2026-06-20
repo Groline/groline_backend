@@ -123,15 +123,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/restore', [BrandController::class, 'restore'])->name('brand-restore');
     });
 
-    Route::prefix('band')->middleware('role:0,1,5')->group(function () {
-        Route::get('/browse', [BandController::class, 'index'])->name('settings-band-browse');
-        Route::get('/list', [DatatablesController::class, 'bands'])->name('band-list');
-        Route::post('/create', [BandController::class, 'create'])->name('band-create');
-        Route::post('/update', [BandController::class, 'update'])->name('band-update');
-        Route::post('/delete', [BandController::class, 'delete'])->name('band-delete');
-        Route::post('/restore', [BandController::class, 'restore'])->name('band-restore');
-    });
-
     Route::prefix('subcategory')->middleware('role:0,1,2')->group(function () {
         Route::get('/browse', [SubcategoryController::class, 'index'])->name('settings-subcategory-browse');
         Route::post('/list', [DatatablesController::class, 'subcategories'])->name('subcategory-list');
@@ -151,7 +142,7 @@ Route::group(['middleware' => ['auth']], function () {
   });
 
     Route::prefix('family')->middleware('role:0,1,5')->group(function () {
-        Route::get('/browse', [FamilyController::class, 'index'])->name('settings-family-browse');
+        Route::get('/browse', [FamilyController::class, 'index'])->name('homepage-family-browse');
         Route::get('/list', [DatatablesController::class, 'families'])->name('family-list');
         Route::post('/create', [FamilyController::class, 'create']);
         Route::post('/update', [FamilyController::class, 'update']);
@@ -160,7 +151,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::prefix('offer')->middleware('role:0,1,5')->group(function () {
-        Route::get('/browse', [OfferController::class, 'index'])->name('settings-offer-browse');
+        Route::get('/browse', [OfferController::class, 'index'])->name('homepage-offer-browse');
         Route::get('/list', [DatatablesController::class, 'offers'])->name('offer-list');
         Route::post('/create', [OfferController::class, 'create']);
         Route::post('/update', [OfferController::class, 'update']);
@@ -169,7 +160,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::prefix('group')->middleware('role:0,1,5')->group(function () {
-        Route::get('/browse', [GroupController::class, 'index'])->name('settings-group-browse');
+        Route::get('/browse', [GroupController::class, 'index'])->name('homepage-group-browse');
         Route::get('/list', [DatatablesController::class, 'groups'])->name('group-list');
         Route::post('/create', [GroupController::class, 'create']);
         Route::post('/update', [GroupController::class, 'update']);
@@ -177,8 +168,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/restore', [GroupController::class, 'restore']);
     });
 
+    Route::prefix('band')->middleware('role:0,1,5')->group(function () {
+        Route::get('/browse', [BandController::class, 'index'])->name('homepage-band-browse');
+        Route::get('/list', [DatatablesController::class, 'bands'])->name('band-list');
+        Route::post('/create', [BandController::class, 'create'])->name('band-create');
+        Route::post('/update', [BandController::class, 'update'])->name('band-update');
+        Route::post('/delete', [BandController::class, 'delete'])->name('band-delete');
+        Route::post('/restore', [BandController::class, 'restore'])->name('band-restore');
+    });
+
     Route::prefix('section')->middleware('role:0,1,5')->group(function () {
-        Route::get('/browse', [SectionController::class, 'index'])->name('settings-section-browse');
+        Route::get('/browse', [SectionController::class, 'index'])->name('homepage-section-browse');
         Route::get('/list', [DatatablesController::class, 'sections'])->name('section-list');
         Route::post('/add', [SectionController::class, 'add']);
         Route::post('/remove', [SectionController::class, 'remove']);
