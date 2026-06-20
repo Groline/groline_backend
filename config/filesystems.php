@@ -39,6 +39,16 @@ return [
           'driver' => 'local',
           'root' => public_path('storage'),
           'url' => env('ASSET_URL') . '/storage',
+          'permissions' => [
+              'dir' => [
+                  'public' => 0755,
+                  'private' => 0755,
+              ],
+              'file' => [
+                  'public' => 0644,
+                  'private' => 0644,
+              ],
+          ],
         ],
 
         'public' => [

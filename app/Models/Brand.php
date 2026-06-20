@@ -17,6 +17,13 @@ class Brand extends Model
         'status'
     ];
 
+    public function getImageAttribute($value)
+  {
+    return $value && Storage::disk('upload')->exists($value)
+      ? Storage::disk('upload')->url($value)
+      : null;
+  }
+
     public function products()
     {
         return $this->hasMany(Product::class);
