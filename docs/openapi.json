@@ -3460,9 +3460,6 @@
                   "payment_method": {
                     "type": "string",
                     "enum": [
-                      "ccp",
-                      "baridi",
-                      "chargily",
                       "cash"
                     ]
                   },

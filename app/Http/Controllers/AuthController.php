@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\User;
-use App\Models\Set;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
-use Chargily\ChargilyPay\ChargilyPay;
 use Illuminate\Support\Facades\Validator;
-use Chargily\ChargilyPay\Auth\Credentials;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class AuthController extends Controller
@@ -105,18 +102,6 @@ class AuthController extends Controller
           throw new Exception('blocked account');
         case 2:
           throw new Exception('deactivated account');
-      }
-
-      if (empty($user->customer_id) && $user->phone) {
-        $chargily_pay = new ChargilyPay(new Credentials(Set::chargily_credentials()));
-        $customer = $chargily_pay->customers()->create([
-          'name' => $user->name,
-          'email' => $user->email,
-          'phone' => $user->phone
-        ]);
-
-        $user->customer_id = $customer->getId();
-        $user->save();
       }
 
       if ($request->has('fcm_token')) {

@@ -596,7 +596,7 @@ class DatatablesController extends Controller
       $request->merge(['region' => auth()->user()->region_id]);
     } */
 
-    $orders = Order::where('status', '!=', 'chargily')->orderBy('created_at', 'DESC');
+    $orders = Order::orderBy('created_at', 'DESC');
 
     if (!empty($request->status)) {
       if ($request->status == 'default') {

@@ -967,18 +967,6 @@
                                 'cash': {
                                     text: "{{ __('Cash') }}",
                                     class: 'info'
-                                },
-                                'ccp': {
-                                    text: "{{ __('CCP') }}",
-                                    class: 'primary'
-                                },
-                                'baridi': {
-                                    text: "{{ __('Baridi Mob') }}",
-                                    class: 'success'
-                                },
-                                'chargily': {
-                                    text: "{{ __('Chargily') }}",
-                                    class: 'warning'
                                 }
                             };
 
