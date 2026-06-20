@@ -250,7 +250,8 @@
                             category: category,
                             subcategory: subcategory,
                             discount: discount,
-                            availability: availability
+                            availability: availability,
+                            brand: brand
                         },
                         type: 'POST',
                         headers: {

@@ -16,6 +16,7 @@ class Product extends Model
 
   protected $fillable = [
     'subcategory_id',
+    'brand_id',
     'unit_id',
     'brand_id',
     'name_en',
@@ -32,6 +33,8 @@ class Product extends Model
 
   protected $casts = [
     'subcategory_id' => 'integer',
+    'brand_id' => 'integer',
+    'unit_id' => 'integer',
     'unit_price' => 'double',
     'pack_price' => 'double',
     'pack_units' => 'integer',

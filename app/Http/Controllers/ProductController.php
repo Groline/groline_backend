@@ -261,24 +261,17 @@ class ProductController extends Controller
       $products = Product::whereNotNull('image')->orderBy('created_at', 'DESC');
 
       if ($request->has('category_id')) {
-
-        $category = Category::findOrFail($request->category_id);
-        $category_subs = $category->subcategories()->pluck('id')->toArray();
-        $products = $products->whereIn('subcategory_id', $category_subs);
+        $products = $products->whereHas('subcategory', function ($query) use ($request) {
+          $query->where('category_id', $request->category_id);
+        });
       }
 
       if ($request->has('subcategory_id')) {
-
-        $subcategory = Subcategory::findOrFail($request->subcategory_id);
-        $sub_products = $subcategory->products()->pluck('id')->toArray();
-        $products = $products->whereIn('id', $sub_products);
+        $products = $products->where('subcategory_id', $request->subcategory_id);
       }
 
       if ($request->has('brand_id')) {
-
-        $brand = Brand::findOrFail($request->brand_id);
-        $brand_products = $brand->products()->pluck('id')->toArray();
-        $products = $products->whereIn('id', $brand_products);
+        $products = $products->where('brand_id', $request->brand_id);
       }
 
       if ($request->has('search')) {

@@ -401,7 +401,7 @@ class DatatablesController extends Controller
 
   public function products(Request $request)
   {
-
+dd($request->all());
     $products = Product::with(['subcategory', 'brand']);
 
     if (!empty($request->category)) {
@@ -409,7 +409,6 @@ class DatatablesController extends Controller
         $query->where('category_id', $request->category);
       });
     }
-
 
     if (!empty($request->subcategory)) {
       $products = $products->where('subcategory_id', $request->subcategory);
