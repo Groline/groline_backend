@@ -18,7 +18,7 @@ return new class extends Migration
             $table->double('total_amount')->default(0);
             $table->string('discount_code')->nullable()->default(null);
             $table->string('file')->nullable()->default(null);
-            $table->enum('payment_method', ['cash'])->default('cash');
+            $table->enum('payment_method', ['cash', 'ccp', 'baridi', 'chargily'])->default('cash');
             $table->string('payment_account')->nullable()->default(null);
             $table->string('payment_receipt')->nullable()->default(null);
             $table->enum('is_paid', ['yes', 'no'])->default('no');

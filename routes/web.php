@@ -60,6 +60,12 @@ Route::get('/lang/{lang}', function($lang) {
     return redirect()->back();
 });
 
+Route::prefix('chargily')->group(function () {
+    Route::get('/callback', [ChargilyController::class, 'callback'])->name('chargily-callback');
+    Route::get('/success', [ChargilyController::class, 'success'])->name('chargily-success');
+    Route::get('/failed', [ChargilyController::class, 'failed'])->name('chargily-failed');
+});
+
 Route::prefix('auth')->group(function () {
     Route::get('/login-basic', [LoginBasic::class, 'index'])->name('login');
     Route::post('/login-action', [LoginBasic::class, 'login']);

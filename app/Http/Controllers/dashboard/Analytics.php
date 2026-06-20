@@ -46,6 +46,8 @@ class Analytics extends Controller
     $delivered = Order::whereDate('created_at', '>' , $last_month->toDateString())->where('status',5)->count();
 
     return view('content.dashboard.dashboards-analytics')
+    ->with('paid_card',number_format($paid_card))
+    ->with('paid_cash',number_format($paid_cash))
     ->with('total_paid',number_format($total_paid))
     ->with('orders_this_month',$orders_this_month)
     ->with('orders_this_week',$orders_this_week)

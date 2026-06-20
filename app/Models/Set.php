@@ -47,6 +47,14 @@ class Set extends Model
       );
   }
 
+  public static function chargily_credentials(){
+    return [
+      'mode' => self::where('name','chargily_mode')->value('value'),
+      'public' => self::where('name','chargily_pk')->value('value'),
+      'secret' => self::where('name','chargily_sk')->value('value'),
+    ];
+  }
+
   public static function pusher_credentials(){
     return [
       'instanceId' => self::where('name','pusher_instance_id')->value('value'),

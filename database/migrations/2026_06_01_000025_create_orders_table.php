@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('delivery_time')->useCurrent();
             $table->string('longitude');
             $table->string('latitude');
-            $table->enum('status', ['pending', 'accepted', 'canceled', 'ongoing', 'delivered'])->default('pending');
+            $table->enum('status', ['pending', 'accepted', 'canceled', 'ongoing', 'delivered', 'chargily'])->default('pending');
             $table->longText('note')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();

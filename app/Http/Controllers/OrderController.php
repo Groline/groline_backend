@@ -90,8 +90,10 @@ class OrderController extends Controller
       'latitude' => 'required|string',
       'delivery_time' => 'required|date|after_or_equal:now',
       'discount_code' => ['sometimes', 'nullable', 'string', new ValidCoupon()],
-      'payment_method' => 'required|in:cash',
-      'payment_receipt' => 'sometimes',
+      'payment_method' => 'required|in:ccp,baridi,chargily,cash',
+      //'payment_account' => Rule::requiredIf(in_array($request->payment_method, ['ccp', 'baridi'])),
+      'payment_receipt' => Rule::requiredIf(in_array($request->payment_method, ['ccp', 'baridi'])),
+      'checkout_id' => 'required_if:payment_method,chargily,uuid',
       'region_id' => 'required|exists:regions,id',
       //'products' => 'required|array',
       //'products.*.id' => 'required|distinct|exists:products,id',
@@ -133,7 +135,14 @@ class OrderController extends Controller
         'discount_code' => $request->discount_code,
         'payment_method' => $request->payment_method,
         'payment_account' => $request->payment_account,
+        'checkout_id' => $request->checkout_id,
       ]);
+      if ($request->payment_method == 'chargily') {
+        $cart->type = 'current';
+        $cart->save();
+        $order->status = 'chargily';
+        $order->save();
+      }
       if ($request->payment_receipt) {
         $invoice->payment_receipt = $request->payment_receipt->store('uploads/receipts', 'upload');
         $invoice->save();
@@ -372,6 +381,7 @@ class OrderController extends Controller
       }
 
       $orders = $user->orders()
+        ->where('status', '!=', 'chargily')
         ->orderBy('updated_at', 'DESC')
         ->paginate(10);
 
