@@ -37,8 +37,8 @@ return [
 
        'upload' => [
           'driver' => 'local',
-          'root' => public_path(),
-          'url' => env('ASSET_URL'),
+          'root' => public_path('storage'),
+          'url' => env('ASSET_URL') . '/storage',
         ],
 
         'public' => [
