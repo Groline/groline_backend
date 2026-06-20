@@ -12,6 +12,8 @@ class PaginatedSubcategoryCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+
+    public $collects = SubcategoryResource::class;
     public function toArray($request)
     {
       return [
