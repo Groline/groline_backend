@@ -91,11 +91,6 @@
           "slug": "settings-band-browse"
         },
         {
-          "url": "/group/browse",
-          "name": "Groups",
-          "slug": "settings-group-browse"
-        },
-        {
           "url": "/section/browse",
           "name": "Sections",
           "slug": "settings-section-browse"
