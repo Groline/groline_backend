@@ -100,7 +100,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/v1/product/update', 'App\Http\Controllers\ProductController@update');
   Route::post('/v1/product/delete', 'App\Http\Controllers\ProductController@delete');
   Route::post('/v1/product/restore', 'App\Http\Controllers\ProductController@restore');
-  Route::post('/v1/product/brand', [ProductController::class, 'getByBrand']);
 
 
   Route::post('/v1/discount/create', 'App\Http\Controllers\DiscountController@create');
