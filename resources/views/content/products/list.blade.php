@@ -36,7 +36,7 @@
                     </select>
                 </div>
                 {{-- Brand --}}
-                <div class="mb-3">
+                <div class="col-md-auto">
                     <select class="form-select filter-select" id="brand_id" name="brand_id">
                         <option value=""> {{ __('Select brand') }}</option>
                         @foreach ($brands as $brand)
