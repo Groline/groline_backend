@@ -71,6 +71,11 @@
           "slug": "settings-subcategory-browse"
         },
         {
+          "url": "/brand/browse",
+          "name": "Brands",
+          "slug": "settings-brand-browse"
+        },
+        {
           "url": "/unit/browse",
           "name": "Units",
           "slug": "settings-unit-browse"
