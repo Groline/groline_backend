@@ -83,26 +83,10 @@
       ]
     },
     {
+      "url": "/documentation",
       "name": "Documentation",
       "icon": "menu-icon tf-icons bx bxs-info-square",
-      "slug": "documentation",
-      "submenu": [
-        {
-          "url": "/documentation/privacy_policy",
-          "name": "Privacy policy",
-          "slug": "documentation_privacy_policy"
-        },
-        {
-          "url": "/documentation/about",
-          "name": "About",
-          "slug": "documentation_about"
-        },
-        {
-          "url": "/documentation/delete_account",
-          "name": "Delete Account",
-          "slug": "documentation_delete_account"
-        }
-      ]
+      "slug": "documentation"
     }
   ]
 }

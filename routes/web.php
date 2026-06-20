@@ -308,10 +308,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::prefix('documentation')->middleware('role:0,1')->group(function () {
-        Route::get('/privacy_policy', [DocumentationController::class, 'index'])->name('documentation_privacy_policy');
-        Route::get('/about', [DocumentationController::class, 'index'])->name('documentation_about');
-        Route::get('/delete_account', [DocumentationController::class, 'index'])->name('documentation_delete_account');
-        Route::post('/update', [DocumentationController::class, 'update']);
+        Route::get('/', [DocumentationController::class, 'index'])->name('documentation.index');
+        Route::post('/', [DocumentationController::class, 'update'])->name('documentation.update');
     });
 
     Route::get('/pusher/beams-auth', function (Request $request) {

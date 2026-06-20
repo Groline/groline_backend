@@ -11,19 +11,43 @@ use Kreait\Firebase\Messaging\CloudMessage;
 class DocumentationController extends Controller
 {
 
-    public function index(Request $request){
+  public function index(Request $request)
+  {
+    $documentations = Documentation::query()->get()->keyBy('name');
 
-      if($request->route()->getName() == 'documentation_privacy_policy'){
-        return view('content.documentation.index')->with('documentation',Documentation::privacy_policy());
-      }elseif($request->route()->getName() == 'documentation_about'){
-        return view('content.documentation.index')->with('documentation',Documentation::about());
-      }elseif($request->route()->getName() == 'documentation_delete_account'){
-        return view('content.documentation.index')->with('documentation',Documentation::delete_account());
-      }else{
-        return redirect()->route('pages-misc-error');
+    return view('content.documentation.index', compact('documentations'));
+  }
+
+      public function update(Request $request)
+  {
+    $request->validate([
+      'documentations' => 'required|array',
+      'documentations.*.key' => 'required|in:privacy_policy,about,delete_account',
+      'documentations.*.content_en' => 'nullable|string',
+      'documentations.*.content_fr' => 'nullable|string',
+      'documentations.*.content_ar' => 'nullable|string',
+    ]);
+
+    try {
+      $items = $request->input('documentations', []);
+      $keys = collect($items)->pluck('key')->filter()->values()->all();
+      $models = Documentation::query()->whereIn('name', $keys)->get()->keyBy('name');
+
+      foreach ($items as $documentation) {
+        $key = $documentation['key'];
+
+        $model = $models->get($key) ?? new Documentation(['name' => $key]);
+        $model->content_en = $documentation['content_en'] ?? null;
+        $model->content_fr = $documentation['content_fr'] ?? null;
+        $model->content_ar = $documentation['content_ar'] ?? null;
+        $model->save();
       }
 
+      return redirect()->route('documentation.index')->with('success', __('success'));
+    } catch (\Exception $e) {
+      return redirect()->back()->with('error', $e->getMessage());
     }
+  }
 
     public function privacy()
     {
@@ -45,46 +69,6 @@ class DocumentationController extends Controller
       $title = __('Delete Your Account');
 
       return view('content.pages.delete-account', compact('data', 'title'));
-    }
-
-    public function update(Request $request){
-
-      //dd($request->all());
-
-      $validator = Validator::make($request->all(), [
-        'name' => 'required|string',
-        'content_ar' => 'sometimes|string',
-        'content_en' => 'sometimes|string',
-      ]);
-
-      if ($validator->fails()){
-        return response()->json([
-            'status' => 0,
-            'message' => $validator->errors()->first()
-          ]
-        );
-      }
-
-      try{
-
-        Documentation::updateOrInsert(
-          ['name' => $request->name],
-          $request->all()
-        );
-
-        return response()->json([
-          'status' => 1,
-          'message' => 'success',
-        ]);
-
-      }catch(Exception $e){
-        return response()->json([
-          'status' => 0,
-          'message' => $e->getMessage()
-        ]
-      );
-      }
-
     }
     public function privacy_policy(Request $request){
       try{

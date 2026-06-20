@@ -1,6 +1,7 @@
 {
   "privacy_policy": "Privacy policy",
   "about": "About",
+  "delete_account": "Delete account",
   "success": "Opeation completed successfully",
   "video_dropzone_note": "Only one file allowed max size 2gb",
   "images_dropzone_note": "Max 15 files allowed",
