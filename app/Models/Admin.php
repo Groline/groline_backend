@@ -64,14 +64,39 @@ class Admin extends Authenticatable
     return $this->hasMany(Delivery::class, 'driver_id');
   }
 
-  public function isDriver()
+  public function isSuperAdmin()
   {
-    return $this->role == 6;
+    return $this->role == 0;
+  }
+
+  public function isAdmin()
+  {
+    return $this->role == 1;
+  }
+
+  public function isDataEntry()
+  {
+    return $this->role == 2;
   }
 
   public function isRegionManager()
   {
     return $this->role == 3;
+  }
+
+  public function isAccountant()
+  {
+    return $this->role == 4;
+  }
+
+  public function isMarketer()
+  {
+    return $this->role == 5;
+  }
+
+  public function isDriver()
+  {
+    return $this->role == 6;
   }
 
   public function phone()

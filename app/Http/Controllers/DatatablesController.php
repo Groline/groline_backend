@@ -1087,13 +1087,12 @@ class DatatablesController extends Controller
         if (is_null($row->section())) {
 
           $btn .= '<button class="btn btn-icon btn-label-danger inline-spacing delete" title="' . __('Delete') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-trash"></span></button>';
+        }
 
-          $btn .= '<button class="btn btn-icon btn-label-success inline-spacing add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '"><span class="tf-icons bx bxs-plus-square"></span></button>';
-
-        } else {
-
-          $btn .= '<button class="btn btn-icon btn-label-warning inline-spacing remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $row->section()->id . '"><span class="tf-icons bx bxs-x-square"></span></button>';
-
+        if(auth()->user()->isSuperAdmin()){
+            $row()->section()
+            ? $btn .= '<button class="btn btn-icon btn-label-warning inline-spacing remove_from_home" title="' . __('Remove from Homepage') . '" table_id="' . $row->section()->id . '"><span class="tf-icons bx bxs-x-square"></span></button>'
+            : $btn .= '<button class="btn btn-icon btn-label-success inline-spacing add_to_home" title="' . __('Add to Homepage') . '" table_id="' . $row->id . '"><span class="tf-icons bx bxs-plus-square"></span></button>'; 
         }
 
         return $btn;
