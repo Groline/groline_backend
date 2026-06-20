@@ -83,7 +83,7 @@
     },
     {
       "name": "Homepage Settings",
-      "icon": "menu-icon tf-icons bx bxs-home",
+      "icon": "menu-icon tf-icons bx bxs-mobile",
       "slug": "homepage",
       "submenu": [
         {
