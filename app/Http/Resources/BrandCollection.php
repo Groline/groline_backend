@@ -18,8 +18,6 @@ class BrandCollection extends ResourceCollection
      */
     public function toArray($request): array
     {
-        return [
-            'data' => $this->collection,
-        ];
+        return parent::toArray($request);
     }
 }
