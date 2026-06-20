@@ -401,7 +401,6 @@ class DatatablesController extends Controller
 
   public function products(Request $request)
   {
-dd($request->all());
     $products = Product::with(['subcategory', 'brand']);
 
     if (!empty($request->category)) {
