@@ -441,9 +441,15 @@
   "Test": "Test",
   "Live": "En direct",
   "Alerts Settings": "Paramètres des alertes",
+  "Pusher Settings": "Paramètres Pusher",
+  "Notification Settings": "Paramètres de notification",
   "Pusher Instance ID": "ID d'instance Pusher",
   "Pusher Primary Key": "Clé primaire Pusher",
   "Enable Cash Payment": "Activer le paiement en espèces",
+  "Enable Product Availability Notifications": "Activer les notifications de disponibilité des produits",
+  "Enable Urgent Notifications": "Activer les notifications urgentes",
+  "Urgent notifications are disabled in Alerts Settings": "Les notifications urgentes sont désactivées dans les paramètres d'alerte",
+  "Urgent notifications are disabled in Notification Settings": "Les notifications urgentes sont désactivées dans les paramètres de notification",
   "Enable Baridi Mob": "Activer Baridi Mob",
   "Enable CCP": "Activer CCP",
   "Enable Chargily": "Activer Chargily",
@@ -474,5 +480,6 @@
   "Number of brands must be 4 or 6": "Le nombre de marques doit être de 4 ou 6",
   "Add Brands to Homepage": "Ajouter les marques à la page d'accueil",
   "Bands": "Groupes de marques",
-  "Browse bands": "Parcourir les groupes de marques"
+  "Browse bands": "Parcourir les groupes de marques",
+  "Reads": "Lectures"
 }

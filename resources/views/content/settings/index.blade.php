@@ -207,7 +207,7 @@
       </div>
 
         <h4 class="fw-bold py-3 mb-3">
-            <span class="text-muted fw-light"></span> {{ __('Alerts Settings') }}
+            <span class="text-muted fw-light"></span> {{ __('Pusher Settings') }}
         </h4>
         <div class="card mb-4">
             <div class="card-body">
@@ -221,6 +221,38 @@
                         <label class="form-label" for="pusher_primary_key">{{ __('Pusher Primary Key') }}</label>
                         <input type="password" class="form-control" id="pusher_primary_key" name="pusher_primary_key"
                             value="{{ $settings['pusher_primary_key'] ?? '' }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="fw-bold py-3 mb-3">
+            <span class="text-muted fw-light"></span> {{ __('Notification Settings') }}
+        </h4>
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="hidden" name="product_availability_notifications" value="0">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="product_availability_notifications"
+                                name="product_availability_notifications" value="1"
+                                @if ($settings['product_availability_notifications'] ?? false) checked @endif>
+                            <label class="form-check-label" for="product_availability_notifications">
+                                {{ __('Enable Product Availability Notifications') }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="hidden" name="high_priority_notifications" value="0">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="high_priority_notifications"
+                                name="high_priority_notifications" value="1"
+                                @if ($settings['high_priority_notifications'] ?? false) checked @endif>
+                            <label class="form-check-label" for="high_priority_notifications">
+                                {{ __('Enable Urgent Notifications') }}
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

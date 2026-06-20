@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notice;
+use App\Models\Set;
 use App\Models\Notification;
 use App\Models\User;
 use DB;
@@ -13,7 +14,9 @@ use Illuminate\Support\Facades\Validator;
 class NoticeController extends Controller
 {
     public function index(){
-      return view('content.notices.list');
+      $urgent_enabled = Set::where('name', 'high_priority_notifications')->value('value');
+      return view('content.notices.list')
+        ->with('urgent_enabled', $urgent_enabled);
     }
 
     public function create(Request $request){

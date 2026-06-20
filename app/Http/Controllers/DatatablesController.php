@@ -1048,9 +1048,15 @@ class DatatablesController extends Controller
         return $row->title_ar;
       })
 
-      ->addColumn('priority', function ($row) {
+      /* ->addColumn('priority', function ($row) {
 
         return $row->priority;
+
+      }) */
+
+      ->addColumn('reads', function ($row) {
+
+        return $row->notifications()->where('is_read', 1)->count();
 
       })
 

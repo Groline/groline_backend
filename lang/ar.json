@@ -443,9 +443,15 @@
     "Test": "تجريبي",
     "Live": "مباشر",
     "Alerts Settings": "إعدادات التنبيهات",
+    "Pusher Settings": "إعدادات Pusher",
+    "Notification Settings": "إعدادات الإشعارات",
     "Pusher Instance ID": "معرف نموذج Pusher",
     "Pusher Primary Key": "المفتاح الرئيسي لـ Pusher",
     "Enable Cash Payment": "تفعيل الدفع نقداً",
+  "Enable Product Availability Notifications": "تفعيل إشعارات توفر المنتجات",
+  "Enable Urgent Notifications": "تفعيل الإشعارات العاجلة",
+  "Urgent notifications are disabled in Alerts Settings": "الإشعارات العاجلة معطلة في إعدادات التنبيهات",
+  "Urgent notifications are disabled in Notification Settings": "الإشعارات العاجلة معطلة في إعدادات الإشعارات",
     "Enable Baridi Mob": "تفعيل بريدي موب",
     "Enable CCP": "CCP تفعيل",
     "Enable Chargily": "تفعيل Chargily",
@@ -477,6 +483,6 @@
      "Bands": "فرق العلامات",
      "Browse bands": "تصفح فرق العلامات",
      "Add band": "إضافة فرقة علامة",
-     "Bands table":"جدول فرق العلامات"
-
+     "Bands table":"جدول فرق العلامات",
+     "Reads": "عدد القراءات"
 }

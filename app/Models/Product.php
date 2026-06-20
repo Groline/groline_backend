@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Session;
+use App\Models\Set;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -207,6 +208,10 @@ class Product extends Model
 
   public function notify($status)
   {
+
+    if (!Set::where('name', 'product_availability_notifications')->value('value')) {
+        return;
+    }
     if ($status == 'available' && $this->reminders()->count()) {
       $notice = Notice::ProductNotice($this->id, $this->name, $this->image, $status);
       $users = $this->users_to_remind();

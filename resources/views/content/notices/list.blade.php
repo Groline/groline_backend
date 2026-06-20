@@ -25,8 +25,8 @@
                         <th>#</th>
                         <th>{{ __('Notice') }}</th>
                         <th>{{ __('Created at') }}</th>
-                        <th>{{ __('Notice priority') }}</th>
-                        {{-- <th>{{__('Views')}}</th> --}}
+                        {{-- <th>{{ __('Notice priority') }}</th> --}}
+                        <th>{{__('Reads')}}</th>
                         <th>{{ __('Actions') }}</th>
                     </tr>
                 </thead>
@@ -79,14 +79,15 @@
                             <textarea class="form-control" name="content_fr" rows="3" style="height: 75px;"></textarea>
                         </div>
 
+                        @if ($urgent_enabled)
                         <div class="mb-3">
                             <label class="form-label" for="priority">{{ __('Notice priority') }}</label>
-                            <select class="form-select" name="priority">
+                            <select class="form-select" name="priority" id="notice_priority">
                                 <option value="0">{{ __('Normal notice') }}</option>
                                 <option value="1">{{ __('Urgent notice') }}</option>
-                                {{--                                 <option value="2">{{ __('Update Notice') }}</option> --}}
                             </select>
                         </div>
+                        @endif
                         <br>
                         {{-- </div> --}}
                         <div class="mb-3" style="text-align: center">
@@ -183,6 +184,11 @@
                         },
 
                         {
+                            data: 'reads',
+                            name: 'reads'
+                        },
+
+                        /* {
                             data: 'priority',
                             name: 'priority',
                             render: function(data) {
@@ -192,7 +198,7 @@
                                     return '<span class="badge bg-secondary">{{ __('Normal notice') }}</span>';
                                 }
                             }
-                        },
+                        }, */
 
 
                         {
