@@ -7,8 +7,7 @@ use App\Models\Set;
 use App\Models\Notice;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
-use Chargily\ChargilyPay\ChargilyPay;
-use Chargily\ChargilyPay\Auth\Credentials;
+use App\Services\ChargilyService;
 
 class ChargilyController extends Controller
 {
@@ -21,8 +20,8 @@ class ChargilyController extends Controller
         throw new Exception('no checkout id');
       }
 
-      $chargily_pay = new ChargilyPay(new Credentials(Set::chargily_credentials()));
-      $checkout = $chargily_pay->checkouts()->get($request->checkout_id);
+      $chargily = new ChargilyService();
+      $checkout = $chargily->getCheckout($request->checkout_id);
 
       if (empty($checkout)) {
         throw new Exception('invalid checkout id');

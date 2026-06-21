@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\User;
-use App\Models\Set;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
-use Chargily\ChargilyPay\ChargilyPay;
+use App\Services\ChargilyService;
 use Illuminate\Support\Facades\Validator;
-use Chargily\ChargilyPay\Auth\Credentials;
 use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class AuthController extends Controller
@@ -108,15 +106,13 @@ class AuthController extends Controller
       }
 
       if (empty($user->customer_id) && $user->phone) {
-        $chargily_pay = new ChargilyPay(new Credentials(Set::chargily_credentials()));
-        $customer = $chargily_pay->customers()->create([
-          'name' => $user->name,
-          'email' => $user->email,
-          'phone' => $user->phone
-        ]);
+        $chargily = new ChargilyService();
+        $customer_id = $chargily->createCustomer($user->name, $user->email, $user->phone);
 
-        $user->customer_id = $customer->getId();
-        $user->save();
+        if ($customer_id) {
+          $user->customer_id = $customer_id;
+          $user->save();
+        }
       }
 
       if ($request->has('fcm_token')) {

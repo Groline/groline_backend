@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\User;
 use App\Models\Notice;
-use App\Models\Set;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
-use Chargily\ChargilyPay\ChargilyPay;
+use App\Services\ChargilyService;
 use Illuminate\Support\Facades\Validator;
-use Chargily\ChargilyPay\Auth\Credentials;
 
 class UserController extends Controller
 {
@@ -72,16 +70,14 @@ class UserController extends Controller
         }
 
         if (empty($user->customer_id) && $request->phone) {
-          $chargily_pay = new ChargilyPay(new Credentials(Set::chargily_credentials()));
-          $customer = $chargily_pay->customers()->create([
-            'name' => $user->name,
-            'email' => $user->email,
-            'phone' => $request->phone
-          ]);
+          $chargily = new ChargilyService();
+          $customer_id = $chargily->createCustomer($user->name, $user->email, $request->phone);
 
-          $user->customer_id = $customer->getId();
-          $user->phone = $request->phone;
-          $user->save();
+          if ($customer_id) {
+            $user->customer_id = $customer_id;
+            $user->phone = $request->phone;
+            $user->save();
+          }
         }
 
         return response()->json([
