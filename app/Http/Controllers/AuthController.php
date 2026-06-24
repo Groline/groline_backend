@@ -92,7 +92,7 @@ class AuthController extends Controller
       $user = User::firstOrCreate(
         ['email' => $firebase_user->email],
         [
-          'name' => $firebase_user->displayName ?? 'user#' . uuid_create(),
+          'name' => $firebase_user->displayName ?? 'GRO-' . $this->random(6),
           'phone' => $firebase_user->phoneNumber,
           'image' => $firebase_user->photoUrl,
         ]
