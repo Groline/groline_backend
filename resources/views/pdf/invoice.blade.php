@@ -35,8 +35,9 @@
         /* Header section */
         .invoice-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
             margin-bottom: 5px;
             border-bottom: 2px solid #000;
         }
@@ -371,7 +372,7 @@
         <footer class="invoice-footer">
             <table class="footer-table">
               <tr>
-                <td><h3>G.P.S</h3>{!! $qr_code  !!}</td>
+                <td>{{-- <h3>G.P.S</h3> --}}{!! $qr_code  !!}</td>
                 <td>@include('pdf.partials.thank-you')</td>
               </tr>
             </table>
