@@ -373,7 +373,6 @@
               <tr>
                 <td><h3>G.P.S</h3>{!! $qr_code  !!}</td>
                 <td>@include('pdf.partials.thank-you')</td>
-                <td>@include('pdf.partials.stamp')</td>
               </tr>
             </table>
         </footer>
