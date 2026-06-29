@@ -34,12 +34,19 @@
 
         /* Header section */
         .invoice-header {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 120px;
             margin-bottom: 5px;
             border-bottom: 2px solid #000;
+        }
+
+        .header-qr {
+            position: absolute;
+            top: 5px;
+            right: 5px;
         }
 
         .company-info {
@@ -208,48 +215,6 @@
             text-transform: uppercase;
         }
 
-        /* Footer */
-        .invoice-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #000;
-        }
-
-        .footer-table{
-            width: 100%;
-        }
-
-        .footer-table td {
-            width: 30%;
-            text-align: center;
-        }
-
-        .thank-you {
-            font-size: 24px;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        .company-stamp {
-            width: 80px;
-            height: 80px;
-            border: 3px solid #ff0000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fff;
-        }
-
-        .stamp-content {
-            text-align: center;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
         /* Notes section */
         .note-section {
             margin: 20px 0;
@@ -291,6 +256,7 @@
         <!-- Header -->
         <header class="invoice-header">
             @include('pdf.partials.logo-header')
+            <div class="header-qr">{!! $qr_code !!}</div>
         </header>
 
         <!-- Order Details -->
@@ -367,16 +333,6 @@
                 <p>{{ $note }}</p>
             </div>
         @endif --}}
-
-        <!-- Footer -->
-        <footer class="invoice-footer">
-            <table class="footer-table">
-              <tr>
-                <td>{{-- <h3>G.P.S</h3> --}}{!! $qr_code  !!}</td>
-                <td>@include('pdf.partials.thank-you')</td>
-              </tr>
-            </table>
-        </footer>
     </div>
 </body>
 
