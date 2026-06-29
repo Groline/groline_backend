@@ -34,19 +34,27 @@
 
         /* Header section */
         .invoice-header {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100%;
             height: 120px;
             margin-bottom: 5px;
             border-bottom: 2px solid #000;
         }
 
-        .header-qr {
-            position: absolute;
-            top: 5px;
-            right: 5px;
+        .header-table {
+            width: 100%;
+            height: 100%;
+        }
+
+        .header-table td {
+            vertical-align: middle;
+        }
+
+        .header-logo-cell {
+            text-align: center;
+        }
+
+        .header-qr-cell {
+            text-align: right;
         }
 
         .company-info {
@@ -255,8 +263,12 @@
     <div class="invoice-container">
         <!-- Header -->
         <header class="invoice-header">
-            @include('pdf.partials.logo-header')
-            <div class="header-qr">{!! $qr_code !!}</div>
+            <table class="header-table">
+                <tr>
+                    <td class="header-logo-cell"></td>@include('pdf.partials.logo-header')</td>
+                    <td class="header-qr-cell">{!! $qr_code !!}</td>
+                </tr>
+            </table>
         </header>
 
         <!-- Order Details -->
