@@ -53,7 +53,7 @@ class InvoiceService
             'direction' => $isRTL ? 'rtl' : 'ltr',
         ]);
 
-        $qr_code = QrCode::size(150)
+        $qr_code = QrCode::size(100)
         ->merge(public_path('assets/img/icons/brands/google-maps.png'),.3 , true)
         ->style("round")
         ->generate($this->order['location']);
