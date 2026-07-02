@@ -22,6 +22,7 @@ class UserResource extends JsonResource
           'phone' => $this->phone(),
           'image' => $this->image,
           'location' => $this->whenLoaded('location'),
+          'activity' => $this->whenLoaded('activity'),
         ];
     }
 }

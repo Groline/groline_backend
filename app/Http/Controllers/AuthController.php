@@ -50,6 +50,8 @@ class AuthController extends Controller
 
       $token = $user->createToken($this->random())->plainTextToken;
 
+      $user->load(['activity', 'location']);
+
       return response()->json([
         'status' => 1,
         'message' => 'success',
@@ -121,6 +123,8 @@ class AuthController extends Controller
       }
 
       $token = $user->createToken($this->random())->plainTextToken;
+
+      $user->load(['activity', 'location']);
 
       return response()->json([
         'status' => 1,

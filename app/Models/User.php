@@ -89,6 +89,19 @@ class User extends Authenticatable
     return $this->hasOne(Location::class)->latestOfMany();
   }
 
+  public function activities()
+  {
+    return $this->belongsToMany(Activity::class, 'user_activities')
+      ->withTimestamps();
+  }
+
+  public function activity()
+  {
+    return $this->belongsToMany(Activity::class, 'user_activities')
+      ->withTimestamps()
+      ->latestOfMany();
+  }
+
   public function fullname()
   {
     //return $this->firstname . ' ' . $this->lastname;

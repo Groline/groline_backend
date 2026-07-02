@@ -32,7 +32,8 @@ class UserController extends Controller
         /* 'phone' => ['sometimes','numeric','digits:10',Rule::unique('users')->ignore($user->id)], */
         //'email' => ['sometimes','email',Rule::unique('users')->ignore($user->id)],
         'image' => 'sometimes|mimetypes:image/*',
-        'status' => 'sometimes|in:0,1,2'
+        'status' => 'sometimes|in:0,1,2',
+        'activity_id' => 'sometimes|exists:activities,id'
       ]);
 
       if ($validator->fails()){
@@ -45,7 +46,7 @@ class UserController extends Controller
 
       try{
 
-        $user = User::find($request->user_id);
+        $user = User::with(['activity', 'location'])->find($request->user_id);
 
         $user->update($request->except('image','status'));
 
@@ -67,6 +68,10 @@ class UserController extends Controller
         if($request->has('status')){
           $user->notify(Notice::ProfileNotice('status', $request->status ? 'active' : 'inactive'));
           $user->update_status($request->status);
+        }
+
+        if ($request->has('activity_id')) {
+          $user->activities()->attach($request->activity_id);
         }
 
         if (empty($user->customer_id) && $request->phone) {
@@ -147,7 +152,7 @@ class UserController extends Controller
 
       try{
 
-        $user = User::withTrashed()->findOrFail($request->user_id);
+        $user = User::with(['activity', 'location'])->withTrashed()->findOrFail($request->user_id);
 
         $user->restore();
 
