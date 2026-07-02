@@ -85,8 +85,6 @@ class OrderController extends Controller
     $validator = Validator::make($request->all(), [
 
       'phone' => 'required|numeric|digits:10',
-      'longitude' => 'required|string',
-      'latitude' => 'required|string',
       'delivery_time' => 'required|date|after_or_equal:now',
       'discount_code' => ['sometimes', 'nullable', 'string', new ValidCoupon()],
       'payment_method' => 'required|in:cash',
@@ -104,6 +102,17 @@ class OrderController extends Controller
     }
     try {
       $user = auth()->user();
+
+      $location = $user->location;
+
+      if (!$location) {
+        throw new Exception('No location found. Please add a location first.');
+      }
+
+      $request->merge([
+        'longitude' => $location->longitude,
+        'latitude' => $location->latitude,
+      ]);
 
 
       $items = $user->cart()->items;

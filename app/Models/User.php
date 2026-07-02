@@ -85,6 +85,10 @@ class User extends Authenticatable
     return $this->hasMany(Location::class);
   }
 
+  public function location(){
+    return $this->hasOne(Location::class)->latestOfMany();
+  }
+
   public function fullname()
   {
     //return $this->firstname . ' ' . $this->lastname;
