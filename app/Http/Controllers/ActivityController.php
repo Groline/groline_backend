@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ActivityCollection;
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\PaginatedActivityCollection;
 use App\Models\Activity;
 use Exception;
 use Illuminate\Http\Request;
@@ -154,6 +156,7 @@ class ActivityController extends Controller
 
     public function get(Request $request){
       $validator = Validator::make($request->all(), [
+        'all' => 'sometimes|boolean',
         'search' => 'sometimes|string',
       ]);
 
@@ -172,12 +175,21 @@ class ActivityController extends Controller
           $activities = $activities->where('name', 'like', '%' . $request->search . '%');
         }
 
+        if($request->has('all')){
+          $activities = $activities->get();
+          return response()->json([
+            'status' => 1,
+            'message' => 'success',
+            'data' => new ActivityCollection($activities)
+          ]);
+        }
+
         $activities = $activities->paginate(20);
 
         return response()->json([
           'status' => 1,
           'message' => 'success',
-          'data' => $activities
+          'data' => new PaginatedActivityCollection($activities)
         ]);
 
       }catch(Exception $e){

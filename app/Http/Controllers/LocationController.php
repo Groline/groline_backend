@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LocationCollection;
+use App\Http\Resources\LocationResource;
+use App\Http\Resources\PaginatedLocationCollection;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +35,7 @@ class LocationController extends Controller
         return response()->json([
             'status' => 1,
             'message' => 'success',
-            'data' => $location
+            'data' => new LocationResource($location)
         ]);
     }
 
@@ -59,7 +62,7 @@ class LocationController extends Controller
         return response()->json([
             'status' => 1,
             'message' => 'success',
-            'data' => $location
+            'data' => new LocationResource($location)
         ]);
     }
 
@@ -86,11 +89,36 @@ class LocationController extends Controller
         ]);
     }
 
-    public function get(){
+    public function get(Request $request){
+      $validator = Validator::make($request->all(), [
+        'all' => 'sometimes|boolean',
+      ]);
+
+      if ($validator->fails()){
+        return response()->json([
+            'status' => 0,
+            'message' => $validator->errors()->first()
+          ]
+        );
+      }
+
+      $locations = auth()->user()->locations()->orderBy('created_at', 'DESC');
+
+      if($request->has('all')){
+        $locations = $locations->get();
+        return response()->json([
+          'status' => 1,
+          'message' => 'success',
+          'data' => new LocationCollection($locations)
+        ]);
+      }
+
+      $locations = $locations->paginate(10);
+
       return response()->json([
-        'status' => true,
+        'status' => 1,
         'message' => 'success',
-        'data' => auth()->user()->locations
+        'data' => new PaginatedLocationCollection($locations)
       ]);
     }
 }
