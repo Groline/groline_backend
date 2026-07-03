@@ -84,8 +84,8 @@
                         <th>{{ __('Driver') }}</th>
                         {{--                         <th>{{ __('Purchase amount') }}</th>
                         <th>{{ __('Discount amount') }}</th>
-                        <th>{{ __('Tax amount') }}</th>
-                        <th>{{ __('Total amount') }}</th> --}}
+                        <th>{{ __('Tax amount') }}</th>  --}}
+                        <th>{{ __('Total amount') }}</th>
                         <th>{{ __('Actions') }}</th>
                     </tr>
                 </thead>
@@ -449,12 +449,12 @@
                         {
                             data: 'tax_amount',
                             name: 'tax_amount'
-                        },
+                        }, */
 
                         {
                             data: 'total_amount',
                             name: 'total_amount'
-                        }, */
+                        }, 
 
                         {
                             data: 'action',

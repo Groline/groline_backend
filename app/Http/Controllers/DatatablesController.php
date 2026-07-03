@@ -733,6 +733,12 @@ class DatatablesController extends Controller
 
       })
 
+      ->addColumn('total_amount', function ($row) {
+
+        return number_format($row->invoice?->total_amount ?? 0,2,'.',',');
+
+      })
+
       ->addColumn('distance', function ($row) {
         $distance = $row->distance();
         if ($distance) {
