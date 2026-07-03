@@ -86,7 +86,7 @@ class User extends Authenticatable
   }
 
   public function location(){
-    return $this->hasOne(Location::class)->latestOfMany();
+    return $this->hasOne(Location::class)->latest();
   }
 
   public function activities()
