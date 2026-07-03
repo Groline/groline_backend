@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('region_id')->nullable()->default(null)->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->string('name');
             $table->string('address');
             $table->string('longitude');
             $table->string('latitude');
