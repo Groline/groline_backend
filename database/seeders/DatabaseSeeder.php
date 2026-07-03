@@ -17,6 +17,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SuperAdminSeeder::class,
             ActivitySeeder::class,
+            RegionSeeder::class,
+            UnitSeeder::class,
+            BrandSeeder::class,
+            CategorySeeder::class,
+            SubcategorySeeder::class,
+            ProductSeeder::class,
+            UserWithLocationSeeder::class,
+            OrderSeeder::class,
         ]);
     }
 }

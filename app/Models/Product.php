@@ -19,7 +19,6 @@ class Product extends Model
     'subcategory_id',
     'brand_id',
     'unit_id',
-    'brand_id',
     'name_en',
     'name_fr',
     'name_ar',
