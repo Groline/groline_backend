@@ -55,49 +55,58 @@
 
     {{-- add modal --}}
     <div class="modal fade" id="add_modal" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="fw-bold py-1 mb-1">{{ __('add item') }}</h4>
+                    <h4 class="fw-bold py-1 mb-1">{{ __('Add item') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
 
                     <form class="form-horizontal" onsubmit="event.preventDefault()" action="#"
                         enctype="multipart/form-data" id="add_form">
 
                         <input type="text" class="form-control" name="order_id" value="{{ $order->id }}" hidden />
 
-                        <div class="mb-3">
-                            <label class="form-label" for="category">{{ __('Category') }}</label>
-                            <select class="form-select" id="category">
-                                <option value=""> {{ __('Select Category') }}</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="subcategory">{{ __('Subcategory') }}</label>
-                            <select class="form-select" id="subcategory">
-                                <option value=""> {{ __('Select category first') }}</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="product_id">{{ __('Product') }}</label>
-                            <select class="form-select" id="product" name="product_id">
-                                <option value=""> {{ __('Select subcategory first') }}</option>
-                            </select>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label" for="category">{{ __('Category') }}</label>
+                                <select class="selectpicker form-control" id="category" data-live-search="true">
+                                    <option value=""> {{ __('All categories') }}</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label" for="subcategory">{{ __('Subcategory') }}</label>
+                                <select class="selectpicker form-control" id="subcategory" data-live-search="true">
+                                    <option value=""> {{ __('All subcategories') }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label" for="brand">{{ __('Brand') }}</label>
+                                <select class="selectpicker form-control" id="brand" data-live-search="true">
+                                    <option value=""> {{ __('All brands') }}</option>
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label" for="quantity">{{ __('Quantity') }}</label>
-                            <input type="number" class="form-control" name="quantity">
-                            </select>
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label class="form-label" for="product_id">{{ __('Product') }}</label>
+                                <select class="selectpicker form-control" id="product" name="product_id" data-live-search="true">
+                                    <option value=""> {{ __('Select product') }}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label" for="quantity">{{ __('Quantity') }}</label>
+                                <input type="number" class="form-control" name="quantity" min="1" value="1">
+                            </div>
                         </div>
-
-
 
                         <div class="mb-3" style="text-align: center">
                             <button type="submit" id="submit_add" name="submit_add"
@@ -249,7 +258,101 @@
 
             $('#create').on('click', function() {
                 document.getElementById('add_form').reset();
+                document.getElementsByName('quantity')[0].value = 1;
+
+                // Reset selectpickers
+                $('#category').selectpicker('val', '');
+                $('#subcategory').selectpicker('val', '');
+                $('#brand').selectpicker('val', '');
+                $('#product').selectpicker('val', '');
+
+                // Load subcategories and all products initially
+                loadSubcategories('');
+                loadProducts('', '', '');
+
                 $("#add_modal").modal('show');
+            });
+
+            // Preload all products, optionally filtered by category, subcategory and/or brand
+            function loadProducts(categoryId, subcategoryId, brandId) {
+                var data = {};
+                if (categoryId) data.category_id = categoryId;
+                if (subcategoryId) data.subcategory_id = subcategoryId;
+                if (brandId) data.brand_id = brandId;
+
+                $.ajax({
+                    url: '{{ url('api/v1/product/get?all=1') }}',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'POST',
+                    data: data,
+                    dataType: 'JSON',
+                    success: function(response) {
+                        if (response.status == 1) {
+                            var $product = $('#product');
+                            $product.empty();
+
+                            $product.append('<option value="">{{ __('Select product') }}</option>');
+
+                            for (var i = 0; i < response.data.length; i++) {
+                                var option = document.createElement('option');
+                                option.value = response.data[i].id;
+                                option.innerHTML = response.data[i].name;
+                                $product.append(option);
+                            }
+
+                            $product.selectpicker('refresh');
+                        }
+                    }
+                });
+            }
+
+            function loadSubcategories(categoryId) {
+                $.ajax({
+                    url: '{{ url('api/v1/subcategory/get?all=1') }}',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'POST',
+                    data: { category_id: categoryId },
+                    dataType: 'JSON',
+                    success: function(response) {
+                        if (response.status == 1) {
+                            var $subcategory = $('#subcategory');
+                            $subcategory.empty();
+
+                            $subcategory.append('<option value="">{{ __('All subcategories') }}</option>');
+
+                            for (var i = 0; i < response.data.length; i++) {
+                                var option = document.createElement('option');
+                                option.value = response.data[i].id;
+                                option.innerHTML = response.data[i].name;
+                                $subcategory.append(option);
+                            }
+
+                            $subcategory.selectpicker('refresh');
+                        }
+                    }
+                });
+            }
+
+            $('#category').on('changed.bs.select', function() {
+                var categoryId = $(this).val();
+                loadSubcategories(categoryId);
+                loadProducts(categoryId, '', $('#brand').val());
+            });
+
+            $('#subcategory').on('changed.bs.select', function() {
+                var categoryId = $('#category').val();
+                var subcategoryId = $(this).val();
+                loadProducts(categoryId, subcategoryId, $('#brand').val());
+            });
+
+            $('#brand').on('changed.bs.select', function() {
+                var categoryId = $('#category').val();
+                var subcategoryId = $('#subcategory').val();
+                loadProducts(categoryId, subcategoryId, $(this).val());
             });
 
             $(document.body).on('click', '.edit', function() {
@@ -406,70 +509,6 @@
 
                     }
                 })
-            });
-
-            $('#category').on('change', function() {
-
-                var category_id = document.getElementById('category').value;
-                $.ajax({
-                    url: '{{ url('api/v1/subcategory/get?all=1') }}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'POST',
-                    data: {
-                        category_id: category_id
-                    },
-                    dataType: 'JSON',
-                    success: function(response) {
-                        if (response.status == 1) {
-
-                            var subcategories = document.getElementById('subcategory');
-                            subcategories.innerHTML =
-                                '<option value="">{{ __('Not selected') }}</option>';
-
-                            for (var i = 0; i < response.data.length; i++) {
-                                var option = document.createElement('option');
-                                option.value = response.data[i].id;
-                                option.innerHTML = response.data[i].name;
-                                subcategories.appendChild(option);
-                            }
-
-                        }
-                    }
-                });
-            });
-
-            $('#subcategory').on('change', function() {
-
-                var subcategory_id = document.getElementById('subcategory').value;
-                $.ajax({
-                    url: '{{ url('api/v1/product/get?all=1') }}',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'POST',
-                    data: {
-                        subcategory_id: subcategory_id
-                    },
-                    dataType: 'JSON',
-                    success: function(response) {
-                        if (response.status == 1) {
-
-                            var products = document.getElementById('product');
-                            products.innerHTML =
-                                '<option value="">{{ __('Not selected') }}</option>';
-
-                            for (var i = 0; i < response.data.length; i++) {
-                                var option = document.createElement('option');
-                                option.value = response.data[i].id;
-                                option.innerHTML = response.data[i].name;
-                                products.appendChild(option);
-                            }
-
-                        }
-                    }
-                });
             });
         });
     </script>

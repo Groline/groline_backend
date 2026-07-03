@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Item;
 use App\Models\Order;
@@ -18,10 +19,12 @@ class ItemController extends Controller
     public function index($id){
       $order = Order::findOrFail($id);
       $categories = Category::all();
+      $brands = Brand::orderBy('name_ar')->get();
 
       return view('content.orders.items')
       ->with('order',$order)
-      ->with('categories',$categories);
+      ->with('categories',$categories)
+      ->with('brands',$brands);
     }
 
     public function add(Request $request){

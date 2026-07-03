@@ -240,7 +240,7 @@ class ProductController extends Controller
   public function get(Request $request)
   {  //paginated
     $validator = Validator::make($request->all(), [
-      'category_id' => 'sometimes|missing_with:subcategory_id|exists:categories,id',
+      'category_id' => 'sometimes|exists:categories,id',
       'subcategory_id' => 'sometimes|exists:subcategories,id',
       'brand_id' => 'sometimes|exists:brands,id',
       'search' => 'sometimes|string',
@@ -258,7 +258,8 @@ class ProductController extends Controller
 
     try {
 
-      $products = Product::whereNotNull('image')->orderBy('created_at', 'DESC');
+      $products = Product::orderBy('created_at', 'DESC');
+      //$products = $products->whereNotNull('image');
 
       if ($request->has('category_id')) {
         $products = $products->whereHas('subcategory', function ($query) use ($request) {
