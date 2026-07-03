@@ -33,7 +33,10 @@ class UserController extends Controller
         //'email' => ['sometimes','email',Rule::unique('users')->ignore($user->id)],
         'image' => 'sometimes|mimetypes:image/*',
         'status' => 'sometimes|in:0,1,2',
-        'activity_id' => 'sometimes|exists:activities,id'
+        'activity_id' => 'sometimes|exists:activities,id',
+        'location.address' => 'sometimes|nullable|string',
+        'location.longitude' => 'sometimes|nullable|string',
+        'location.latitude' => 'sometimes|nullable|string'
       ]);
 
       if ($validator->fails()){
@@ -72,6 +75,13 @@ class UserController extends Controller
 
         if ($request->has('activity_id')) {
           $user->activities()->attach($request->activity_id);
+        }
+
+        if ($request->has('location')) {
+          $user->location()->updateOrCreate(
+            ['user_id' => $user->id],
+            $request->input('location')
+          );
         }
 
         if (empty($user->customer_id) && $request->phone) {
