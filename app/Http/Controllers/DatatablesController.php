@@ -668,11 +668,7 @@ class DatatablesController extends Controller
 
         $btn .= '<a class="btn btn-icon btn-label-info inline-spacing" title="' . __('Cart') . '" href="' . url('order/' . $row->id . '/items') . '"><span class="tf-icons bx bx-cart"></span></a>';
 
-        if (in_array($row->status, ['ongoing', 'delivered'])) {
-
-          $btn .= '<button class="btn btn-icon btn-label-dark inline-spacing invoice" title="' . __('Invoice') . '" table_id="' . $row->invoice->id . '"><span class="tf-icons bx bx-file"></span></button>';
-
-        }
+        $btn .= '<button class="btn btn-icon btn-label-dark inline-spacing invoice" title="' . __('Invoice') . '" table_id="' . $row->invoice->id . '"><span class="tf-icons bx bx-file"></span></button>';
 
         if ($row->status == 'delivered' && $row->review) {
 

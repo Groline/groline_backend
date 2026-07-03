@@ -85,6 +85,10 @@ class Invoice extends Model
 
 
     public function pdf(){
+
+      if($this->order?->status != 'pending' && $this->file && Storage::disk('upload')->exists($this->file)){
+        return $this->file_url;
+      }
       $this->total();
       $order = $this->order;
       $user = $order->user;
