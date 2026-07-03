@@ -91,15 +91,12 @@ class User extends Authenticatable
 
   public function activities()
   {
-    return $this->belongsToMany(Activity::class, 'user_activities')
-      ->withTimestamps();
+    return $this->belongsToMany(Activity::class, 'user_activities');
   }
 
   public function activity()
   {
-    return $this->belongsToMany(Activity::class, 'user_activities')
-      ->withTimestamps()
-      ->latestOfMany();
+    return $this->belongsToMany(Activity::class, 'user_activities')->latest();
   }
 
   public function fullname()
