@@ -31,6 +31,12 @@
       "slug": "settings-unit-browse"
     },
     {
+      "url": "/activity/browse",
+      "name": "Activities",
+      "icon": "menu-icon tf-icons bx bxs-flag",
+      "slug": "settings-activity-browse"
+    },
+    {
       "url": "/product/browse",
       "name": "Products",
       "icon": "menu-icon tf-icons bx bxs-package",

@@ -45,6 +45,7 @@ Route::group(['middleware' => ['sometimes.auth']], function () {
   Route::get('/v1/counts', 'App\Http\Controllers\SetController@counts');
 
   Route::post('/v1/category/get', 'App\Http\Controllers\CategoryController@get');
+  Route::post('/v1/activity/get', 'App\Http\Controllers\ActivityController@get');
   Route::post('/v1/brand/get', 'App\Http\Controllers\BrandController@get');
   Route::post('/v1/subcategory/get', 'App\Http\Controllers\SubcategoryController@get');
   Route::post('/v1/family/get', 'App\Http\Controllers\FamilyController@get');
@@ -72,6 +73,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/v1/category/update', 'App\Http\Controllers\CategoryController@update');
   Route::post('/v1/category/delete', 'App\Http\Controllers\CategoryController@delete');
   Route::post('/v1/category/restore', 'App\Http\Controllers\CategoryController@restore');
+
+  Route::post('/v1/activity/create', 'App\Http\Controllers\ActivityController@create');
+  Route::post('/v1/activity/update', 'App\Http\Controllers\ActivityController@update');
+  Route::post('/v1/activity/delete', 'App\Http\Controllers\ActivityController@delete');
+  Route::post('/v1/activity/restore', 'App\Http\Controllers\ActivityController@restore');
 
   Route::post('/v1/brand/create', 'App\Http\Controllers\BrandController@create');
   Route::post('/v1/brand/update', 'App\Http\Controllers\BrandController@update');

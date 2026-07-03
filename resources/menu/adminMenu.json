@@ -79,6 +79,11 @@
           "url": "/unit/browse",
           "name": "Units",
           "slug": "settings-unit-browse"
+        },
+        {
+          "url": "/activity/browse",
+          "name": "Activities",
+          "slug": "settings-activity-browse"
         }
       ]
     },

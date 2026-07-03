@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Activity;
 use App\Models\Ad;
 use App\Models\Admin;
 use App\Models\Band;
@@ -59,6 +60,41 @@ class DatatablesController extends Controller
       ->addColumn('subcategories', function ($row) {
 
         return number_format($row->subcategories()->count());
+
+      })
+
+      ->addColumn('created_at', function ($row) {
+
+        return date('Y-m-d', strtotime($row->created_at));
+
+      })
+
+
+      ->make(true);
+  }
+
+  public function activities()
+  {
+
+    $activities = Activity::orderBy('created_at', 'DESC')->get();
+
+    return datatables()
+      ->of($activities)
+      ->addIndexColumn()
+
+      ->addColumn('action', function ($row) {
+        $btn = '';
+
+        $btn .= '<button class="btn btn-icon btn-label-info inline-spacing update" title="' . __('Edit') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-edit"></span></button>';
+
+        $btn .= '<button class="btn btn-icon btn-label-danger inline-spacing delete" title="' . __('Delete') . '" table_id="' . $row->id . '"><span class="tf-icons bx bx-trash"></span></button>';
+
+        return $btn;
+      })
+
+      ->addColumn('name', function ($row) {
+
+        return $row->name;
 
       })
 

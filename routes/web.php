@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
@@ -112,6 +113,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update', [CategoryController::class, 'update']);
         Route::post('/delete', [CategoryController::class, 'delete']);
         Route::post('/restore', [CategoryController::class, 'restore']);
+    });
+
+    Route::prefix('activity')->middleware('role:0,1,2')->group(function () {
+        Route::get('/browse', [ActivityController::class, 'index'])->name('settings-activity-browse');
+        Route::get('/list', [DatatablesController::class, 'activities'])->name('activity-list');
+        Route::post('/create', [ActivityController::class, 'create']);
+        Route::post('/update', [ActivityController::class, 'update']);
+        Route::post('/delete', [ActivityController::class, 'delete']);
+        Route::post('/restore', [ActivityController::class, 'restore']);
     });
 
     Route::prefix('brand')->middleware('role:0,1,2')->group(function () {
