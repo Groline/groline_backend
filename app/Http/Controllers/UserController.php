@@ -98,7 +98,7 @@ class UserController extends Controller
         return response()->json([
           'status' => 1,
           'message' => 'success',
-          'data' => new UserResource($user)
+          'data' => new UserResource($user->refresh())
         ]);
 
       }catch(Exception $e){
