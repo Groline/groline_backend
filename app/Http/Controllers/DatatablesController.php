@@ -638,11 +638,24 @@ class DatatablesController extends Controller
       } else {
         $orders = $orders->where('status', $request->status);
       }
-
     }
 
     if ($request->region || auth()->user()->isRegionManager()) {
       $orders = $orders->where('region_id', $request->region ?? auth()->user()->region_id);
+    }
+
+    if ($request->driver_id) {
+      $orders->whereHas('delivery', function ($query) use ($request) {
+        $query->where('driver_id', $request->driver_id);
+      });
+    }
+
+    if ($request->from_date) {
+      $orders = $orders->whereDate('created_at', '>=', $request->from_date);
+    }
+
+    if ($request->to_date) {
+      $orders = $orders->whereDate('created_at', '<=', $request->to_date);
     }
 
     if (auth()->user()->isDriver()) {

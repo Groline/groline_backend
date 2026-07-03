@@ -45,29 +45,45 @@
     <!-- Basic Bootstrap Table -->
     <div class="card">
         <div class="table-responsive text-nowrap">
-            <div class="table-header row justify-content-between">
-                <h5 class="col-md-auto">{{ __('Orders table') }}</h5>
-                <div class="col-md-auto">
-                    <select class="form-select filter-select" id="status" name="status">
-                        <option value="default"> {{ __('Default') }}</option>
-                        <option value="pending"> {{ __('Pending') }}</option>
-                        <option value="accepted"> {{ __('Accepted') }}</option>
-                        <option value="canceled"> {{ __('Canceled') }}</option>
-                        <option value="ongoing"> {{ __('Ongoing') }}</option>
-                        <option value="delivered"> {{ __('Delivered') }}</option>
-                        <option value=""> {{ __('All') }}</option>
-                    </select>
+            <div class="table-header">
+                <h5 class="mb-3">{{ __('Orders table') }}</h5>
+                <div class="row g-2 mb-3">
+                    <div class="col-md-auto">
+                        <select class="form-select filter-select" id="status" name="status">
+                            <option value="default"> {{ __('Default') }}</option>
+                            <option value="pending"> {{ __('Pending') }}</option>
+                            <option value="accepted"> {{ __('Accepted') }}</option>
+                            <option value="canceled"> {{ __('Canceled') }}</option>
+                            <option value="ongoing"> {{ __('Ongoing') }}</option>
+                            <option value="delivered"> {{ __('Delivered') }}</option>
+                            <option value=""> {{ __('All') }}</option>
+                        </select>
+                    </div>
+                    @if(auth()->user()->role != 3)
+                      <div class="col-md-auto">
+                          <select class="form-select filter-select" id="region" name="region">
+                              <option value=""> {{ __('Region filter') }}</option>
+                              @foreach ($regions as $region)
+                                  <option value="{{ $region->id }}"> {{ $region->name }} </option>
+                              @endforeach
+                          </select>
+                      </div>
+                    @endif
+                    <div class="col-md-auto">
+                        <select class="form-select filter-select" id="driver_id" name="driver_id">
+                            <option value=""> {{ __('Driver filter') }}</option>
+                            @foreach ($drivers as $driver)
+                                <option value="{{ $driver->id }}"> {{ $driver->name }} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-auto">
+                        <input type="date" class="form-control filter-select" id="from_date" name="from_date" placeholder="{{ __('From date') }}">
+                    </div>
+                    <div class="col-md-auto">
+                        <input type="date" class="form-control filter-select" id="to_date" name="to_date" placeholder="{{ __('To date') }}">
+                    </div>
                 </div>
-                @if(auth()->user()->role != 3)
-                  <div class="col-md-auto">
-                      <select class="form-select filter-select" id="region" name="region">
-                          <option value=""> {{ __('Region filter') }}</option>
-                          @foreach ($regions as $region)
-                              <option value="{{ $region->id }}"> {{ $region->name }} </option>
-                          @endforeach
-                      </select>
-                  </div>
-                @endif
             </div>
             <table class="table" id="laravel_datatable">
                 <thead>
@@ -341,7 +357,7 @@
         $(document).ready(function() {
             load_data();
 
-            function load_data(status = 'default', region = null) {
+            function load_data(status = 'default', region = null, driver_id = null, from_date = null, to_date = null) {
                 //$.fn.dataTable.moment( 'YYYY-M-D' );
                 var table = $('#laravel_datatable').DataTable({
                     language: {!! file_get_contents(base_path('lang/' . session('locale', 'en') . '/datatable.json')) !!},
@@ -355,7 +371,10 @@
                         type: 'POST',
                         data: {
                             status: status,
-                            region: region
+                            region: region,
+                            driver_id: driver_id,
+                            from_date: from_date,
+                            to_date: to_date
                         },
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -470,8 +489,11 @@
                 var table = $('#laravel_datatable').DataTable();
                 var status = document.getElementById('status').value;
                 var region = document.getElementById('region').value;
+                var driver_id = document.getElementById('driver_id')?.value ?? null;
+                var from_date = document.getElementById('from_date')?.value ?? null;
+                var to_date = document.getElementById('to_date')?.value ?? null;
                 table.destroy();
-                load_data(status, region);
+                load_data(status, region, driver_id, from_date, to_date);
             }
 
             $('#status').on('change', function() {
@@ -479,6 +501,18 @@
             });
 
             $('#region').on('change', function() {
+                refresh_table();
+            });
+
+            $('#driver_id').on('change', function() {
+                refresh_table();
+            });
+
+            $('#from_date').on('change', function() {
+                refresh_table();
+            });
+
+            $('#to_date').on('change', function() {
                 refresh_table();
             });
 
