@@ -63,9 +63,12 @@ class SetController extends Controller
     }
 
     $user = auth()->user();
-    $cart = $user->cart();
 
-    $purchase_amount = $cart->total();
+    if($user){
+      $cart = $user->cart();
+      $purchase_amount = $cart->total();
+    }
+
     if ($request->has('longitude', 'latitude', 'region_id')) {
       $region = Region::where('id', $request->region_id)->first();
       $start_point = $region->only('longitude', 'latitude');
@@ -86,13 +89,13 @@ class SetController extends Controller
       }
     }
 
-    $total_amount = $purchase_amount + ($delivery_amount ?? 0) - ($discount_amount ?? 0);
+    $total_amount = ($purchase_amount ?? 0) + ($delivery_amount ?? 0) - ($discount_amount ?? 0);
 
     return response()->json([
       'status' => 1,
       'message' => 'success',
       'data' => [
-        'purchase_amount' => number_format($purchase_amount, 2),
+        'purchase_amount' => number_format($purchase_amount ?? 0, 2),
         'distance_amount' => number_format($distance_amount ?? 0, 2),
         'delivery_amount' => number_format($delivery_amount ?? 0, 2),
         'discount_amount' => number_format($discount_amount ?? 0, 2),
