@@ -66,8 +66,8 @@
         <img src="{{asset('logo.png')}}" alt="Logo" />
         <h1>قريباً</h1>
         <p>نعمل على تطوير التطبيق، سيكون متاحاً قريباً.</p>
-        @if(!empty($android->link))
-        <a href="{{ $android->link }}" class="store-btn" target="_blank" rel="noopener noreferrer">
+        @if(!empty($android_link))
+        <a href="{{ $android_link }}" class="store-btn" target="_blank" rel="noopener noreferrer">
             تحميل للأندرويد
         </a>
         @endif

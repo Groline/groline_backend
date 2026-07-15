@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PaginatedSectionCollection;
 use App\Http\Resources\SectionCollection;
 use App\Http\Resources\SectionResource;
-use App\Http\Resources\VersionResource;
 use App\Models\Section;
 use App\Rules\Moveable;
 use Auth;

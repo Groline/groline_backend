@@ -47,10 +47,11 @@ Route::get('/', [Analytics::class, 'landing'])->name('landing-page');
 Route::get('/privacy_policy', [DocumentationController::class, 'privacy']);
 Route::get('/delete_account', [DocumentationController::class, 'delete_account']);
 Route::get('/downloadApp', function() {
-    $android = \App\Models\Version::android();
-    $ios = \App\Models\Version::ios();
-    return view('redirect', compact('android', 'ios'));
-})->name('');
+        $settings = \App\Models\Set::pluck('value', 'name')->toArray();
+        $android_link = $settings['android_link'] ?? '#';
+        $ios_link = $settings['ios_link'] ?? '#';
+        return view('redirect', compact('android_link', 'ios_link'));
+    })->name('');
 
 Route::get('/theme/{theme}', function($theme) {
     Session::put('theme', $theme);

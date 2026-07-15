@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Order;
 use App\Models\User;
-use App\Models\Version;
+use App\Models\Set;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Carbon;
@@ -20,8 +20,9 @@ class Analytics extends Controller
   }
   public function landing()
   {
-    $android = Version::android();
-    return view('content.pages.landing-page', compact('android'));
+    $settings = Set::pluck('value', 'name')->toArray();
+    $android_link = $settings['android_link'] ?? '';
+    return view('content.pages.landing-page', compact('android_link'));
   }
 
   public function analytics()

@@ -32,7 +32,6 @@ Route::post('/send-data-message', [FcmController::class, 'sendDataMessage']);
 Route::post('/send-custom-message', [FcmController::class, 'sendCustomMessage']);
 
 Route::group(['middleware' => ['sometimes.auth']], function () {
-  Route::get('/v1/version', 'App\Http\Controllers\VersionController@get');
   //Route::post('/v1/distance','App\Http\Controllers\OrderController@distance');
   Route::post('/v1/register', 'App\Http\Controllers\AuthController@register');
   Route::post('/v1/login', 'App\Http\Controllers\AuthController@login');
