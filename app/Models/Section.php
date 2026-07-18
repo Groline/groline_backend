@@ -92,10 +92,10 @@ class Section extends Model
       return new AdResource($ad);
     }
     if ($this->type == 'solo') {
-      //$members = Member::distinct('category_id')->pluck('category_id')->toArray();
-      //$non_members = Category::whereNotIn('id', $members)->inRandomOrder()->limit(8)->get();
-      $categories = Category::inRandomOrder()->get();
-      return new CategoryCollection($categories);
+      $members = Member::distinct('category_id')->pluck('category_id')->toArray();
+      $non_members = Category::whereNotIn('id', $members)->inRandomOrder()->limit(8)->get();
+
+      return new CategoryCollection($non_members);
     }
 
     if ($this->type == 'family') {
