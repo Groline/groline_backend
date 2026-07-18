@@ -56,7 +56,7 @@ class Section extends Model
 
     if ($this->type == 'brands') {
       return match($lang) {
-          'ar' => 'الماركات',
+          'ar' => 'العلامات التجارية',
           'fr' => 'Marques',
           default => 'Brands'
       };
