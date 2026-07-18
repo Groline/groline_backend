@@ -121,10 +121,10 @@
                                     return '<span class="badge bg-dark">{{ __('Band') }}</span>';
                                 }
                                 if (data == 'categories') {
-                                    return '<span class="badge bg-primary">{{ __('categories') }}</span>';
+                                    return '<span class="badge bg-primary">{{ __('Categories') }}</span>';
                                 }
                                 if (data == 'brands') {
-                                    return '<span class="badge bg-primary">{{ __('brands') }}</span>';
+                                    return '<span class="badge bg-primary">{{ __('Brands') }}</span>';
                                 }
 
                                 return data;
