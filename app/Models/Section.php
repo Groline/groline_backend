@@ -46,6 +46,22 @@ class Section extends Model
       };
     }
 
+    if ($this->type == 'categories') {
+      return match($lang) {
+          'ar' => 'الفئات',
+          'fr' => 'Catégories',
+          default => 'Categories'
+      };
+    }
+
+    if ($this->type == 'brands') {
+      return match($lang) {
+          'ar' => 'الماركات',
+          'fr' => 'Marques',
+          default => 'Brands'
+      };
+    }
+
     if ($this->type == 'family') {
       $family = Family::find($this->element);
       return $family->name;
@@ -96,6 +112,16 @@ class Section extends Model
       $non_members = Category::whereNotIn('id', $members)->inRandomOrder()->limit(8)->get();
 
       return new CategoryCollection($non_members);
+    }
+
+    if ($this->type == 'categories') {
+      $categories = Category::inRandomOrder()->get();
+      return new CategoryCollection($categories);
+    }
+
+    if ($this->type == 'brands') {
+      $brands = Brand::inRandomOrder()->get();
+      return new BrandCollection($brands);
     }
 
     if ($this->type == 'family') {
