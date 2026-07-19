@@ -17,6 +17,7 @@ class OrderResource extends JsonResource
       return [
         'identifier' => $this->identifier,
         'location' => $this->address(),
+        'address' => $this->address,
         'date' => $this->created_at->format('Y-m-d H:i'),
         'note' => $this->note,
       ];

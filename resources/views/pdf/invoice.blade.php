@@ -296,6 +296,7 @@
                     <td>
                         <h3>{{ $buyer['name'] }}</h3>
                         <h3><span class="number">{{ $buyer['phone'] }}</span></h3>
+                        <p>{{ $order['address'] ?? '' }}</p>
                     </td>
                     <td>
                         <h3>{{ $driver['name'] ?? '' }}</h3>
