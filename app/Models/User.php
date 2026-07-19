@@ -96,7 +96,7 @@ class User extends Authenticatable
 
   public function activity()
   {
-    return $this->belongsToMany(Activity::class, 'user_activities')->latest();
+    return $this->belongsToMany(Activity::class, 'user_activities')->latest()->limit(1);
   }
 
   public function fullname()
