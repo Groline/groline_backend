@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 $controller_path = 'App\Http\Controllers';
 
-Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'get']);
-
 /* Route::post('/send-to-device', [FcmController::class, 'sendToDevice']);
 Route::post('/send-to-multiple', [FcmController::class, 'sendToMultiple']);
 Route::post('/send-to-topic', [FcmController::class, 'sendToTopic']);
@@ -31,6 +29,7 @@ Route::post('/send-data-message', [FcmController::class, 'sendDataMessage']);
 Route::post('/send-custom-message', [FcmController::class, 'sendCustomMessage']); */
 
 Route::group(['middleware' => ['sometimes.auth']], function () {
+  Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'get']);
   //Route::post('/v1/distance','App\Http\Controllers\OrderController@distance');
   Route::post('/v1/register', 'App\Http\Controllers\AuthController@register');
   Route::post('/v1/login', 'App\Http\Controllers\AuthController@login');
