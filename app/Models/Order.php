@@ -15,6 +15,7 @@ class Order extends Model
       'user_id',
       'cart_id',
       'region_id',
+      'address',
       'phone',
       'status',
       'longitude',

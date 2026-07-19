@@ -88,7 +88,6 @@ class OrderController extends Controller
       'delivery_time' => 'required|date|after_or_equal:now',
       'discount_code' => ['sometimes', 'nullable', 'string', new ValidCoupon()],
       'payment_method' => 'required|in:cash',
-      'region_id' => 'required|exists:regions,id',
       //'products' => 'required|array',
       //'products.*.id' => 'required|distinct|exists:products,id',
       //'products.*.quantity' => 'required|numeric'`
@@ -110,6 +109,8 @@ class OrderController extends Controller
       }
 
       $request->merge([
+        'region_id' => $location->region_id,
+        'address' => $location->address,
         'longitude' => $location->longitude,
         'latitude' => $location->latitude,
       ]);

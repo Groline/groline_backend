@@ -21,6 +21,7 @@ class OrderResource extends JsonResource
       'cart_id' => $this->cart_id,
       'region_id' => $this->region_id,
       'region_name' => $this->region->name,
+      'address' => $this->address,
       'phone' => $this->phone(),
       'delivery_time' => $this->delivery_time,
       'longitude' => $this->longitude,
