@@ -310,6 +310,7 @@
         <table class="invoice-table">
             <thead>
                 <tr>
+                    <th class="text-bold text-upper">Réf</th>
                     <th class="text-bold text-upper">Description</th>
                     <th class="text-bold text-upper">Quantité</th>
                     <th class="text-bold text-upper">Recouvrement</th>
@@ -318,6 +319,7 @@
             <tbody>
                 @foreach ($items as $item)
                     <tr>
+                        <td><span class="number">{{ $item['reference'] ?? '' }}</span></td>
                         <td class="item-name text-bold">{{ $item['name'] }}</td>
                         <td><span class="number">{{ $item['quantity'] }} ({{ $item['unit'] }})</span></td>
                         <td><span class="number">{{ number_format($item['subtotal'], 2, '.', ',') }}
@@ -327,12 +329,12 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2" class="text-bold text-upper">Frais de Transport</td>
+                    <td colspan="3" class="text-bold text-upper">Frais de Transport</td>
                     <td class="text-bold"><span class="number">{{ number_format($invoice['tax_amount'], 2, '.', ',') }}
                             {{ $currency }}</span></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="text-bold text-upper">Total</td>
+                    <td colspan="3" class="text-bold text-upper">Total</td>
                     <td class="text-bold"><span
                             class="number">{{ number_format($invoice['total_amount'], 2, '.', ',') }}
                             {{ $currency }}</span></td>

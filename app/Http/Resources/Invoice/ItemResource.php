@@ -16,6 +16,7 @@ class ItemResource extends JsonResource
   {
     return [
       'name' => $this->name(),
+      'reference' => $this->reference,
       'price' => $this->price(),
       'discount' => $this->price() * ($this->discount / 100),
       'quantity' => $this->quantity,

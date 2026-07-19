@@ -24,6 +24,7 @@ class ItemResource extends JsonResource
       }
         return [
           'product_id' => $this->product_id,
+          'reference' => $this->reference,
           'subcategory_id' => $product?->subcategory_id,
           'category_id' => $subcategory?->category_id,
           'name' => $this->name ?? $product?->name,

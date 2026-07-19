@@ -508,6 +508,10 @@ class DatatablesController extends Controller
         return $row->name;
       })
 
+      ->addColumn('reference', function ($row) {
+        return $row->reference;
+      })
+
       ->addColumn('brand', function ($row) {
         return $row->brand
           ? $row->brand->{'name_' . session('locale', 'ar')}

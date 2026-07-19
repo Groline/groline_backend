@@ -65,6 +65,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>{{ __('Réf') }}</th>
                         <th>{{ __('Name') }}</th>
                         <th>{{ __('Brand') }}</th>
                         <th>{{ __('Price') }}</th>
@@ -117,6 +118,14 @@
                                     </div>
                                 </div>
                                 <hr class="my-0">
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label" for="reference">{{ __('Référence') }}</label>
+                                        <input type="text" class="form-control" id="reference" name="reference"
+                                            placeholder="{{ __('Référence') }}" />
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
@@ -212,7 +221,7 @@
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">{{ __('Description') }}</label>
-                                    <textarea name="description" id="description" class="form-control" rows="4"></textarea>
+                                    <textarea name="description" id="description" class="form-control" rows="11"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -266,6 +275,11 @@
                             name: 'DT_RowIndex',
                             orderable: false,
                             searchable: false
+                        },
+
+                        {
+                            data: 'reference',
+                            name: 'reference'
                         },
 
                         {
@@ -410,6 +424,7 @@
                             document.getElementById('name_en').value = response.data.name_en;
                             document.getElementById('name_fr').value = response.data.name_fr;
                             document.getElementById('name_ar').value = response.data.name_ar;
+                            document.getElementById('reference').value = response.data.reference ?? '';
                             document.getElementById('unit_price').value = response.data
                                 .unit_price;
                             document.getElementById('pack_price').value = response.data

@@ -19,6 +19,7 @@ class Product extends Model
     'subcategory_id',
     'brand_id',
     'unit_id',
+    'reference',
     'name_en',
     'name_fr',
     'name_ar',
@@ -171,6 +172,7 @@ class Product extends Model
       Item::create([
         'cart_id' => $cart_id,
         'product_id' => $this->id,
+        'reference' => $this->reference,
         'name_ar' => $this->name_ar,
         'name_en' => $this->name_en,
         'name_fr' => $this->name_fr,
@@ -191,6 +193,7 @@ class Product extends Model
       Item::create([
         'cart_id' => $cart_id,
         'product_id' => $this->id,
+        'reference' => $this->reference,
         'name_ar' => $this->name_ar,
         'name_en' => $this->name_en,
         'name_fr' => $this->name_fr,
