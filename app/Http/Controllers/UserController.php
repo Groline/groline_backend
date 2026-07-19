@@ -34,9 +34,11 @@ class UserController extends Controller
         'image' => 'sometimes|mimetypes:image/*',
         'status' => 'sometimes|in:0,1,2',
         'activity_id' => 'sometimes|exists:activities,id',
-        'location.address' => 'sometimes|nullable|string',
-        'location.longitude' => 'sometimes|nullable|string',
-        'location.latitude' => 'sometimes|nullable|string'
+        'location' => 'sometimes|array',
+        'location.region_id' => 'required_with:location|exists:regions,id',
+        'location.address' => 'required_with:location|string',
+        'location.longitude' => 'required_with:location|string',
+        'location.latitude' => 'required_with:location|string'
       ]);
 
       if ($validator->fails()){
