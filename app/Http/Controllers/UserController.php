@@ -184,6 +184,16 @@ class UserController extends Controller
 
     }
 
+    public function get(Request $request){
+       $user = $request->user();
+       $user->load('location','activity');
+       return response()->json([
+          'status' => 1,
+          'message' => 'success',
+          'data' => new UserResource($user)
+        ]);
+    }
+
     public function change_password(Request $request){
 
       $validator = Validator::make($request->all(), [

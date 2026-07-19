@@ -22,7 +22,7 @@ class UserResource extends JsonResource
           'phone' => $this->phone(),
           'image' => $this->image,
           'location' => new LocationResource($this->whenLoaded('location')),
-          'activity' => $this->whenLoaded('activity', fn() => new ActivityResource($this->activity->first())),
+          'activity' => new ActivityResource($this->whenLoaded('activity')),
         ];
     }
 }

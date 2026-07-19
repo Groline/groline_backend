@@ -4,6 +4,7 @@ use App\Http\Controllers\BandController;
 use App\Http\Controllers\DatatablesController;
 use App\Http\Controllers\FcmController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,16 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 $controller_path = 'App\Http\Controllers';
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-  return $request->user();
-});
+Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'get']);
 
-Route::post('/send-to-device', [FcmController::class, 'sendToDevice']);
+/* Route::post('/send-to-device', [FcmController::class, 'sendToDevice']);
 Route::post('/send-to-multiple', [FcmController::class, 'sendToMultiple']);
 Route::post('/send-to-topic', [FcmController::class, 'sendToTopic']);
 Route::post('/send-to-condition', [FcmController::class, 'sendToCondition']);
 Route::post('/send-data-message', [FcmController::class, 'sendDataMessage']);
-Route::post('/send-custom-message', [FcmController::class, 'sendCustomMessage']);
+Route::post('/send-custom-message', [FcmController::class, 'sendCustomMessage']); */
 
 Route::group(['middleware' => ['sometimes.auth']], function () {
   //Route::post('/v1/distance','App\Http\Controllers\OrderController@distance');
