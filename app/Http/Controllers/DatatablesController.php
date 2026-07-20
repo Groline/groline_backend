@@ -559,6 +559,27 @@ class DatatablesController extends Controller
       })
 
 
+      ->filterColumn('reference', function ($query, $keyword) {
+        $query->where('reference', 'LIKE', "%{$keyword}%");
+      })
+
+      ->filterColumn('name', function ($query, $keyword) {
+        $query->where(function ($q) use ($keyword) {
+          $q->where('name_ar', 'LIKE', "%{$keyword}%")
+            ->orWhere('name_en', 'LIKE', "%{$keyword}%")
+            ->orWhere('name_fr', 'LIKE', "%{$keyword}%");
+        });
+      })
+
+      ->filterColumn('brand', function ($query, $keyword) {
+        $query->whereHas('brand', function ($q) use ($keyword) {
+          $q->where('name_ar', 'LIKE', "%{$keyword}%")
+            ->orWhere('name_en', 'LIKE', "%{$keyword}%")
+            ->orWhere('name_fr', 'LIKE', "%{$keyword}%");
+        });
+      })
+
+
       ->make(true);
   }
 
